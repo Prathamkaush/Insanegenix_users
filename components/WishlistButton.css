@@ -1,0 +1,65 @@
+.ig-wishlist-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.ig-wishlist-btn:hover:not(:disabled) {
+  transform: scale(1.15);
+  color: #ffffff;
+}
+
+.ig-wishlist-btn.is-active {
+  color: #ffffff;
+}
+
+.ig-wishlist-btn.is-animating {
+  animation: wishlistPulse 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes wishlistPulse {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.15) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.ig-wishlist-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ig-wishlist-btn span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.ig-wishlist-btn.has-label {
+  padding: 0.5rem 1rem;
+  background: #111514;
+  border-radius: 6px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+.ig-wishlist-btn.has-label:hover:not(:disabled) {
+  background: #000000;
+}

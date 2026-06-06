@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Pratham%20Kaushik/Desktop/extra/insanegenix.com/customer-frontend/app/loading.tsx"],"sourcesContent":["export default function Loading() {\n  return (\n    <div id=\"loading\">\n      <div id=\"loading-center\">\n        <div id=\"loading-center-absolute\">\n          <div className=\"eg-loader\">\n            <div className=\"eg-loader-spin\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;QAAI,IAAG;kBACN,cAAA,8OAAC;YAAI,IAAG;sBACN,cAAA,8OAAC;gBAAI,IAAG;0BACN,cAAA,8OAAC;oBAAI,WAAU;8BACb,cAAA,8OAAC;wBAAI,WAAU;;;;;;;;;;;;;;;;;;;;;;;;;;AAM3B"}}]
+}

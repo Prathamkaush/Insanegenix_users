@@ -1,0 +1,1687 @@
+/* [project]/components/AuthActionButton.css [app-client] (css) */
+.ig-user-menu-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.ig-user-dropdown {
+  z-index: 1000;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  min-width: 200px;
+  margin-top: .5rem;
+  animation: .2s dropdownSlide;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 24px #0000004d;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ig-user-dropdown-item {
+  text-align: left;
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #333;
+  width: 100%;
+  padding: .75rem 1rem;
+  font-size: .95rem;
+  text-decoration: none;
+  transition: all .2s;
+  display: block;
+}
+
+.ig-user-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.ig-user-dropdown-item:hover {
+  color: #fff;
+  background: #ff1744;
+  padding-left: 1.25rem;
+}
+
+.ig-user-dropdown-item.logout {
+  color: #ff1744;
+  font-weight: 600;
+}
+
+.ig-user-dropdown-item.logout:hover {
+  color: #fff;
+  background: #ff1744;
+}
+
+.ig-header-auth-btn {
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem 0;
+  transition: all .2s;
+  display: flex;
+}
+
+.ig-header-auth-btn:hover {
+  color: #ff1744;
+}
+
+.ig-header-auth-btn .user {
+  align-items: center;
+  gap: .25rem;
+  font-weight: 500;
+  display: flex;
+}
+
+.eg-menu__header-divider {
+  color: #555;
+  opacity: .6;
+  margin: 0 .75rem;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .ig-user-dropdown {
+    width: auto;
+    min-width: auto;
+    position: fixed;
+    top: auto;
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .ig-user-dropdown-item {
+    padding: 1rem;
+  }
+}
+
+/* [project]/app/globals.css [app-client] (css) */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+body.ig-auth-lock {
+  overflow: hidden;
+}
+
+.ig-contact-page {
+  color: #fff;
+  background: linear-gradient(105deg, #f4474b 0%, #741819 42%, #070000 100%);
+  min-height: 100vh;
+}
+
+.ig-contact-section {
+  padding: 120px 0 90px;
+}
+
+.ig-contact-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(440px, .96fr);
+  align-items: start;
+  gap: 36px;
+  display: grid;
+}
+
+.ig-contact-left {
+  gap: 48px;
+  display: grid;
+}
+
+.ig-contact-cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 38px;
+  display: grid;
+}
+
+.ig-contact-info-card {
+  text-align: center;
+  background: #ffffff05;
+  border: 1px solid #ffffffe6;
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 234px;
+  padding: 28px;
+  display: flex;
+}
+
+.ig-contact-info-card svg {
+  margin-bottom: 18px;
+}
+
+.ig-contact-info-card h2 {
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.ig-contact-info-card a {
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.ig-contact-map {
+  background: #0000003d;
+  border: 0;
+  min-height: 564px;
+  overflow: hidden;
+}
+
+.ig-contact-map iframe {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  border: 0;
+  display: block;
+}
+
+.ig-contact-form {
+  color: #050505;
+  background: #f7f7f7;
+  border-radius: 30px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 38px;
+  padding: 64px 62px;
+  display: grid;
+}
+
+.ig-contact-field {
+  flex-direction: column;
+  gap: 18px;
+  display: flex;
+}
+
+.ig-contact-field-full, .ig-contact-save, .ig-contact-submit {
+  grid-column: 1 / -1;
+}
+
+.ig-contact-field label {
+  color: #000;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.ig-contact-field input, .ig-contact-field textarea {
+  color: #111;
+  background: #fff;
+  border: 0;
+  border-radius: 6px;
+  outline: none;
+  width: 100%;
+  font-size: 17px;
+}
+
+.ig-contact-field input {
+  height: 70px;
+  padding: 0 24px;
+}
+
+.ig-contact-field textarea {
+  resize: vertical;
+  min-height: 188px;
+  padding: 24px;
+}
+
+.ig-contact-field input::placeholder, .ig-contact-field textarea::placeholder {
+  color: #8d97a5;
+}
+
+.ig-contact-save {
+  color: #4e5562;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  font-size: 18px;
+  line-height: 1.65;
+  display: grid;
+}
+
+.ig-contact-save input {
+  accent-color: #1b1718;
+  width: 22px;
+  height: 22px;
+  margin-top: 5px;
+}
+
+.ig-contact-feedback {
+  border-radius: 8px;
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ig-contact-feedback.is-success {
+  color: #137546;
+  background: #1f9d551f;
+}
+
+.ig-contact-feedback.is-error {
+  color: #b20812;
+  background: #e509141a;
+}
+
+.ig-contact-submit {
+  color: #fff;
+  cursor: pointer;
+  background: #1b1718;
+  border: 0;
+  border-radius: 999px;
+  width: 223px;
+  min-height: 68px;
+  font-size: 17px;
+  font-weight: 700;
+  transition: background .2s, transform .2s;
+}
+
+.ig-contact-submit:hover {
+  background: #000;
+  transform: translateY(-2px);
+}
+
+.ig-contact-submit:disabled {
+  cursor: wait;
+  opacity: .7;
+  transform: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.next-product-card-link {
+  cursor: pointer;
+}
+
+.ig-page-shell {
+  background: #000;
+}
+
+.ig-product-grid .eg-product__thumb {
+  justify-content: center;
+  align-items: center;
+  min-height: 310px;
+  display: flex;
+}
+
+.ig-product-grid .eg-product__thumb img {
+  object-fit: contain;
+  max-height: 285px;
+}
+
+.buttons-row {
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+.product-card {
+  text-align: center;
+  background: linear-gradient(145deg, #070707 0%, #300000 48%, #ec1118 100%);
+  border: 1px solid #ffffff1f;
+  width: 100%;
+  max-width: 360px;
+  min-height: 560px;
+  margin: 0 auto 42px;
+  padding: 92px 48px 54px;
+  transition: background .22s, border-color .22s, box-shadow .22s, transform .22s;
+  position: relative;
+  overflow: visible;
+}
+
+.product-card:hover {
+  background: #121817;
+  border-color: #ffffff3d;
+  transform: translateY(-3px);
+  box-shadow: 0 20px 42px #00000059;
+}
+
+.product-card__cover-link {
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+}
+
+.product-card__content, .product-card__image-wrapper {
+  z-index: 2;
+  position: relative;
+}
+
+.product-card__content {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.product-card__title {
+  color: #fff;
+  text-transform: uppercase;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
+  margin: 0 0 12px;
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.1;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.product-card__meta {
+  color: #ffffffb8;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin: 0 0 10px;
+  font-size: 18px;
+  overflow: hidden;
+}
+
+.product-card__rating {
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  min-height: 20px;
+  margin: 0 0 14px;
+  display: flex;
+}
+
+.product-card__rating span {
+  opacity: .25;
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+}
+
+.product-card__rating span.active {
+  opacity: 1;
+}
+
+.product-card__rating img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-card__rating small {
+  color: #ffffff9e;
+  white-space: nowrap;
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.product-card__price-row {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  display: flex;
+}
+
+.product-card__price {
+  color: #ffffffc2;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.product-card__original-price {
+  color: #ffffff9e;
+  font-size: 16px;
+  text-decoration: line-through;
+}
+
+.product-card__badge {
+  display: none;
+}
+
+.product-card__actions {
+  z-index: 3;
+  width: 100%;
+  position: relative;
+}
+
+.product-card__cart-btn {
+  color: #fff;
+  cursor: pointer;
+  text-transform: capitalize;
+  background: #151b1b;
+  border: 1px solid #151b1b;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 25px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: background .2s, border-color .2s, transform .2s;
+  display: inline-flex;
+}
+
+.product-card:hover .product-card__cart-btn, .product-card__cart-btn:hover {
+  color: #fff;
+  background: linear-gradient(90deg, #ffb51b 0%, #ff7a00 45%, #ef1d16 100%);
+  border-color: #0000;
+}
+
+.product-card__wishlist {
+  z-index: 3;
+  background: #151b1b;
+  border: 1px solid #ffffff57;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 56px;
+  margin: 12px auto 15px;
+  display: flex;
+  position: relative;
+}
+
+.product-card__wishlist .ig-wishlist-btn {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+}
+
+.product-card__wishlist .ig-wishlist-btn:hover, .product-card__wishlist .ig-wishlist-btn.is-active {
+  color: #fff;
+  background: #000;
+  border-radius: 50%;
+}
+
+.product-card__image-wrapper {
+  aspect-ratio: 1;
+  background: #343434;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  overflow: hidden;
+}
+
+.product-card__image {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  padding: 26px;
+  transition: transform .24s;
+  display: block;
+}
+
+.product-card:hover .product-card__image {
+  transform: scale(1.035);
+}
+
+.ig-product-thumb-wrapper {
+  position: relative;
+}
+
+.ig-product-wishlist-icon {
+  z-index: 10;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background: #0009;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  transition: all .2s;
+  display: flex;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.ig-product-wishlist-icon:hover {
+  background: #000c;
+  transform: scale(1.1);
+}
+
+.ig-product-wishlist-icon .ig-wishlist-btn {
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.ig-variant-btn {
+  color: #111;
+  text-transform: uppercase;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  margin: 0 8px 10px 0;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ig-variant-btn.active, .ig-variant-btn:hover {
+  border-color: var(--eg-theme-primary);
+  background: var(--eg-theme-primary);
+  color: #fff;
+}
+
+.ig-nutrition-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+  display: grid;
+}
+
+.ig-nutrition-card {
+  background: #fff;
+  border: 1px solid #efefef;
+  padding: 18px;
+}
+
+.ig-nutrition-card span {
+  color: #777;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 800;
+  display: block;
+}
+
+.ig-nutrition-card strong {
+  color: #111;
+  margin-top: 5px;
+  font-size: 24px;
+  display: block;
+}
+
+.main-slider img {
+  width: 100%;
+  display: block;
+}
+
+.eg-loader-spin {
+  color: var(--eg-theme-primary, #e50914);
+}
+
+.eg-menu__main-menu .navigation {
+  margin: 0;
+  padding: 0;
+}
+
+.eg-menu__header-actions > ul {
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.eg-menu__header-actions .hamburger-btn {
+  background: none;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.myMainSlider, .myMainSlider .swiper-slide {
+  background: #000;
+}
+
+.myMainSlider picture img {
+  object-fit: cover;
+  object-position: center top;
+  width: 100%;
+  min-height: calc(100vh - 96px);
+}
+
+.ig-home-brand {
+  position: relative;
+  overflow: hidden;
+}
+
+.ig-home-brand .eg-brand-2__active {
+  overflow: hidden;
+}
+
+.ig-home-brand .eg-footer-2__shape-2 {
+  top: -150px;
+}
+
+.ig-home-brand .eg-footer-2__shape-3 {
+  top: -180px;
+}
+
+.eg-footer-2__area {
+  overflow: hidden;
+}
+
+.eg-footer-2__widget-wrapper {
+  margin-top: 0;
+}
+
+.eg-footer-2__widget ul {
+  margin: 0;
+  padding: 0;
+}
+
+.eg-footer-2__shape-1 img {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+
+.ig-product-detail-page {
+  background: #000;
+}
+
+.ig-product-gallery__main {
+  background: #151918;
+  border: 1px solid #ffffff14;
+  justify-content: center;
+  align-items: center;
+  min-height: 560px;
+  display: flex;
+}
+
+.ig-product-gallery__main img {
+  object-fit: contain;
+  width: 100%;
+  max-height: 520px;
+}
+
+.eg-product-details__thumb-nav .nav-tabs .nav-link {
+  background: #151918;
+}
+
+.eg-product-details__thumb-nav .nav-tabs .nav-link img {
+  object-fit: contain;
+}
+
+.ig-product-summary {
+  padding: 12px 0 0;
+}
+
+.ig-product-kicker {
+  color: var(--eg-theme-primary);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ig-product-panel, .ig-product-info-card {
+  background: #ffffff09;
+  border: 1px solid #ffffff1a;
+  padding: 24px;
+  transition: transform .22s, border-color .22s, background .22s, box-shadow .22s;
+}
+
+.ig-product-panel:hover, .ig-product-info-card:hover {
+  background: #ffffff0e;
+  border-color: #e5091480;
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px #00000047;
+}
+
+.ig-variant-list {
+  flex-wrap: wrap;
+  gap: 10px;
+  display: flex;
+}
+
+.ig-variant-list .ig-variant-btn {
+  text-align: left;
+  min-width: 132px;
+  margin: 0;
+}
+
+.ig-variant-list .ig-variant-btn span, .ig-variant-list .ig-variant-btn small {
+  display: block;
+}
+
+.ig-variant-list .ig-variant-btn small {
+  opacity: .75;
+  margin-top: 3px;
+  font-size: 11px;
+}
+
+.ig-product-highlights {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  display: grid;
+}
+
+.ig-info-pill {
+  background: #111514;
+  border: 1px solid #ffffff1f;
+  padding: 16px;
+  transition: transform .2s, border-color .2s, background .2s;
+}
+
+.ig-info-pill:hover {
+  background: #161b1a;
+  border-color: #e5091473;
+  transform: translateY(-3px);
+}
+
+.ig-info-pill span, .ig-product-info-card h3, .ig-nutrition-card span {
+  text-transform: uppercase;
+}
+
+.ig-info-pill span {
+  color: var(--eg-text-body);
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  display: block;
+}
+
+.ig-info-pill strong {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.25;
+  display: block;
+}
+
+.ig-product-info {
+  color: var(--eg-text-body);
+}
+
+.ig-product-info-card {
+  height: 100%;
+}
+
+.ig-product-info-card h3 {
+  color: #fff;
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+
+.ig-product-info-card p {
+  color: var(--eg-text-body);
+  margin-bottom: 0;
+  line-height: 1.8;
+}
+
+.ig-check-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  display: grid;
+}
+
+.ig-check-list li {
+  color: #fff;
+  padding-left: 22px;
+  list-style: none;
+  position: relative;
+}
+
+.ig-check-list li:before {
+  content: "";
+  background: var(--eg-theme-primary);
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+.ig-cert-list {
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  display: flex;
+}
+
+.ig-cert-list span {
+  color: #fff;
+  text-transform: uppercase;
+  border: 1px solid #ffffff1f;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ig-origin-list .eg-product-details__sku {
+  text-transform: none;
+}
+
+.ig-product-detail-page .ig-product-grid .eg-product__item {
+  background: #111514;
+  padding-top: 24px;
+}
+
+.eg-product-2__active, .eg-testimonial-2__active {
+  width: 100%;
+  overflow: hidden;
+}
+
+.eg-product-2__active .swiper-wrapper, .eg-testimonial-2__active .swiper-wrapper {
+  align-items: stretch;
+  display: flex;
+}
+
+.eg-product-2__active .swiper-slide, .eg-testimonial-2__active .swiper-slide {
+  flex: 0 0 25%;
+  min-width: 0;
+  max-width: 25%;
+  height: auto;
+}
+
+.eg-product-2__active .ig-home-product-slide {
+  justify-content: center;
+  align-items: stretch;
+  padding: 0 12px;
+  display: flex;
+}
+
+.eg-product-2__thumb {
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 300px;
+  display: flex;
+}
+
+.eg-product-2__thumb img {
+  object-fit: contain;
+  width: 100%;
+  max-height: 300px;
+}
+
+.eg-testimonial-2__wrap {
+  flex-direction: column;
+  height: 100%;
+  display: flex;
+}
+
+.eg-testimonial-2__content {
+  flex: 1;
+}
+
+.eg-product-2__active.swiper-initialized .swiper-slide, .eg-testimonial-2__active.swiper-initialized .swiper-slide {
+  flex-basis: auto;
+  max-width: none;
+}
+
+.ig-wishlist-btn {
+  color: #fff;
+  background: #111514;
+  border: 1px solid #ffffff29;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 46px;
+  height: 46px;
+  transition: all .2s;
+  display: inline-flex;
+}
+
+.ig-wishlist-btn:hover, .ig-wishlist-btn.is-active {
+  color: #fff;
+  background: #111514;
+  border-color: #fff;
+}
+
+.ig-wishlist-btn:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.ig-wishlist-btn.has-label {
+  text-transform: uppercase;
+  width: auto;
+  min-width: 138px;
+  padding: 0 20px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ig-product-detail-page .eg-product-details__quantity {
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.ig-product-detail-page .eg-product-details__button {
+  margin-left: 0;
+}
+
+.ig-product-detail-page .eg-product-details__quantity-btn:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+}
+
+.wishlist-area {
+  background: #000;
+}
+
+.wishlist-area .eg-review__box {
+  background: #111514;
+  border: 1px solid #ffffff1a;
+}
+
+.wishlist-area .eg-review__box h3 {
+  color: #fff;
+}
+
+.wishlist-area .eg-review__box p {
+  color: var(--eg-text-body);
+}
+
+.ig-wishlist-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  display: grid;
+}
+
+.ig-wishlist-card {
+  background: #111514;
+  border: 1px solid #ffffff1a;
+  grid-template-columns: 180px minmax(0, 1fr);
+  display: grid;
+  overflow: hidden;
+}
+
+.ig-wishlist-card__image {
+  background: #151918;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+  padding: 20px;
+  display: flex;
+}
+
+.ig-wishlist-card__image img {
+  object-fit: contain;
+  width: 100%;
+  max-height: 180px;
+}
+
+.ig-wishlist-card__body {
+  padding: 24px;
+}
+
+.ig-wishlist-card__body > span {
+  color: var(--eg-theme-primary);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  display: block;
+}
+
+.ig-wishlist-card__body h3 {
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 24px;
+}
+
+.ig-wishlist-card__body h3 a {
+  color: inherit;
+}
+
+.ig-wishlist-card__body h3 a:hover {
+  color: var(--eg-theme-primary);
+}
+
+.ig-wishlist-card__body p {
+  color: var(--eg-text-body);
+  margin-bottom: 12px;
+}
+
+.ig-wishlist-card__body strong {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 22px;
+  display: block;
+}
+
+.ig-wishlist-card__actions {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+.ig-card-cart-btn, .ig-add-cart-btn {
+  background: var(--eg-theme-primary);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  border: 0;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all .2s;
+  display: inline-flex;
+}
+
+.ig-card-cart-btn:hover:not(:disabled), .ig-add-cart-btn:hover:not(:disabled) {
+  background: #e50914;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px #e509144d;
+}
+
+.ig-card-cart-btn:disabled, .ig-add-cart-btn:disabled, .ig-home-cart-btn:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.ig-card-cart-btn svg {
+  color: #fff;
+}
+
+.ig-home-product-actions {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.ig-home-cart-btn {
+  border: 0;
+}
+
+.cart-area {
+  background: #000;
+}
+
+.cart-area .eg-review__box {
+  background: #111514;
+  border: 1px solid #ffffff1a;
+}
+
+.cart-area .eg-review__box h3 {
+  color: #fff;
+}
+
+.cart-area .eg-review__box p {
+  color: var(--eg-text-body);
+}
+
+.ig-cart-layout {
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+  display: grid;
+}
+
+.ig-cart-list {
+  gap: 16px;
+  display: grid;
+}
+
+.ig-cart-item, .ig-cart-summary {
+  background: #111514;
+  border: 1px solid #ffffff1a;
+}
+
+.ig-cart-item {
+  grid-template-columns: 150px minmax(0, 1fr);
+  display: grid;
+  overflow: hidden;
+}
+
+.ig-cart-item__image {
+  background: #151918;
+  justify-content: center;
+  align-items: center;
+  min-height: 170px;
+  padding: 18px;
+  display: flex;
+}
+
+.ig-cart-item__image img {
+  object-fit: contain;
+  width: 100%;
+  max-height: 130px;
+}
+
+.ig-cart-item__body {
+  padding: 22px;
+}
+
+.ig-cart-item__body h3 {
+  color: #fff;
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+.ig-cart-item__body p {
+  color: var(--eg-text-body);
+  min-height: 24px;
+  margin-bottom: 10px;
+}
+
+.ig-cart-item__body strong, .ig-cart-summary strong {
+  color: #fff;
+  display: block;
+}
+
+.ig-cart-item__actions {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  display: flex;
+}
+
+.ig-cart-item__actions button, .ig-cart-item__actions span {
+  color: #fff;
+  background: #0b0f0e;
+  border: 1px solid #ffffff24;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  font-weight: 800;
+  display: inline-flex;
+}
+
+.ig-cart-item__actions .ig-cart-remove {
+  width: auto;
+  color: var(--eg-theme-primary);
+  padding: 0 14px;
+}
+
+.ig-cart-summary {
+  align-self: start;
+  padding: 24px;
+}
+
+.ig-cart-summary span {
+  color: var(--eg-text-body);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  display: block;
+}
+
+.ig-cart-summary strong {
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.ig-header-auth-btn {
+  color: inherit;
+  background: none;
+  border: 0;
+  align-items: center;
+  padding: 0;
+  display: flex;
+}
+
+.eg-menu__signUp button {
+  width: 100%;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.ig-auth-modal {
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.ig-auth-modal__backdrop {
+  background: #000000b8;
+  border: 0;
+  position: absolute;
+  inset: 0;
+}
+
+.ig-auth-modal__panel {
+  color: #fff;
+  background: #111514;
+  border: 1px solid #ffffff1f;
+  width: min(100%, 460px);
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 24px 70px #00000073;
+}
+
+.ig-auth-modal__close {
+  color: #fff;
+  background: #0b0f0e;
+  border: 1px solid #ffffff1f;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.ig-auth-tabs {
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 16px 0 26px;
+  display: grid;
+}
+
+.ig-auth-tabs button {
+  color: #fff;
+  text-transform: uppercase;
+  background: #0b0f0e;
+  border: 1px solid #ffffff24;
+  height: 44px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ig-auth-tabs button.active {
+  border-color: var(--eg-theme-primary);
+  background: var(--eg-theme-primary);
+}
+
+.ig-auth-form {
+  gap: 14px;
+  display: grid;
+}
+
+.ig-auth-form h3 {
+  color: #fff;
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.ig-auth-form input {
+  color: #fff;
+  background: #0b0f0e;
+  border: 1px solid #ffffff1f;
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+}
+
+.ig-auth-form input::placeholder {
+  color: #ffffff8f;
+}
+
+.ig-auth-form p {
+  color: var(--eg-text-body);
+  margin: 0;
+}
+
+.ig-auth-form p button {
+  color: var(--eg-theme-primary);
+  background: none;
+  border: 0;
+  padding: 0;
+  font-weight: 800;
+}
+
+.ig-auth-message {
+  background: #ffffff0f;
+  padding: 10px 12px;
+  color: #fff !important;
+}
+
+@media (max-width: 1199px) {
+  .eg-product-2__active .swiper-slide, .eg-testimonial-2__active .swiper-slide {
+    flex-basis: 33.3333%;
+    max-width: 33.3333%;
+  }
+}
+
+@media (max-width: 991px) {
+  .eg-product-2__active .swiper-slide, .eg-testimonial-2__active .swiper-slide {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 575px) {
+  .eg-product-2__active .swiper-slide, .eg-testimonial-2__active .swiper-slide {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 991px) {
+  .eg-header__transparent {
+    background: #070707;
+  }
+
+  .eg-menu__main-menu, .eg-menu__header-actions {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .myMainSlider picture img {
+    min-height: calc(100vh - 78px);
+  }
+
+  .ig-product-gallery__main {
+    min-height: 360px;
+  }
+
+  .ig-product-gallery__main img {
+    max-height: 330px;
+  }
+
+  .ig-product-highlights, .ig-check-list, .ig-wishlist-card {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-wishlist-card__image {
+    min-height: 260px;
+  }
+
+  .ig-cart-layout, .ig-cart-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1199px) {
+  .ig-contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-contact-map {
+    min-height: 460px;
+  }
+}
+
+@media (max-width: 991px) {
+  .ig-contact-section {
+    padding: 100px 0 70px;
+  }
+
+  .ig-contact-form {
+    border-radius: 24px;
+    padding: 44px 34px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ig-contact-section {
+    padding: 86px 0 56px;
+  }
+
+  .ig-contact-left {
+    gap: 28px;
+  }
+
+  .ig-contact-cards, .ig-contact-form {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-contact-cards {
+    gap: 18px;
+  }
+
+  .ig-contact-info-card {
+    min-height: 190px;
+  }
+
+  .ig-contact-info-card h2 {
+    font-size: 24px;
+  }
+
+  .ig-contact-info-card a {
+    font-size: 17px;
+  }
+
+  .ig-contact-map {
+    min-height: 360px;
+  }
+
+  .ig-contact-form {
+    row-gap: 22px;
+    padding: 34px 22px;
+  }
+
+  .ig-contact-field {
+    gap: 12px;
+  }
+
+  .ig-contact-field label {
+    font-size: 21px;
+  }
+
+  .ig-contact-field input {
+    height: 58px;
+  }
+
+  .ig-contact-save {
+    font-size: 15px;
+  }
+
+  .ig-contact-submit {
+    width: 100%;
+  }
+}
+
+@keyframes navIconPop {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.35)translateY(-3px);
+  }
+
+  50% {
+    transform: scale(.95)translateY(1px);
+  }
+
+  75% {
+    transform: scale(1.15)translateY(-1px);
+  }
+
+  100% {
+    transform: scale(1)translateY(0);
+  }
+}
+
+.animate-icon-pop {
+  animation: .55s cubic-bezier(.175, .885, .32, 1.275) both navIconPop;
+}
+
+.animate-icon-pop svg {
+  stroke: var(--eg-theme-primary, #e50914) !important;
+}
+
+.custom-wishlist-count {
+  background: var(--eg-theme-primary, #ff3b3b);
+  color: #fff;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  display: flex;
+  position: absolute;
+  top: -8px;
+  right: -10px;
+}
+
+.ig-product-review-section {
+  margin-top: 24px;
+}
+
+.ig-review-section__header {
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+  display: flex;
+}
+
+.ig-review-section__header h3 {
+  margin-bottom: 6px;
+}
+
+.ig-review-section__header p, .ig-review-login p, .ig-review-item p {
+  color: #ffffffad;
+  margin: 0;
+}
+
+.ig-review-stars {
+  align-items: center;
+  gap: 6px;
+  display: inline-flex;
+}
+
+.ig-review-stars span, .ig-review-stars button {
+  opacity: .28;
+  width: 18px;
+  height: 18px;
+}
+
+.ig-review-stars button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.ig-review-stars span.active, .ig-review-stars button.active {
+  opacity: 1;
+}
+
+.ig-review-stars img {
+  width: 100%;
+  height: 100%;
+}
+
+.ig-review-form {
+  gap: 14px;
+  margin-bottom: 24px;
+  display: grid;
+}
+
+.ig-review-form label {
+  color: #fff;
+  font-weight: 700;
+}
+
+.ig-review-form textarea {
+  resize: vertical;
+  color: #fff;
+  background: #00000047;
+  border: 1px solid #ffffff1f;
+  border-radius: 8px;
+  outline: none;
+  width: 100%;
+  padding: 14px 16px;
+}
+
+.ig-review-form textarea:focus {
+  border-color: #ff1744c2;
+  box-shadow: 0 0 0 3px #ff174429;
+}
+
+.ig-review-message {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ig-review-message.success {
+  color: #7bd88f;
+}
+
+.ig-review-message.error {
+  color: #ff9aa9;
+}
+
+.ig-review-login {
+  background: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  border-radius: 8px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  display: flex;
+}
+
+.ig-review-list {
+  gap: 14px;
+  display: grid;
+}
+
+.ig-review-item {
+  background: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.ig-review-item__top {
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.ig-review-item__top strong {
+  color: #fff;
+}
+
+@media (max-width: 575px) {
+  .ig-review-section__header, .ig-review-login, .ig-review-item__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/*# sourceMappingURL=_7e027848._.css.map*/

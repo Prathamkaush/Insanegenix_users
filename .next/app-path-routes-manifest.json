@@ -1,0 +1,18 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/authenticity/page": "/authenticity",
+  "/cart/page": "/cart",
+  "/checkout/page": "/checkout",
+  "/checkout/success/page": "/checkout/success",
+  "/contact/page": "/contact",
+  "/page": "/",
+  "/product/[slug]/page": "/product/[slug]",
+  "/profile/addresses/page": "/profile/addresses",
+  "/profile/orders/[id]/page": "/profile/orders/[id]",
+  "/profile/orders/page": "/profile/orders",
+  "/profile/page": "/profile",
+  "/shop/page": "/shop",
+  "/wishlist/page": "/wishlist"
+}

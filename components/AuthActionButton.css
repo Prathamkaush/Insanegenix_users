@@ -1,0 +1,115 @@
+/* User Menu Wrapper */
+.ig-user-menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Menu */
+.ig-user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  margin-top: 0.5rem;
+  z-index: 1000;
+  animation: dropdownSlide 0.2s ease;
+  overflow: hidden;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dropdown Items */
+.ig-user-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #333;
+}
+
+.ig-user-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.ig-user-dropdown-item:hover {
+  background: #ff1744;
+  color: #fff;
+  padding-left: 1.25rem;
+}
+
+.ig-user-dropdown-item.logout {
+  color: #ff1744;
+  font-weight: 600;
+}
+
+.ig-user-dropdown-item.logout:hover {
+  background: #ff1744;
+  color: #fff;
+}
+
+/* Header Auth Button */
+.ig-header-auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+}
+
+.ig-header-auth-btn:hover {
+  color: #ff1744;
+}
+
+.ig-header-auth-btn .user {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+/* Header Divider */
+.eg-menu__header-divider {
+  color: #555;
+  margin: 0 0.75rem;
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .ig-user-dropdown {
+    position: fixed;
+    top: auto;
+    right: 1rem;
+    left: 1rem;
+    min-width: auto;
+    width: auto;
+  }
+
+  .ig-user-dropdown-item {
+    padding: 1rem;
+  }
+}

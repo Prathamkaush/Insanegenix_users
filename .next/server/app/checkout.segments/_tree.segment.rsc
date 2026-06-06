@@ -1,0 +1,13 @@
+:HL["/_next/static/chunks/8c5a6b34d7758be0.css","style"]
+:HL["/_next/static/chunks/278cf38172241901.css","style"]
+:HL["/_next/static/chunks/9610428a825489de.css","style"]
+:HL["/assets/css/bootstrap.css","style"]
+:HL["/assets/css/animate.css","style"]
+:HL["/assets/css/swiper-bundle.css","style"]
+:HL["/assets/css/magnific-popup.css","style"]
+:HL["/assets/css/font-awesome-pro.css","style"]
+:HL["/assets/css/spacing.css","style"]
+:HL["/assets/css/main.css","style"]
+:HL["/assets/img/logo/footer-logo.png","image"]
+:HL["/assets/img/icon/payment-option.png","image"]
+0:{"buildId":"YrxbU0oCfoHUPXDS2K48P","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"checkout","paramType":null,"paramKey":"checkout","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

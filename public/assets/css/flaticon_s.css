@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "flaticon_s";
+    src: url("../fonts/flaticon_s.ttf") format("truetype"),
+    url("../fonts/flaticon_s.woff") format("woff"),
+    url("../fonts/flaticon_s.woff2") format("woff2"),
+    url("../fonts/flaticon_s.eot") format("embedded-opentype"),
+    url("../fonts/flaticon_s.svg") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon_s !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-hop:before {
+    content: "\f101";
+}
+.flaticon-calendar:before {
+    content: "\f102";
+}
+.flaticon-drugs:before {
+    content: "\f103";
+}
+.flaticon-fat:before {
+    content: "\f104";
+}
+.flaticon-energy-drink:before {
+    content: "\f105";
+}
+.flaticon-formula:before {
+    content: "\f106";
+}
+.flaticon-formula-1:before {
+    content: "\f107";
+}
+.flaticon-rating:before {
+    content: "\f108";
+}

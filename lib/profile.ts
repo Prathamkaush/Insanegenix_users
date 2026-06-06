@@ -1,0 +1,254 @@
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3030";
+
+function getAuthHeaders(): HeadersInit {
+  const token = localStorage.getItem("token");
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+}
+
+// ================= USER PROFILE =================
+export async function getUserProfile() {
+  const res = await fetch(`${API_URL}/users/profile`, {
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || "Failed to fetch profile");
+  }
+
+  return res.json();
+}
+
+export async function updateUserProfile(data: { name?: string; email?: string }) {
+  const res = await fetch(`${API_URL}/users/profile`, {
+    method: "PATCH",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || "Failed to update profile");
+  }
+
+  return res.json();
+}
+
+// ================= ADDRESSES =================
+export interface UserAddress {
+  id: number;
+  name: string;
+  phone: string;
+  street: string;
+  city: string;
+  state: string;
+  pincode: string;
+  isDefault: boolean;
+  createdAt: string;
+}
+
+export interface CreateAddressInput {
+  name: string;
+  phone: string;
+  street: string;
+  city: string;
+  state: string;
+  pincode: string;
+}
+
+export async function getAddresses() {
+  const res = await fetch(`${API_URL}/addresses`, {
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || "Failed to fetch addresses");
+  }
+
+  return res.json();
+}
+
+export async function createAddress(data: CreateAddressInput) {
+  const res = await fetch(`${API_URL}/addresses`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || "Failed to create address");
+  }
+
+  return res.json();
+}
+
+export async function updateAddress(id: number, data: Partial<CreateAddressInput>) {
+  const res = await fetch(`${API_URL}/addresses/${id}`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || "Failed to update address");
+  }
+
+  return res.json();
+}
+
+export async function setDefaultAddress(id: number) {
+  const res = await fetch(`${API_URL}/addresses/${id}/default`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || "Failed to set default address");
+  }
+
+  return res.json();
+}
+
+export async function deleteAddress(id: number) {
+  const res = await fetch(`${API_URL}/addresses/${id}`, {
+    method: "DELETE",
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || "Failed to delete address");
+  }
+
+  return res.json();
+}
+
+// ================= ORDERS =================
+export interface OrderItem {
+  id: number;
+  productId: number;
+  productName?: string;
+  quantity: number;
+  price: number;
+  gstRate: number;
+  gstAmount: number;
+}
+
+export interface Order {
+  id: number;
+  userId: number;
+  status: string;
+  orderDate: string;
+  totalAmount: number;
+  totalGst: number;
+  shippingCharge: number;
+  couponDiscount: number;
+  finalAmount: number;
+  pricing?: {
+    itemsSubtotal: number;
+    gst: number;
+    shipping: number;
+    couponDiscount: number;
+    payable: number;
+  };
+  items: OrderItem[];
+  shippingAddress: any;
+  createdAt: string;
+}
+
+function toNumber(value: unknown): number {
+  const numericValue = typeof value === "number" ? value : Number(value ?? 0);
+  return Number.isFinite(numericValue) ? numericValue : 0;
+}
+
+function normalizeOrder(order: any): Order {
+  return {
+    ...order,
+    totalAmount: toNumber(order?.totalAmount),
+    totalGst: toNumber(order?.totalGst),
+    shippingCharge: toNumber(order?.shippingCharge),
+    couponDiscount: toNumber(order?.couponDiscount),
+    finalAmount: toNumber(order?.finalAmount ?? order?.totalAmount),
+    pricing: order?.pricing
+      ? {
+          itemsSubtotal: toNumber(order.pricing.itemsSubtotal),
+          gst: toNumber(order.pricing.gst),
+          shipping: toNumber(order.pricing.shipping),
+          couponDiscount: toNumber(order.pricing.couponDiscount),
+          payable: toNumber(order.pricing.payable),
+        }
+      : undefined,
+    shippingAddress: order?.shippingAddress || order?.address,
+    items: Array.isArray(order?.items)
+      ? order.items.map((item: any) => ({
+          ...item,
+          productId: toNumber(item?.productId ?? item?.product?.id),
+          productName: item?.productName || item?.product?.title,
+          quantity: toNumber(item?.quantity),
+          price: toNumber(item?.price),
+          gstRate: toNumber(item?.gstRate),
+          gstAmount: toNumber(item?.gstAmount),
+        }))
+      : [],
+  };
+}
+
+function normalizeOrdersResponse(data: any) {
+  if (Array.isArray(data)) {
+    return data.map(normalizeOrder);
+  }
+
+  return {
+    ...data,
+    orders: Array.isArray(data?.orders)
+      ? data.orders.map(normalizeOrder)
+      : data?.orders,
+    data: Array.isArray(data?.data) ? data.data.map(normalizeOrder) : data?.data,
+  };
+}
+
+export async function getOrders(page: number = 1, limit: number = 10) {
+  const res = await fetch(
+    `${API_URL}/orders/my?page=${page}&limit=${limit}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || "Failed to fetch orders");
+  }
+
+  const data = await res.json();
+  return normalizeOrdersResponse(data);
+}
+
+export async function getOrderById(id: number) {
+  const res = await fetch(`${API_URL}/orders/my/${id}`, {
+    headers: getAuthHeaders(),
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || "Failed to fetch order");
+  }
+
+  const data = await res.json();
+
+  if (data?.order) {
+    return {
+      ...data,
+      order: normalizeOrder(data.order),
+    };
+  }
+
+  return normalizeOrder(data);
+}

@@ -1,0 +1,48 @@
+.ig-add-cart-btn {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.ig-add-cart-btn.is-animating {
+  animation: cartPulse 0.6s ease;
+}
+
+@keyframes cartPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.ig-add-cart-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ig-add-cart-btn span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ig-add-cart-btn .cart-feedback {
+  font-size: 0.85rem;
+  font-weight: 600;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

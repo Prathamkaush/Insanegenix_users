@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Pratham%20Kaushik/Desktop/extra/insanegenix.com/customer-frontend/components/Preloader.tsx"],"sourcesContent":["\"use client\";\n\nimport { useEffect, useState } from \"react\";\n\nexport default function Preloader() {\n  const [visible, setVisible] = useState(true);\n\n  useEffect(() => {\n    const timeout = window.setTimeout(() => setVisible(false), 450);\n    return () => window.clearTimeout(timeout);\n  }, []);\n\n  if (!visible) return null;\n\n  return (\n    <div id=\"loading\">\n      <div id=\"loading-center\">\n        <div id=\"loading-center-absolute\">\n          <div className=\"eg-loader\">\n            <div className=\"eg-loader-spin\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;AAEA;;;AAFA;;AAIe,SAAS;;IACtB,MAAM,CAAC,SAAS,WAAW,GAAG,IAAA,yKAAQ,EAAC;IAEvC,IAAA,0KAAS;+BAAC;YACR,MAAM,UAAU,OAAO,UAAU;+CAAC,IAAM,WAAW;8CAAQ;YAC3D;uCAAO,IAAM,OAAO,YAAY,CAAC;;QACnC;8BAAG,EAAE;IAEL,IAAI,CAAC,SAAS,OAAO;IAErB,qBACE,6LAAC;QAAI,IAAG;kBACN,cAAA,6LAAC;YAAI,IAAG;sBACN,cAAA,6LAAC;gBAAI,IAAG;0BACN,cAAA,6LAAC;oBAAI,WAAU;8BACb,cAAA,6LAAC;wBAAI,WAAU;;;;;;;;;;;;;;;;;;;;;;;;;;AAM3B;GArBwB;KAAA"}}]
+}
