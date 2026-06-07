@@ -10,6 +10,12 @@ export type ProductReview = {
   user?: {
     name?: string | null;
   };
+  product?: {
+    id: number;
+    title: string;
+    slug?: string | null;
+    img1?: string | null;
+  };
 };
 
 export async function getProductReviews(productId: number): Promise<{

@@ -7,6 +7,8 @@ export type ProductVariant = {
   servings?: number | null;
   mrp?: string | number | null;
   price?: string | number | null;
+  discountType?: string | null;
+  discountValue?: string | number | null;
   stock?: number;
   isDefault?: boolean;
   status?: string | null;
@@ -21,6 +23,8 @@ export type Product = {
   shortDescription?: string | null;
   originalPrice?: string | number | null;
   price?: string | number | null;
+  discountType?: string | null;
+  discountValue?: string | number | null;
   gstRate?: string | number | null;
   finalPrice?: string | number | null;
   averageRating?: string | number | null;
@@ -51,6 +55,10 @@ export type Product = {
   authenticityNote?: string | null;
   returnPolicy?: string | null;
   freeShipping?: boolean;
+  isTrending?: boolean;
+  isFeatured?: boolean;
+  isBestSeller?: boolean;
+  isNewLaunch?: boolean;
   weight?: string | number | null;
   estimatedShipping?: string | null;
   img1?: string | null;
@@ -117,6 +125,36 @@ export function productImage(
   if (String(image).startsWith("/")) return String(image);
   if (!fallbackProducts.some((item) => item.img1 === image)) return `${API_URL}/uploads/products/${image}`;
   return `/assets/img/product/${image}`;
+}
+
+export function getProductPricing(product: Product, variant?: ProductVariant) {
+  const basePrice = Number(variant?.price ?? product.price ?? 0);
+  const discountType = variant?.discountType ?? product.discountType;
+  const discountValue = Number(variant?.discountValue ?? product.discountValue ?? 0);
+  let currentPrice = basePrice;
+
+  if (discountType === "PERCENT" && discountValue > 0) {
+    currentPrice = Math.max(0, Math.round(basePrice - (basePrice * discountValue) / 100));
+  } else if (discountType === "FLAT" && discountValue > 0) {
+    currentPrice = Math.max(0, Math.round(basePrice - discountValue));
+  }
+
+  const configuredMrp = Number(variant?.mrp ?? product.originalPrice ?? 0);
+  const originalPrice =
+    currentPrice < basePrice
+      ? basePrice
+      : configuredMrp > currentPrice
+        ? configuredMrp
+        : null;
+  const discountPercent = originalPrice
+    ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100)
+    : null;
+
+  return {
+    currentPrice,
+    originalPrice,
+    discountPercent,
+  };
 }
 
 export function currency(value?: string | number | null) {

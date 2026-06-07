@@ -886,6 +886,62 @@ a {
   padding-top: 24px;
 }
 
+.ig-home-product-sections {
+  background: #000;
+}
+
+.ig-hero-trending {
+  z-index: 2;
+  background: radial-gradient(circle at 50% 0, #ed11182e, #0000 38%), #000;
+  position: relative;
+}
+
+.ig-hero-trending .ig-home-product-section {
+  padding-top: 72px;
+}
+
+.ig-home-product-section {
+  padding: 105px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ig-home-product-section + .ig-home-product-section {
+  border-top: 1px solid #ffffff14;
+}
+
+.ig-home-product-section:nth-child(2n) {
+  background: radial-gradient(circle at 88% 20%, #ed111826, #0000 28%), #050505;
+}
+
+.ig-home-product-section__eyebrow {
+  color: #ef1d16;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  display: block;
+}
+
+.ig-home-product-section .eg-product-2__prev, .ig-home-product-section .eg-product-2__next {
+  appearance: none;
+  cursor: pointer;
+}
+
+.ig-home-product-section__empty {
+  color: #ffffff9e;
+  text-align: center;
+  background: #ffffff09;
+  border: 1px dashed #fff3;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  padding: 35px;
+  font-size: 16px;
+  display: flex;
+}
+
 .eg-product-2__active, .eg-testimonial-2__active {
   width: 100%;
   overflow: hidden;
@@ -910,6 +966,11 @@ a {
   display: flex;
 }
 
+.ig-home-product-slide .product-card {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .eg-product-2__thumb {
   justify-content: center;
   align-items: flex-end;
@@ -931,6 +992,32 @@ a {
 
 .eg-testimonial-2__content {
   flex: 1;
+}
+
+.eg-testimonial-2__avatar-img {
+  background: #2f2f2f;
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+}
+
+.eg-testimonial-2__avatar-img img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.eg-testimonial-2__avatar-text a {
+  color: inherit;
+  text-underline-offset: 2px;
+  text-decoration: underline;
+}
+
+.ig-home-reviews-empty {
+  color: #ffffff9e;
+  text-align: center;
+  border: 1px dashed #ffffff2e;
+  padding: 45px;
 }
 
 .eg-product-2__active.swiper-initialized .swiper-slide, .eg-testimonial-2__active.swiper-initialized .swiper-slide {

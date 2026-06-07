@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { LogOut, User, MapPin, ShoppingBag } from "lucide-react";
-import { getUserProfile } from "@/lib/profile";
+import { getUserProfile, profileImageUrl } from "@/lib/profile";
 import "./profile.css";
 
 interface UserData {
@@ -12,6 +12,7 @@ interface UserData {
   name?: string;
   email?: string;
   phone?: string;
+  profileImage?: string;
 }
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
@@ -28,6 +29,9 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     }
 
     fetchUserProfile();
+
+    window.addEventListener("profile:updated", fetchUserProfile);
+    return () => window.removeEventListener("profile:updated", fetchUserProfile);
   }, [router]);
 
   const fetchUserProfile = async () => {
@@ -66,7 +70,14 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
       <div className="profile-sidebar">
         <div className="profile-header">
           <div className="profile-avatar">
-            {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+            {profileImageUrl(user.profileImage) ? (
+              <img
+                src={profileImageUrl(user.profileImage) || ""}
+                alt={`${user.name || "User"} profile`}
+              />
+            ) : (
+              user.name ? user.name.charAt(0).toUpperCase() : "U"
+            )}
           </div>
           <div className="profile-info">
             <h2>{user.name || "Customer"}</h2>

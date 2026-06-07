@@ -15,6 +15,8 @@ __turbopack_context__.s([
     ()=>getOrders,
     "getUserProfile",
     ()=>getUserProfile,
+    "profileImageUrl",
+    ()=>profileImageUrl,
     "setDefaultAddress",
     ()=>setDefaultAddress,
     "updateAddress",
@@ -31,6 +33,17 @@ function getAuthHeaders() {
         Authorization: `Bearer ${token}`
     };
 }
+function getAuthOnlyHeaders() {
+    const token = localStorage.getItem("token");
+    return {
+        Authorization: `Bearer ${token}`
+    };
+}
+function profileImageUrl(image) {
+    if (!image) return null;
+    if (/^https?:\/\//i.test(image)) return image;
+    return `${API_URL}${image.startsWith("/") ? image : `/${image}`}`;
+}
 async function getUserProfile() {
     const res = await fetch(`${API_URL}/users/profile`, {
         headers: getAuthHeaders()
@@ -42,10 +55,15 @@ async function getUserProfile() {
     return res.json();
 }
 async function updateUserProfile(data) {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    if (data.image) formData.append("image", data.image);
     const res = await fetch(`${API_URL}/users/profile`, {
         method: "PATCH",
-        headers: getAuthHeaders(),
-        body: JSON.stringify(data)
+        headers: getAuthOnlyHeaders(),
+        body: formData
     });
     if (!res.ok) {
         const error = await res.json().catch(()=>({}));
@@ -221,6 +239,10 @@ function ProfileLayout({ children }) {
                 return;
             }
             fetchUserProfile();
+            window.addEventListener("profile:updated", fetchUserProfile);
+            return ({
+                "ProfileLayout.useEffect": ()=>window.removeEventListener("profile:updated", fetchUserProfile)
+            })["ProfileLayout.useEffect"];
         }
     }["ProfileLayout.useEffect"], [
         router
@@ -252,7 +274,7 @@ function ProfileLayout({ children }) {
             children: "Loading profile..."
         }, void 0, false, {
             fileName: "[project]/app/profile/layout.tsx",
-            lineNumber: 57,
+            lineNumber: 61,
             columnNumber: 12
         }, this);
     }
@@ -262,7 +284,7 @@ function ProfileLayout({ children }) {
             children: "Failed to load profile"
         }, void 0, false, {
             fileName: "[project]/app/profile/layout.tsx",
-            lineNumber: 61,
+            lineNumber: 65,
             columnNumber: 12
         }, this);
     }
@@ -277,10 +299,17 @@ function ProfileLayout({ children }) {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "profile-avatar",
-                                children: user.name ? user.name.charAt(0).toUpperCase() : "U"
+                                children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$profile$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["profileImageUrl"])(user.profileImage) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                    src: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$profile$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["profileImageUrl"])(user.profileImage) || "",
+                                    alt: `${user.name || "User"} profile`
+                                }, void 0, false, {
+                                    fileName: "[project]/app/profile/layout.tsx",
+                                    lineNumber: 74,
+                                    columnNumber: 15
+                                }, this) : user.name ? user.name.charAt(0).toUpperCase() : "U"
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/layout.tsx",
-                                lineNumber: 68,
+                                lineNumber: 72,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -290,26 +319,26 @@ function ProfileLayout({ children }) {
                                         children: user.name || "Customer"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 72,
+                                        lineNumber: 83,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         children: user.email
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 73,
+                                        lineNumber: 84,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/layout.tsx",
-                                lineNumber: 71,
+                                lineNumber: 82,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/layout.tsx",
-                        lineNumber: 67,
+                        lineNumber: 71,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -324,20 +353,20 @@ function ProfileLayout({ children }) {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 83,
+                                        lineNumber: 94,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Profile Details"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 84,
+                                        lineNumber: 95,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/layout.tsx",
-                                lineNumber: 78,
+                                lineNumber: 89,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -349,20 +378,20 @@ function ProfileLayout({ children }) {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 92,
+                                        lineNumber: 103,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Addresses"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 93,
+                                        lineNumber: 104,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/layout.tsx",
-                                lineNumber: 87,
+                                lineNumber: 98,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -374,26 +403,26 @@ function ProfileLayout({ children }) {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 101,
+                                        lineNumber: 112,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Orders"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/layout.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 113,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/layout.tsx",
-                                lineNumber: 96,
+                                lineNumber: 107,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/layout.tsx",
-                        lineNumber: 77,
+                        lineNumber: 88,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -404,26 +433,26 @@ function ProfileLayout({ children }) {
                                 size: 18
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/layout.tsx",
-                                lineNumber: 107,
+                                lineNumber: 118,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: "Logout"
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/layout.tsx",
-                                lineNumber: 108,
+                                lineNumber: 119,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/layout.tsx",
-                        lineNumber: 106,
+                        lineNumber: 117,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/profile/layout.tsx",
-                lineNumber: 66,
+                lineNumber: 70,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -431,13 +460,13 @@ function ProfileLayout({ children }) {
                 children: children
             }, void 0, false, {
                 fileName: "[project]/app/profile/layout.tsx",
-                lineNumber: 112,
+                lineNumber: 123,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/profile/layout.tsx",
-        lineNumber: 65,
+        lineNumber: 69,
         columnNumber: 5
     }, this);
 }

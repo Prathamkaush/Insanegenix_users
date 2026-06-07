@@ -85,6 +85,8 @@ __turbopack_context__.s([
     ()=>fallbackProducts,
     "getProduct",
     ()=>getProduct,
+    "getProductPricing",
+    ()=>getProductPricing,
     "getProducts",
     ()=>getProducts,
     "productImage",
@@ -205,6 +207,25 @@ function productImage(product, imageKey = "img1") {
     if (!fallbackProducts.some((item)=>item.img1 === image)) return `${API_URL}/uploads/products/${image}`;
     return `/assets/img/product/${image}`;
 }
+function getProductPricing(product, variant) {
+    const basePrice = Number(variant?.price ?? product.price ?? 0);
+    const discountType = variant?.discountType ?? product.discountType;
+    const discountValue = Number(variant?.discountValue ?? product.discountValue ?? 0);
+    let currentPrice = basePrice;
+    if (discountType === "PERCENT" && discountValue > 0) {
+        currentPrice = Math.max(0, Math.round(basePrice - basePrice * discountValue / 100));
+    } else if (discountType === "FLAT" && discountValue > 0) {
+        currentPrice = Math.max(0, Math.round(basePrice - discountValue));
+    }
+    const configuredMrp = Number(variant?.mrp ?? product.originalPrice ?? 0);
+    const originalPrice = currentPrice < basePrice ? basePrice : configuredMrp > currentPrice ? configuredMrp : null;
+    const discountPercent = originalPrice ? Math.round((originalPrice - currentPrice) / originalPrice * 100) : null;
+    return {
+        currentPrice,
+        originalPrice,
+        discountPercent
+    };
+}
 function currency(value) {
     return `₹${Number(value || 0).toLocaleString("en-IN", {
         minimumFractionDigits: 2,
@@ -231,6 +252,8 @@ __turbopack_context__.s([
     ()=>getOrders,
     "getUserProfile",
     ()=>getUserProfile,
+    "profileImageUrl",
+    ()=>profileImageUrl,
     "setDefaultAddress",
     ()=>setDefaultAddress,
     "updateAddress",
@@ -247,6 +270,17 @@ function getAuthHeaders() {
         Authorization: `Bearer ${token}`
     };
 }
+function getAuthOnlyHeaders() {
+    const token = localStorage.getItem("token");
+    return {
+        Authorization: `Bearer ${token}`
+    };
+}
+function profileImageUrl(image) {
+    if (!image) return null;
+    if (/^https?:\/\//i.test(image)) return image;
+    return `${API_URL}${image.startsWith("/") ? image : `/${image}`}`;
+}
 async function getUserProfile() {
     const res = await fetch(`${API_URL}/users/profile`, {
         headers: getAuthHeaders()
@@ -258,10 +292,15 @@ async function getUserProfile() {
     return res.json();
 }
 async function updateUserProfile(data) {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    if (data.image) formData.append("image", data.image);
     const res = await fetch(`${API_URL}/users/profile`, {
         method: "PATCH",
-        headers: getAuthHeaders(),
-        body: JSON.stringify(data)
+        headers: getAuthOnlyHeaders(),
+        body: formData
     });
     if (!res.ok) {
         const error = await res.json().catch(()=>({}));

@@ -5,7 +5,15 @@ import Breadcrumb from "@/components/Breadcrumb";
 import ProductCard from "@/components/ProductCard";
 import ProductPurchaseControls from "@/components/ProductPurchaseControls";
 import ProductReviewSection from "@/components/ProductReviewSection";
-import { Product, ProductVariant, currency, getProduct, getProducts, productImage } from "@/lib/products";
+import {
+  Product,
+  ProductVariant,
+  currency,
+  getProduct,
+  getProductPricing,
+  getProducts,
+  productImage,
+} from "@/lib/products";
 
 type ProductDetailParams = {
   params: Promise<{ slug: string }>;
@@ -19,8 +27,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
 
   const images = productImages(product);
   const defaultVariant = product.variants?.find((variant) => variant.isDefault) || product.variants?.[0];
-  const price = defaultVariant?.price || product.finalPrice || product.price;
-  const mrp = defaultVariant?.mrp || product.originalPrice || product.price;
+  const { currentPrice: price, originalPrice: mrp } = getProductPricing(product, defaultVariant);
   const maxQuantity = Number(defaultVariant?.stock ?? product.stock ?? 0);
   const inStock = maxQuantity > 0;
   const category = product.category?.name || product.type?.name || "Sports Nutrition";

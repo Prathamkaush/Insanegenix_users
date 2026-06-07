@@ -417,39 +417,42 @@ $(".decrement").click(function () {
 	});
 
 
-	var product2Slider = new Swiper('.eg-product-2__active', {
-		slidesPerView: 4,
-		loop: true,
-		spaceBetween: 0,
-		autoplay: true,
-		autoplay: {
-			delay: 5000,
-		},
-		// Navigation arrows
-		navigation: {
-			nextEl: '.eg-product-2__next',
-			prevEl: '.eg-product-2__prev',
-		},
-		breakpoints: {
-			'1400': {
-				slidesPerView: 4,
+	document.querySelectorAll('.ig-home-product-carousel').forEach(function (carousel) {
+		var section = carousel.closest('.ig-home-product-section');
+		var slideCount = carousel.querySelectorAll('.swiper-slide').length;
+
+		new Swiper(carousel, {
+			slidesPerView: 4,
+			loop: slideCount > 4,
+			spaceBetween: 0,
+			autoplay: slideCount > 1 ? {
+				delay: 5000,
+			} : false,
+			navigation: {
+				nextEl: section ? section.querySelector('.ig-home-product-next') : null,
+				prevEl: section ? section.querySelector('.ig-home-product-prev') : null,
 			},
-			'1200': {
-				slidesPerView: 3,
+			breakpoints: {
+				'1400': {
+					slidesPerView: 4,
+				},
+				'1200': {
+					slidesPerView: 3,
+				},
+				'992': {
+					slidesPerView: 2,
+				},
+				'768': {
+					slidesPerView: 2,
+				},
+				'576': {
+					slidesPerView: 1,
+				},
+				'0': {
+					slidesPerView: 1,
+				},
 			},
-			'992': {
-				slidesPerView: 2,
-			},
-			'768': {
-				slidesPerView: 2,
-			},
-			'576': {
-				slidesPerView: 1,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
-		},
+		});
 	});
 
 
@@ -518,39 +521,41 @@ $(".decrement").click(function () {
 	});
 
 
-	var product2Slider = new Swiper('.eg-testimonial-2__active', {
-		slidesPerView: 4,
-		loop: true,
-		spaceBetween: 0,
-		autoplay: true,
-		autoplay: {
-			delay: 5000,
-		},
-		// Navigation arrows
-		navigation: {
-			nextEl: '.eg-testimonial-2__next',
-			prevEl: '.eg-testimonial-2__prev',
-		},
-		breakpoints: {
-			'1400': {
-				slidesPerView: 4,
+	document.querySelectorAll('.eg-testimonial-2__active').forEach(function (carousel) {
+		var slideCount = carousel.querySelectorAll('.swiper-slide').length;
+
+		new Swiper(carousel, {
+			slidesPerView: 4,
+			loop: slideCount > 4,
+			spaceBetween: 0,
+			autoplay: slideCount > 1 ? {
+				delay: 5000,
+			} : false,
+			navigation: {
+				nextEl: '.eg-testimonial-2__next',
+				prevEl: '.eg-testimonial-2__prev',
 			},
-			'1200': {
-				slidesPerView: 3,
+			breakpoints: {
+				'1400': {
+					slidesPerView: 4,
+				},
+				'1200': {
+					slidesPerView: 3,
+				},
+				'992': {
+					slidesPerView: 2,
+				},
+				'768': {
+					slidesPerView: 2,
+				},
+				'576': {
+					slidesPerView: 1,
+				},
+				'0': {
+					slidesPerView: 1,
+				},
 			},
-			'992': {
-				slidesPerView: 2,
-			},
-			'768': {
-				slidesPerView: 2,
-			},
-			'576': {
-				slidesPerView: 1,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
-		},
+		});
 	});
 		
 
@@ -612,5 +617,3 @@ var swiper = new Swiper(".myMainSlider", {
 });
 
 })(jQuery);
-
-

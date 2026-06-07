@@ -1,12 +1,25 @@
 import Link from "next/link";
 import Script from "next/script";
-import ProductCard from "@/components/ProductCard";
-import { getProducts } from "@/lib/products";
+import HomeProductSection from "@/components/HomeProductSection";
+import { getProducts, productImage } from "@/lib/products";
 import { getLatestReviews } from "@/lib/reviews";
 
 export default async function HomePage() {
   const [products, latestReviews] = await Promise.all([getProducts(), getLatestReviews(4)]);
-  const testimonialRating = (index: number) => Number(latestReviews[index]?.rating || 5);
+  const trendingProducts = products.filter((product) => product.isTrending);
+  const productSections = [
+    { id: "latest", title: "Latest Products", products: products.slice(0, 8) },
+    {
+      id: "featured",
+      title: "Featured Products",
+      products: products.filter((product) => product.isFeatured),
+    },
+    {
+      id: "best-sellers",
+      title: "Best Sellers",
+      products: products.filter((product) => product.isBestSeller),
+    },
+  ];
 
   return (
     <main className="fix bg-black">
@@ -30,6 +43,15 @@ export default async function HomePage() {
         <div className="swiper-pagination"></div>
         <div className="swiper-button-next"></div>
         <div className="swiper-button-prev"></div>
+      </div>
+
+      {/* ── TRENDING PRODUCTS ── */}
+      <div className="ig-hero-trending">
+        <HomeProductSection
+          id="trending"
+          title="Trending Products"
+          products={trendingProducts}
+        />
       </div>
 
       {/* ── FEATURE / OUR STORY ── */}
@@ -148,47 +170,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── LATEST PRODUCTS ── */}
-      <section className="product-area-2">
-        <div className="eg-product-2">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="eg-section mb-75">
-                  <h2 className="eg-section__title title-white">Latest Products</h2>
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="eg-product-2__arrow d-flex justify-content-end mb-30">
-                  <div className="eg-product-2__prev">
-                    <span>
-                      <svg width="39" height="16" viewBox="0 0 39 16" fill="current" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.292893 8.70711C-0.0976311 8.31659 -0.0976311 7.68342 0.292893 7.2929L6.65685 0.928936C7.04738 0.538411 7.68054 0.538411 8.07107 0.928936C8.46159 1.31946 8.46159 1.95262 8.07107 2.34315L2.41421 8L8.07107 13.6569C8.46159 14.0474 8.46159 14.6805 8.07107 15.0711C7.68054 15.4616 7.04738 15.4616 6.65685 15.0711L0.292893 8.70711ZM39 9L1 9L1 7L39 7L39 9Z" fill="current" />
-                      </svg>
-                    </span>
-                  </div>
-                  <div className="eg-product-2__next">
-                    <span>
-                      <svg width="39" height="16" viewBox="0 0 39 16" fill="#000" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M38.7071 8.70711C39.0976 8.31659 39.0976 7.68342 38.7071 7.2929L32.3431 0.928935C31.9526 0.538411 31.3195 0.538411 30.9289 0.928935C30.5384 1.31946 30.5384 1.95263 30.9289 2.34315L36.5858 8L30.9289 13.6569C30.5384 14.0474 30.5384 14.6805 30.9289 15.0711C31.3195 15.4616 31.9526 15.4616 32.3431 15.0711L38.7071 8.70711ZM1.15027e-08 9L38 9L38 7L-1.15033e-08 7L1.15027e-08 9Z" fill="current" />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="swiper eg-product-2__active">
-            <div className="swiper-wrapper">
-              {products.slice(0, 8).map((product) => (
-                <div key={product.id} className="swiper-slide ig-home-product-slide">
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── PRODUCT COLLECTIONS ── */}
+      <div className="ig-home-product-sections">
+        {productSections.map((section) => (
+          <HomeProductSection key={section.id} {...section} />
+        ))}
+      </div>
 
       {/* ── VIDEO AREA ── */}
       <div className="eg-video__area">
@@ -260,169 +247,82 @@ export default async function HomePage() {
                   <h2 className="eg-section__title title-white">What Our Fitness Community Says</h2>
                 </div>
               </div>
-              <div className="col-lg-6">
-                <div className="eg-product-2__arrow d-flex justify-content-end mb-30">
-                  <div className="eg-product-2__prev eg-testimonial-2__prev">
-                    <span>
-                      <svg width="39" height="16" viewBox="0 0 39 16" fill="current" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.292893 8.70711C-0.0976311 8.31659 -0.0976311 7.68342 0.292893 7.2929L6.65685 0.928936C7.04738 0.538411 7.68054 0.538411 8.07107 0.928936C8.46159 1.31946 8.46159 1.95262 8.07107 2.34315L2.41421 8L8.07107 13.6569C8.46159 14.0474 8.46159 14.6805 8.07107 15.0711C7.68054 15.4616 7.04738 15.4616 6.65685 15.0711L0.292893 8.70711ZM39 9L1 9L1 7L39 7L39 9Z" fill="current" />
-                      </svg>
-                    </span>
-                  </div>
-                  <div className="eg-product-2__next eg-testimonial-2__next">
-                    <span>
-                      <svg width="39" height="16" viewBox="0 0 39 16" fill="#000" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M38.7071 8.70711C39.0976 8.31659 39.0976 7.68342 38.7071 7.2929L32.3431 0.928935C31.9526 0.538411 31.3195 0.538411 30.9289 0.928935C30.5384 1.31946 30.5384 1.95263 30.9289 2.34315L36.5858 8L30.9289 13.6569C30.5384 14.0474 30.5384 14.6805 30.9289 15.0711C31.3195 15.4616 31.9526 15.4616 32.3431 15.0711L38.7071 8.70711ZM1.15027e-08 9L38 9L38 7L-1.15033e-08 7L1.15027e-08 9Z" fill="current" />
-                      </svg>
-                    </span>
+              {latestReviews.length > 1 ? (
+                <div className="col-lg-6">
+                  <div className="eg-product-2__arrow d-flex justify-content-end mb-30">
+                    <div className="eg-product-2__prev eg-testimonial-2__prev">
+                      <span>
+                        <svg width="39" height="16" viewBox="0 0 39 16" fill="current" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0.292893 8.70711C-0.0976311 8.31659 -0.0976311 7.68342 0.292893 7.2929L6.65685 0.928936C7.04738 0.538411 7.68054 0.538411 8.07107 0.928936C8.46159 1.31946 8.46159 1.95262 8.07107 2.34315L2.41421 8L8.07107 13.6569C8.46159 14.0474 8.46159 14.6805 8.07107 15.0711C7.68054 15.4616 7.04738 15.4616 6.65685 15.0711L0.292893 8.70711ZM39 9L1 9L1 7L39 7L39 9Z" fill="current" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div className="eg-product-2__next eg-testimonial-2__next">
+                      <span>
+                        <svg width="39" height="16" viewBox="0 0 39 16" fill="#000" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M38.7071 8.70711C39.0976 8.31659 39.0976 7.68342 38.7071 7.2929L32.3431 0.928935C31.9526 0.538411 31.3195 0.538411 30.9289 0.928935C30.5384 1.31946 30.5384 1.95263 30.9289 2.34315L36.5858 8L30.9289 13.6569C30.5384 14.0474 30.5384 14.6805 30.9289 15.0711C31.3195 15.4616 31.9526 15.4616 32.3431 15.0711L38.7071 8.70711ZM1.15027e-08 9L38 9L38 7L-1.15033e-08 7L1.15027e-08 9Z" fill="current" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
             </div>
           </div>
-          <div className="swiper eg-testimonial-2__active">
-            <div className="swiper-wrapper">
+          {latestReviews.length ? (
+            <div className="swiper eg-testimonial-2__active">
+              <div className="swiper-wrapper">
+                {latestReviews.map((review) => {
+                  const reviewerName = review.user?.name?.trim() || "Verified Customer";
+                  const productTitle = review.product?.title || "InsaneGenix Product";
+                  const productHref = review.product?.slug ? `/product/${review.product.slug}` : "/shop";
 
-              {/* Testimonial 1 */}
-              <div className="swiper-slide eg-testimonial-2__item">
-                <div className="eg-testimonial-2__wrap">
-                  <div className="eg-testimonial-2__content mb-60">
-                    <div className="eg-testimonial-2__rating pb-60">
-                      {renderRatingStars(testimonialRating(0))}
-                    </div>
-                    <p>
-                      "I have been using the ultra-pure <span>ISO Protein Supplement</span> for several months now,
-                      and I am thrilled with the results. Not only has it boosted my muscle recovery levels, but it
-                      has also improved my overall lean muscle growth. I feel more energized, strong, and active."
-                    </p>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-9 col-9">
-                      <div className="eg-testimonial-2__avatar d-flex">
-                        <div className="eg-testimonial-2__avatar-img">
-                          <img src="/assets/img/testimonial/testimonial-2-avatar-01.png" alt="Aarav Sharma" />
+                  return (
+                    <div className="swiper-slide eg-testimonial-2__item" key={review.id}>
+                      <div className="eg-testimonial-2__wrap">
+                        <div className="eg-testimonial-2__content mb-60">
+                          <div className="eg-testimonial-2__rating pb-60">
+                            {renderRatingStars(review.rating)}
+                          </div>
+                          <p>&ldquo;{review.comment || `Great experience with ${productTitle}.`}&rdquo;</p>
                         </div>
-                        <div className="eg-testimonial-2__avatar-text">
-                          <h5 className="title">Aarav Sharma</h5>
-                          <p>Delhi, Fitness Athlete</p>
+                        <div className="row">
+                          <div className="col-lg-9 col-9">
+                            <div className="eg-testimonial-2__avatar d-flex">
+                              <div className="eg-testimonial-2__avatar-img">
+                                <img
+                                  src={productImage({ img1: review.product?.img1 })}
+                                  alt={productTitle}
+                                />
+                              </div>
+                              <div className="eg-testimonial-2__avatar-text">
+                                <h5 className="title">{reviewerName}</h5>
+                                <p>
+                                  Reviewed{" "}
+                                  <Link href={productHref}>{productTitle}</Link>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-lg-3 col-3">
+                            <div className="eg-testimonial-2__quote">
+                              <span><i className="fas fa-quote-right"></i></span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-3 col-3">
-                      <div className="eg-testimonial-2__quote">
-                        <span><i className="fas fa-quote-right"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
-
-              {/* Testimonial 2 */}
-              <div className="swiper-slide eg-testimonial-2__item">
-                <div className="eg-testimonial-2__wrap">
-                  <div className="eg-testimonial-2__content mb-60">
-                    <div className="eg-testimonial-2__rating pb-60">
-                      {renderRatingStars(testimonialRating(1))}
-                    </div>
-                    <p>
-                      "After incorporating the advanced <span>Creatine and EAA Blend</span> into my routine, I have
-                      experienced a significant improvement in my workout stamina. I used to suffer from mid-set
-                      fatigue and muscle soreness, especially after heavy lifting. Since taking this, my strength is
-                      next level."
-                    </p>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-9 col-9">
-                      <div className="eg-testimonial-2__avatar d-flex">
-                        <div className="eg-testimonial-2__avatar-img">
-                          <img src="/assets/img/testimonial/testimonial-2-avatar-02.png" alt="Rohan Malhotra" />
-                        </div>
-                        <div className="eg-testimonial-2__avatar-text">
-                          <h5 className="title">Rohan Malhotra</h5>
-                          <p>Mumbai, Gym Trainer</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-3">
-                      <div className="eg-testimonial-2__quote">
-                        <span><i className="fas fa-quote-right"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial 3 */}
-              <div className="swiper-slide eg-testimonial-2__item">
-                <div className="eg-testimonial-2__wrap">
-                  <div className="eg-testimonial-2__content mb-60">
-                    <div className="eg-testimonial-2__rating pb-60">
-                      {renderRatingStars(testimonialRating(2))}
-                    </div>
-                    <p>
-                      "The high-calorie <span>Mass Gainer Formula</span> has been a lifesaver for me. I have
-                      struggled with gaining clean size for years, and this premium product has provided me with
-                      the proper macronutrients I've been longing for. It helps me bulk up faster and looks solid."
-                    </p>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-9 col-9">
-                      <div className="eg-testimonial-2__avatar d-flex">
-                        <div className="eg-testimonial-2__avatar-img">
-                          <img src="/assets/img/testimonial/testimonial-2-avatar-03.png" alt="Kabir Mehta" />
-                        </div>
-                        <div className="eg-testimonial-2__avatar-text">
-                          <h5 className="title">Kabir Mehta</h5>
-                          <p>Bangalore, Powerlifter</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-3">
-                      <div className="eg-testimonial-2__quote">
-                        <span><i className="fas fa-quote-right"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial 4 */}
-              <div className="swiper-slide eg-testimonial-2__item">
-                <div className="eg-testimonial-2__wrap">
-                  <div className="eg-testimonial-2__content mb-60">
-                    <div className="eg-testimonial-2__rating pb-60">
-                      {renderRatingStars(testimonialRating(3))}
-                    </div>
-                    <p>
-                      "I've struggled with laser focus during morning workouts, but since incorporating the{" "}
-                      <span>Dart Energy Formula</span> into my daily routine, I've experienced a significant
-                      reduction in mid-workout crashes. This formula combines pure focus and heavy pump blends
-                      perfectly."
-                    </p>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-9 col-9">
-                      <div className="eg-testimonial-2__avatar d-flex">
-                        <div className="eg-testimonial-2__avatar-img">
-                          <img src="/assets/img/testimonial/testimonial-2-avatar-04.png" alt="Ananya Verma" />
-                        </div>
-                        <div className="eg-testimonial-2__avatar-text">
-                          <h5 className="title">Ananya Verma</h5>
-                          <p>Chandigarh, Fitness Enthusiast</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-3">
-                      <div className="eg-testimonial-2__quote">
-                        <span><i className="fas fa-quote-right"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
-          </div>
+          ) : (
+            <div className="container">
+              <div className="ig-home-reviews-empty">
+                Product reviews from our customers will appear here.
+              </div>
+            </div>
+          )}
           <div className="eg-testimonial-2__shape scene-y">
             <img className="layer" data-depth="3" src="/assets/img/testimonial/testimonial-2-shape-01.png" alt="shape" />
           </div>

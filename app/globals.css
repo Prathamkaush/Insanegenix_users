@@ -791,6 +791,67 @@ a {
   padding-top: 24px;
 }
 
+.ig-home-product-sections {
+  background: #000;
+}
+
+.ig-hero-trending {
+  position: relative;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 50% 0, rgba(237, 17, 24, 0.18), transparent 38%),
+    #000;
+}
+
+.ig-hero-trending .ig-home-product-section {
+  padding-top: 72px;
+}
+
+.ig-home-product-section {
+  position: relative;
+  padding: 105px 0 0;
+  overflow: hidden;
+}
+
+.ig-home-product-section + .ig-home-product-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ig-home-product-section:nth-child(even) {
+  background:
+    radial-gradient(circle at 88% 20%, rgba(237, 17, 24, 0.15), transparent 28%),
+    #050505;
+}
+
+.ig-home-product-section__eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  color: #ef1d16;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ig-home-product-section .eg-product-2__prev,
+.ig-home-product-section .eg-product-2__next {
+  appearance: none;
+  cursor: pointer;
+}
+
+.ig-home-product-section__empty {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 16px;
+  text-align: center;
+}
+
 .eg-product-2__active,
 .eg-testimonial-2__active {
   width: 100%;
@@ -818,6 +879,11 @@ a {
   padding: 0 12px;
 }
 
+.ig-home-product-slide .product-card {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .eg-product-2__thumb {
   min-height: 300px;
   display: flex;
@@ -839,6 +905,32 @@ a {
 
 .eg-testimonial-2__content {
   flex: 1;
+}
+
+.eg-testimonial-2__avatar-img {
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+  background: #2f2f2f;
+}
+
+.eg-testimonial-2__avatar-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.eg-testimonial-2__avatar-text a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ig-home-reviews-empty {
+  padding: 45px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.62);
+  text-align: center;
 }
 
 .eg-product-2__active.swiper-initialized .swiper-slide,

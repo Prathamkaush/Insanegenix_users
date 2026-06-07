@@ -8,6 +8,19 @@ function getAuthHeaders(): HeadersInit {
   };
 }
 
+function getAuthOnlyHeaders(): HeadersInit {
+  const token = localStorage.getItem("token");
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+}
+
+export function profileImageUrl(image?: string | null) {
+  if (!image) return null;
+  if (/^https?:\/\//i.test(image)) return image;
+  return `${API_URL}${image.startsWith("/") ? image : `/${image}`}`;
+}
+
 // ================= USER PROFILE =================
 export async function getUserProfile() {
   const res = await fetch(`${API_URL}/users/profile`, {
@@ -22,11 +35,24 @@ export async function getUserProfile() {
   return res.json();
 }
 
-export async function updateUserProfile(data: { name?: string; email?: string }) {
+export interface UpdateUserProfileInput {
+  name: string;
+  email: string;
+  phone: string;
+  image?: File | null;
+}
+
+export async function updateUserProfile(data: UpdateUserProfileInput) {
+  const formData = new FormData();
+  formData.append("name", data.name);
+  formData.append("email", data.email);
+  formData.append("phone", data.phone);
+  if (data.image) formData.append("image", data.image);
+
   const res = await fetch(`${API_URL}/users/profile`, {
     method: "PATCH",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(data),
+    headers: getAuthOnlyHeaders(),
+    body: formData,
   });
 
   if (!res.ok) {

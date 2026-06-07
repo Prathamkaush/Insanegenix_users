@@ -1,6 +1,6 @@
 /* [project]/app/profile/profile-details.css [app-client] (css) */
 .profile-details {
-  max-width: 600px;
+  width: 100%;
 }
 
 .details-header {
@@ -61,11 +61,70 @@
   background: #ffffff14;
   border: 1px solid #ffffff24;
   border-radius: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
   padding: 2rem;
+  display: grid;
+}
+
+.profile-image-editor {
+  border-bottom: 1px solid #ffffff24;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 1.25rem;
+  padding-bottom: 1.75rem;
+  display: flex;
+}
+
+.profile-image-preview, .detail-avatar {
+  color: #fff;
+  background: linear-gradient(135deg, #ff1744, #ff6a1a);
+  border-radius: 50%;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 92px;
+  height: 92px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 12px 30px #ff174447;
+}
+
+.profile-image-preview img, .detail-avatar img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-image-input {
+  display: none;
+}
+
+.btn-image {
+  color: #fff;
+  cursor: pointer;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  border-radius: 8px;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1rem;
+  font-weight: 600;
+  display: inline-flex;
+}
+
+.btn-image:hover {
+  background: #ffffff29;
+}
+
+.profile-image-editor p {
+  color: #ffffff94;
+  margin: .55rem 0 0;
+  font-size: .78rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .form-group label {
@@ -98,8 +157,9 @@
 }
 
 .form-actions {
+  grid-column: 1 / -1;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: .5rem;
   display: flex;
 }
 
@@ -164,14 +224,56 @@
 }
 
 .details-view {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.5rem;
   display: grid;
+}
+
+.detail-identity {
+  background: radial-gradient(circle at 90% 10%, #ff174438, #0000 36%), #ffffff0f;
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 160px;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+}
+
+.detail-avatar {
+  width: 118px;
+  height: 118px;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.detail-identity__copy span {
+  color: #ff526f;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.detail-identity__copy h2 {
+  color: #fff;
+  margin: .35rem 0 0;
+  font-size: 1.8rem;
+  line-height: 1.15;
+}
+
+.detail-identity__copy p {
+  color: #ffffffa3;
+  margin: .45rem 0 0;
+  font-size: .95rem;
 }
 
 .detail-item {
   background: #ffffff14;
   border: 1px solid #ffffff24;
   border-radius: 8px;
+  min-height: 138px;
   padding: 1.5rem;
   transition: border-color .2s, transform .2s, box-shadow .2s;
 }
@@ -228,7 +330,17 @@
   }
 
   .details-form {
+    grid-template-columns: 1fr;
     padding: 1.5rem;
+  }
+
+  .details-view {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-image-editor, .detail-identity {
+    text-align: center;
+    flex-direction: column;
   }
 
   .form-actions {

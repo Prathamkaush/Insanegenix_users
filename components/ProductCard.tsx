@@ -1,18 +1,11 @@
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
 import WishlistButton from "@/components/WishlistButton";
-import { Product, currency, productImage } from "@/lib/products";
+import { Product, currency, getProductPricing, productImage } from "@/lib/products";
 
 export default function ProductCard({ product }: { product: Product }) {
   const defaultVariant = product.variants?.find((variant) => variant.isDefault) || product.variants?.[0];
-  const currentPrice = defaultVariant?.price ?? product.finalPrice ?? product.price ?? 0;
-  const originalPrice =
-    defaultVariant?.mrp ??
-    product.originalPrice ??
-    (product.price && Number(product.price) > Number(currentPrice) ? product.price : null);
-  const discountPercent = originalPrice
-    ? Math.round(((Number(originalPrice) - Number(currentPrice)) / Number(originalPrice)) * 100)
-    : null;
+  const { currentPrice, originalPrice, discountPercent } = getProductPricing(product, defaultVariant);
   const meta = defaultVariant?.weightLabel || defaultVariant?.flavour || product.goal || product.category?.name;
   const averageRating = Number(product.averageRating || 0);
   const reviewCount = Number(product.reviewCount || 0);
