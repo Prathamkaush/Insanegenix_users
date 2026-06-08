@@ -4,6 +4,15 @@
   position: relative;
 }
 
+.ig-user-menu-wrapper:after {
+  content: "";
+  height: .5rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
 .ig-user-dropdown {
   z-index: 1000;
   background: #1a1a1a;

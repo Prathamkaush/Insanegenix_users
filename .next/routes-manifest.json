@@ -63,6 +63,12 @@
       "namedRegex": "^/about(?:/)?$"
     },
     {
+      "page": "/auth/google/callback",
+      "regex": "^/auth/google/callback(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/google/callback(?:/)?$"
+    },
+    {
       "page": "/authenticity",
       "regex": "^/authenticity(?:/)?$",
       "routeKeys": {},

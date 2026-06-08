@@ -4,6 +4,15 @@
   display: inline-block;
 }
 
+.ig-user-menu-wrapper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 0.5rem;
+}
+
 /* Dropdown Menu */
 .ig-user-dropdown {
   position: absolute;

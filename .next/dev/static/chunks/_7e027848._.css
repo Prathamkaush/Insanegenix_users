@@ -4,6 +4,15 @@
   position: relative;
 }
 
+.ig-user-menu-wrapper:after {
+  content: "";
+  height: .5rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
 .ig-user-dropdown {
   z-index: 1000;
   background: #1a1a1a;
@@ -1453,6 +1462,97 @@ a {
   background: #ffffff0f;
   padding: 10px 12px;
   color: #fff !important;
+}
+
+.ig-auth-divider {
+  color: #ffffff94;
+  text-transform: uppercase;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  display: grid;
+}
+
+.ig-auth-divider:before, .ig-auth-divider:after {
+  content: "";
+  background: #ffffff1f;
+  height: 1px;
+}
+
+.ig-google-auth-btn {
+  color: #171717;
+  background: #fff;
+  border: 1px solid #ffffff29;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform .2s, border-color .2s;
+  display: inline-flex;
+}
+
+.ig-google-auth-btn:hover:not(:disabled) {
+  border-color: var(--eg-theme-primary);
+  transform: translateY(-1px);
+}
+
+.ig-google-auth-btn:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.ig-google-auth-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.ig-auth-callback {
+  color: #fff;
+  background: #000;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  display: flex;
+}
+
+.ig-auth-callback__panel {
+  text-align: center;
+  background: #111514;
+  border: 1px solid #ffffff1f;
+  align-content: center;
+  place-items: center;
+  gap: 18px;
+  width: min(100%, 420px);
+  min-height: 180px;
+  padding: 30px;
+  display: grid;
+}
+
+.ig-auth-callback__panel .eg-loader-spin {
+  border: 3px solid #ffffff29;
+  border-top-color: var(--eg-theme-primary, #e50914);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  animation: .8s linear infinite igAuthSpin;
+}
+
+.ig-auth-callback__panel p {
+  color: #ffffffc2;
+  margin: 0;
+  font-weight: 700;
+}
+
+@keyframes igAuthSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 1199px) {

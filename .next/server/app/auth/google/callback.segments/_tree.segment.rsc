@@ -1,0 +1,12 @@
+:HL["/_next/static/chunks/5beda762c3ffcc2b.css","style"]
+:HL["/_next/static/chunks/90ff73134d4b0a9c.css","style"]
+:HL["/assets/css/bootstrap.css","style"]
+:HL["/assets/css/animate.css","style"]
+:HL["/assets/css/swiper-bundle.css","style"]
+:HL["/assets/css/magnific-popup.css","style"]
+:HL["/assets/css/font-awesome-pro.css","style"]
+:HL["/assets/css/spacing.css","style"]
+:HL["/assets/css/main.css","style"]
+:HL["/assets/img/logo/footer-logo.png","image"]
+:HL["/assets/img/icon/payment-option.png","image"]
+0:{"buildId":"3WTmkBhwEipLBi_GltHom","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"auth","paramType":null,"paramKey":"auth","hasRuntimePrefetch":false,"slots":{"children":{"name":"google","paramType":null,"paramKey":"google","hasRuntimePrefetch":false,"slots":{"children":{"name":"callback","paramType":null,"paramKey":"callback","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

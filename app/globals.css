@@ -1377,6 +1377,98 @@ a {
   padding: 10px 12px;
 }
 
+.ig-auth-divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ig-auth-divider::before,
+.ig-auth-divider::after {
+  content: "";
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ig-google-auth-btn {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #ffffff;
+  color: #171717;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.ig-google-auth-btn:hover:not(:disabled) {
+  border-color: var(--eg-theme-primary);
+  transform: translateY(-1px);
+}
+
+.ig-google-auth-btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.ig-google-auth-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.ig-auth-callback {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ig-auth-callback__panel {
+  width: min(100%, 420px);
+  min-height: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #111514;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 18px;
+  text-align: center;
+  padding: 30px;
+}
+
+.ig-auth-callback__panel .eg-loader-spin {
+  width: 34px;
+  height: 34px;
+  border: 3px solid rgba(255, 255, 255, 0.16);
+  border-top-color: var(--eg-theme-primary, #e50914);
+  border-radius: 50%;
+  animation: igAuthSpin 0.8s linear infinite;
+}
+
+.ig-auth-callback__panel p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-weight: 700;
+}
+
+@keyframes igAuthSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 1199px) {
   .eg-product-2__active .swiper-slide,
   .eg-testimonial-2__active .swiper-slide {

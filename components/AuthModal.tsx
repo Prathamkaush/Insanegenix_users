@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { X } from "lucide-react";
-import { loginCustomer, registerCustomer, storeCustomerSession } from "@/lib/auth";
+import { getGoogleAuthUrl, loginCustomer, registerCustomer, storeCustomerSession } from "@/lib/auth";
 import { AuthMode } from "@/lib/auth-modal";
 
 export default function AuthModal() {
@@ -51,6 +51,12 @@ export default function AuthModal() {
   const handleModeChange = (newMode: AuthMode) => {
     setMode(newMode);
     setMessage(""); // Clear messages when switching modes
+  };
+
+  const continueWithGoogle = () => {
+    setLoading(true);
+    setMessage("");
+    window.location.href = getGoogleAuthUrl();
   };
 
   const submitLogin = async (event: FormEvent) => {
@@ -137,6 +143,13 @@ export default function AuthModal() {
             <button className="eg-btn" type="submit" disabled={loading}>
               <span>{loading ? "Logging in..." : "Login"}</span>
             </button>
+            <div className="ig-auth-divider">
+              <span>or</span>
+            </div>
+            <button className="ig-google-auth-btn" type="button" onClick={continueWithGoogle} disabled={loading}>
+              <img src="/assets/img/icon/login/google.svg" alt="" />
+              <span>Continue with Google</span>
+            </button>
             <p>
               New here? <button type="button" onClick={() => handleModeChange("register")}>Create an account</button>
             </p>
@@ -150,6 +163,13 @@ export default function AuthModal() {
             {message ? <p className="ig-auth-message">{message}</p> : null}
             <button className="eg-btn" type="submit" disabled={loading}>
               <span>{loading ? "Creating..." : "Register"}</span>
+            </button>
+            <div className="ig-auth-divider">
+              <span>or</span>
+            </div>
+            <button className="ig-google-auth-btn" type="button" onClick={continueWithGoogle} disabled={loading}>
+              <img src="/assets/img/icon/login/google.svg" alt="" />
+              <span>Continue with Google</span>
             </button>
             <p>
               Already registered? <button type="button" onClick={() => handleModeChange("login")}>Login</button>

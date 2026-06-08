@@ -31,6 +31,10 @@ export function registerCustomer(name: string, email: string, password: string) 
   });
 }
 
+export function getGoogleAuthUrl() {
+  return `${API_URL}/auth/google`;
+}
+
 export function storeCustomerSession(data: AuthResponse) {
   if (!data.token) throw new Error("Token missing from auth response");
 

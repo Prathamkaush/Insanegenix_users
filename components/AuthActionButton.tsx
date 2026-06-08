@@ -41,6 +41,9 @@ export default function AuthActionButton({
     window.dispatchEvent(new Event("auth:changed"));
   };
 
+  const openDropdown = () => setIsDropdownOpen(true);
+  const closeDropdown = () => setIsDropdownOpen(false);
+
   if (!isLoggedIn) {
     return (
       <button
@@ -55,11 +58,21 @@ export default function AuthActionButton({
   }
 
   return (
-    <div className="ig-user-menu-wrapper">
+    <div
+      className="ig-user-menu-wrapper"
+      onMouseEnter={openDropdown}
+      onMouseLeave={closeDropdown}
+      onFocus={openDropdown}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          closeDropdown();
+        }
+      }}
+    >
       <button
         type="button"
         className={className}
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        onClick={openDropdown}
         aria-label={ariaLabel}
         aria-expanded={isDropdownOpen}
       >
@@ -67,13 +80,13 @@ export default function AuthActionButton({
       </button>
       {isDropdownOpen && (
         <div className="ig-user-dropdown">
-          <Link href="/profile" className="ig-user-dropdown-item">
+          <Link href="/profile" className="ig-user-dropdown-item" onClick={closeDropdown}>
             My Account
           </Link>
-          <Link href="/profile/addresses" className="ig-user-dropdown-item">
+          <Link href="/profile/addresses" className="ig-user-dropdown-item" onClick={closeDropdown}>
             Addresses
           </Link>
-          <Link href="/profile/orders" className="ig-user-dropdown-item">
+          <Link href="/profile/orders" className="ig-user-dropdown-item" onClick={closeDropdown}>
             My Orders
           </Link>
           <button
