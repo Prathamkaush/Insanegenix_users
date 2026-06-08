@@ -5,7 +5,15 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { MapPin, Plus, Loader2, CreditCard, Shield, Info, X, Check, Award } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
-import { getCart, getCustomerToken, CartItem } from "@/lib/cart";
+import {
+  cartItemGstRate,
+  cartItemGstTotal,
+  cartItemPayableTotal,
+  cartItemSubtotal,
+  getCart,
+  getCustomerToken,
+  CartItem,
+} from "@/lib/cart";
 import { currency, productImage } from "@/lib/products";
 import { getAddresses, createAddress, UserAddress } from "@/lib/profile";
 import { openAuthModal } from "@/lib/auth-modal";
@@ -179,10 +187,10 @@ export default function CheckoutPage() {
   }, [selectedAddressId, paymentMethod, appliedCouponCode, token]);
 
   const cartSubtotal = useMemo(() => {
-    return cartItems.reduce((sum, item) => sum + Number(item.price || 0) * item.quantity, 0);
+    return cartItems.reduce((sum, item) => sum + cartItemSubtotal(item), 0);
   }, [cartItems]);
   const cartGst = useMemo(() => {
-    return cartItems.reduce((sum, item) => sum + Number(item.gstAmount || 0) * item.quantity, 0);
+    return cartItems.reduce((sum, item) => sum + cartItemGstTotal(item), 0);
   }, [cartItems]);
   const cartSubtotalWithGst = cartSubtotal + cartGst;
 
@@ -330,7 +338,7 @@ export default function CheckoutPage() {
         }
 
         // Fire cart count updates
-        window.dispatchEvent(new Event("cart:updated"));
+        window.dispatchEvent(new CustomEvent("cart:updated", { detail: { count: 0 } }));
         router.push(`/checkout/success?id=${data.orderId}`);
       } else {
         // Online Payment (Razorpay Flow)
@@ -401,7 +409,7 @@ export default function CheckoutPage() {
                 throw new Error(verifyData.message || "Payment verification failed. Please contact support.");
               }
 
-              window.dispatchEvent(new Event("cart:updated"));
+              window.dispatchEvent(new CustomEvent("cart:updated", { detail: { count: 0 } }));
               router.push(`/checkout/success?id=${verifyData.orderId}`);
             } catch (verifyErr: any) {
               setErrorMessage(verifyErr.message || "Failed to confirm payment verification.");
@@ -587,9 +595,14 @@ export default function CheckoutPage() {
                             {item.variant?.flavour && ` | ${item.variant.flavour}`}
                             {item.variant?.weightLabel && ` | ${item.variant.weightLabel}`}
                           </p>
+                          <p className="ig-checkout-item-mini__gst">
+                            GST: {currency(cartItemGstTotal(item))}
+                            {cartItemGstRate(item) > 0 && ` (${cartItemGstRate(item)}%)`}
+                          </p>
                         </div>
                         <div className="ig-checkout-item-mini__price">
-                          {currency(Number(item.price) * item.quantity)}
+                          <span>{currency(cartItemPayableTotal(item))}</span>
+                          <small>incl. GST</small>
                         </div>
                       </div>
                     ))}

@@ -23,6 +23,7 @@ function Breadcrumb({ title }) {
                         className: "simple-breadcrumb__content",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                className: "text-white ",
                                 href: "/",
                                 children: "Home"
                             }, void 0, false, {
@@ -31,14 +32,28 @@ function Breadcrumb({ title }) {
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "active",
+                                className: "divider mr-5 ml-5 font-normal text-white",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("i", {
+                                    className: "fas fa-angle-right"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/Breadcrumb.tsx",
+                                    lineNumber: 14,
+                                    columnNumber: 25
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/components/Breadcrumb.tsx",
+                                lineNumber: 13,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "active text-white",
                                 children: [
-                                    " / ",
+                                    " ",
                                     title
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/Breadcrumb.tsx",
-                                lineNumber: 11,
+                                lineNumber: 16,
                                 columnNumber: 15
                             }, this)
                         ]
@@ -161,6 +176,8 @@ __turbopack_context__.s([
     ()=>fallbackProducts,
     "getProduct",
     ()=>getProduct,
+    "getProductPricing",
+    ()=>getProductPricing,
     "getProducts",
     ()=>getProducts,
     "productImage",
@@ -280,6 +297,25 @@ function productImage(product, imageKey = "img1") {
     if (!fallbackProducts.some((item)=>item.img1 === image)) return `${API_URL}/uploads/products/${image}`;
     return `/assets/img/product/${image}`;
 }
+function getProductPricing(product, variant) {
+    const basePrice = Number(variant?.price ?? product.price ?? 0);
+    const discountType = variant?.discountType ?? product.discountType;
+    const discountValue = Number(variant?.discountValue ?? product.discountValue ?? 0);
+    let currentPrice = basePrice;
+    if (discountType === "PERCENT" && discountValue > 0) {
+        currentPrice = Math.max(0, Math.round(basePrice - basePrice * discountValue / 100));
+    } else if (discountType === "FLAT" && discountValue > 0) {
+        currentPrice = Math.max(0, Math.round(basePrice - discountValue));
+    }
+    const configuredMrp = Number(variant?.mrp ?? product.originalPrice ?? 0);
+    const originalPrice = currentPrice < basePrice ? basePrice : configuredMrp > currentPrice ? configuredMrp : null;
+    const discountPercent = originalPrice ? Math.round((originalPrice - currentPrice) / originalPrice * 100) : null;
+    return {
+        currentPrice,
+        originalPrice,
+        discountPercent
+    };
+}
 function currency(value) {
     return `₹${Number(value || 0).toLocaleString("en-IN", {
         minimumFractionDigits: 2,
@@ -345,11 +381,11 @@ function WishlistPage() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "wishlist-area pt-120 pb-120",
+                className: "wishlist-area",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "container",
                     children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "eg-review__box text-center",
+                        className: "eg-review__box ig-empty-state text-center",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                             children: "Loading wishlist..."
                         }, void 0, false, {
@@ -362,7 +398,7 @@ function WishlistPage() {
                         lineNumber: 44,
                         columnNumber: 13
                     }, this) : loginRequired ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "eg-review__box text-center",
+                        className: "eg-review__box ig-empty-state text-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                 children: "Login to view your wishlist"
@@ -398,7 +434,7 @@ function WishlistPage() {
                         lineNumber: 48,
                         columnNumber: 13
                     }, this) : items.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "eg-review__box text-center",
+                        className: "eg-review__box ig-empty-state text-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                 children: "Your wishlist is empty"

@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import ProductCard from "@/components/ProductCard";
-import ProductPurchaseControls from "@/components/ProductPurchaseControls";
+import ProductGallery from "@/components/ProductGallery";
 import ProductReviewSection from "@/components/ProductReviewSection";
+import ProductVariantPurchase from "@/components/ProductVariantPurchase";
 import {
   Product,
   ProductVariant,
@@ -46,22 +47,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
         <div className="container">
           <div className="row align-items-start">
             <div className="col-lg-6">
-              <div className="eg-product-details__thumb-tab mb-85 ig-product-gallery">
-                <div className="eg-product-details__thumb-content w-img ig-product-gallery__main">
-                  <img src={images[0]} alt={product.title} />
-                </div>
-                {images.length > 1 ? (
-                  <div className="eg-product-details__thumb-nav tp-tab mt-30">
-                    <div className="nav nav-tabs d-flex justify-content-between" role="tablist">
-                      {images.slice(0, 4).map((image, index) => (
-                        <button key={image} className={`nav-link ${index === 0 ? "active" : ""}`} type="button">
-                          <img src={image} alt={`${product.title} view ${index + 1}`} />
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
+              <ProductGallery images={images} title={product.title} />
             </div>
 
             <div className="col-lg-6">
@@ -98,32 +84,13 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
                   </div>
                 </div>
 
-                {product.variants?.length ? (
-                  <div className="ig-product-panel mt-30">
-                    <h4 className="eg-product-details__quantity-title mb-15">Available Options</h4>
-                    <div className="ig-variant-list">
-                      {product.variants.map((variant) => (
-                        <button key={variant.id || variant.sku} className={`ig-variant-btn ${variant.isDefault ? "active" : ""}`}>
-                          <span>{variant.flavour || "Unflavoured"}</span>
-                          {variant.weightLabel ? <small>{variant.weightLabel}</small> : null}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-
                 <div className="ig-product-highlights">
                   <InfoPill label="Goal" value={product.goal || category} />
                   <InfoPill label="Serving" value={product.servingSize || defaultVariant?.netQuantity || "-"} />
                   <InfoPill label="Shipping" value={product.freeShipping ? "Free" : product.estimatedShipping || "Standard"} />
                 </div>
 
-                <ProductPurchaseControls
-                  product={product}
-                  variantId={defaultVariant?.id}
-                  maxQuantity={maxQuantity}
-                  inStock={inStock}
-                />
+                <ProductVariantPurchase product={product} defaultVariantId={defaultVariant?.id} />
 
                 <div className="eg-product-details__bottom mb-30">
                   <DetailLine label="SKU" value={defaultVariant?.sku || product.slug.toUpperCase()} />

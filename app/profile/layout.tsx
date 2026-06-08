@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { LogOut, User, MapPin, ShoppingBag } from "lucide-react";
 import { getUserProfile, profileImageUrl } from "@/lib/profile";
@@ -17,9 +18,9 @@ interface UserData {
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("details");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -88,8 +89,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
         <nav className="profile-nav">
           <Link
             href="/profile"
-            className={`profile-nav-item ${activeTab === "details" ? "active" : ""}`}
-            onClick={() => setActiveTab("details")}
+            className={`profile-nav-item ${pathname === "/profile" ? "active" : ""}`}
           >
             <User size={18} />
             <span>Profile Details</span>
@@ -97,8 +97,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
 
           <Link
             href="/profile/addresses"
-            className={`profile-nav-item ${activeTab === "addresses" ? "active" : ""}`}
-            onClick={() => setActiveTab("addresses")}
+            className={`profile-nav-item ${pathname.startsWith("/profile/addresses") ? "active" : ""}`}
           >
             <MapPin size={18} />
             <span>Addresses</span>
@@ -106,8 +105,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
 
           <Link
             href="/profile/orders"
-            className={`profile-nav-item ${activeTab === "orders" ? "active" : ""}`}
-            onClick={() => setActiveTab("orders")}
+            className={`profile-nav-item ${pathname.startsWith("/profile/orders") ? "active" : ""}`}
           >
             <ShoppingBag size={18} />
             <span>Orders</span>

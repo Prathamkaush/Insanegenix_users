@@ -72,3 +72,29 @@ export function removeCartItem(id: number) {
     method: "DELETE",
   });
 }
+
+export function cartItemSubtotal(item: CartItem) {
+  return Number(item.price || 0) * item.quantity;
+}
+
+export function cartItemGstRate(item: CartItem) {
+  return Number(item.gstRate || 0);
+}
+
+export function cartItemUnitGst(item: CartItem) {
+  const configuredGst = Number(item.gstAmount || 0);
+  if (configuredGst > 0) return configuredGst;
+
+  const rate = cartItemGstRate(item);
+  if (rate <= 0) return 0;
+
+  return (Number(item.price || 0) * rate) / 100;
+}
+
+export function cartItemGstTotal(item: CartItem) {
+  return cartItemUnitGst(item) * item.quantity;
+}
+
+export function cartItemPayableTotal(item: CartItem) {
+  return cartItemSubtotal(item) + cartItemGstTotal(item);
+}

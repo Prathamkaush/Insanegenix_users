@@ -1,7 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { Mail, Phone } from "lucide-react";
+import { FormEvent, useEffect, useState } from "react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { defaultStorefrontSettings, phoneHref, type StorefrontSettings } from "@/lib/settings";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3030";
 
@@ -9,6 +11,22 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [settings, setSettings] = useState<StorefrontSettings>(defaultStorefrontSettings);
+
+  useEffect(() => {
+    fetch(`${API_URL}/settings`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!data) return;
+        setSettings({
+          supportEmail: data.supportEmail || defaultStorefrontSettings.supportEmail,
+          supportPhone: data.supportPhone || defaultStorefrontSettings.supportPhone,
+          address: data.address || defaultStorefrontSettings.address,
+          maintenanceMode: Boolean(data.maintenanceMode),
+        });
+      })
+      .catch(() => {});
+  }, []);
 
   const submitContact = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,28 +69,39 @@ export default function ContactPage() {
 
   return (
     <main className="ig-contact-page">
+      
       <section className="ig-contact-section">
-        <div className="container">
+        <Breadcrumb  title="Contact" />
+        <div className="container mt-50">
+          
           <div className="ig-contact-layout">
             <div className="ig-contact-left">
               <div className="ig-contact-cards">
                 <div className="ig-contact-info-card">
                   <Mail size={30} />
                   <h2>Email Us</h2>
-                  <a href="mailto:info@insanegenix.com">info@insanegenix.com</a>
+                  <a href={`mailto:${settings.supportEmail}`}>{settings.supportEmail}</a>
                 </div>
 
                 <div className="ig-contact-info-card">
                   <Phone size={30} />
                   <h2>Contact Us</h2>
-                  <a href="tel:0203701425">020 370 1425</a>
+                  <a href={phoneHref(settings.supportPhone)}>{settings.supportPhone}</a>
                 </div>
+
+                {settings.address ? (
+                  <div className="ig-contact-info-card">
+                    <MapPin size={30} />
+                    <h2>Visit Us</h2>
+                    <span>{settings.address}</span>
+                  </div>
+                ) : null}
               </div>
 
               <div className="ig-contact-map">
                 <iframe
-                  title="InsaneGenix New Delhi map"
-                  src="https://www.google.com/maps?q=New%20Delhi,%20Delhi&z=10&output=embed"
+                  title="InsaneGenix support location map"
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(settings.address || "New Delhi, Delhi")}&z=10&output=embed`}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />

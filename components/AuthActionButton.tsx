@@ -5,6 +5,29 @@ import { AuthMode, openAuthModal } from "@/lib/auth-modal";
 import Link from "next/link";
 import "./AuthActionButton.css";
 
+type AuthActionRenderState = {
+  isLoggedIn: boolean;
+  displayName: string;
+};
+
+type AuthActionChildren = ReactNode | ((state: AuthActionRenderState) => ReactNode);
+
+function getStoredDisplayName() {
+  try {
+    const rawUser = localStorage.getItem("user");
+    if (!rawUser) return "";
+
+    const user = JSON.parse(rawUser);
+    const fullName = String(user?.name || user?.firstName || user?.email || "").trim();
+    if (!fullName) return "";
+
+    if (fullName.includes("@")) return fullName.split("@")[0];
+    return fullName.split(/\s+/)[0] || fullName;
+  } catch {
+    return "";
+  }
+}
+
 export default function AuthActionButton({
   mode = "login",
   className,
@@ -13,19 +36,22 @@ export default function AuthActionButton({
 }: {
   mode?: AuthMode;
   className?: string;
-  children: ReactNode;
+  children: AuthActionChildren;
   ariaLabel?: string;
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [displayName, setDisplayName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
+    setDisplayName(token ? getStoredDisplayName() : "");
 
     const handleAuthChange = () => {
       const updatedToken = localStorage.getItem("token");
       setIsLoggedIn(!!updatedToken);
+      setDisplayName(updatedToken ? getStoredDisplayName() : "");
       setIsDropdownOpen(false);
     };
 
@@ -43,6 +69,10 @@ export default function AuthActionButton({
 
   const openDropdown = () => setIsDropdownOpen(true);
   const closeDropdown = () => setIsDropdownOpen(false);
+  const renderChildren = () =>
+    typeof children === "function"
+      ? children({ isLoggedIn, displayName })
+      : children;
 
   if (!isLoggedIn) {
     return (
@@ -52,7 +82,7 @@ export default function AuthActionButton({
         onClick={() => openAuthModal(mode)}
         aria-label={ariaLabel}
       >
-        {children}
+        {renderChildren()}
       </button>
     );
   }
@@ -76,7 +106,7 @@ export default function AuthActionButton({
         aria-label={ariaLabel}
         aria-expanded={isDropdownOpen}
       >
-        {children}
+        {renderChildren()}
       </button>
       {isDropdownOpen && (
         <div className="ig-user-dropdown">

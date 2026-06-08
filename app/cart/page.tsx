@@ -2,9 +2,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { X } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AuthActionButton from "@/components/AuthActionButton";
-import { getCart, getCustomerToken, removeCartItem, updateCartItem, CartItem } from "@/lib/cart";
+import {
+  cartItemGstRate,
+  cartItemGstTotal,
+  cartItemPayableTotal,
+  cartItemSubtotal,
+  getCart,
+  getCustomerToken,
+  removeCartItem,
+  updateCartItem,
+  CartItem,
+} from "@/lib/cart";
 import { currency, productImage } from "@/lib/products";
 
 export default function CartPage() {
@@ -37,35 +48,45 @@ export default function CartPage() {
     return () => window.removeEventListener("cart:updated", loadCart);
   }, []);
 
-  const total = useMemo(
-    () => items.reduce((sum, item) => sum + Number(item.price || 0) * item.quantity, 0),
-    [items]
-  );
+  const subtotal = useMemo(() => items.reduce((sum, item) => sum + cartItemSubtotal(item), 0), [items]);
+  const gstTotal = useMemo(() => items.reduce((sum, item) => sum + cartItemGstTotal(item), 0), [items]);
+  const total = subtotal + gstTotal;
+
+  const notifyCartCount = (nextItems: CartItem[]) => {
+    const count = nextItems.reduce((sum, item) => sum + item.quantity, 0);
+    window.dispatchEvent(new CustomEvent("cart:updated", { detail: { count } }));
+  };
 
   const changeQuantity = async (item: CartItem, quantity: number) => {
     if (quantity < 1) return;
     await updateCartItem(item.id, quantity);
-    setItems((current) =>
-      current.map((currentItem) => (currentItem.id === item.id ? { ...currentItem, quantity } : currentItem))
-    );
+    setItems((current) => {
+      const nextItems = current.map((currentItem) => (currentItem.id === item.id ? { ...currentItem, quantity } : currentItem));
+      notifyCartCount(nextItems);
+      return nextItems;
+    });
   };
 
   const removeItem = async (id: number) => {
     await removeCartItem(id);
-    setItems((current) => current.filter((item) => item.id !== id));
+    setItems((current) => {
+      const nextItems = current.filter((item) => item.id !== id);
+      notifyCartCount(nextItems);
+      return nextItems;
+    });
   };
 
   return (
     <main className="fix">
       <Breadcrumb title="Cart" />
-      <section className="cart-area pt-120 pb-120">
-        <div className="container">
+      <section className="cart-area">
+        <div className="container mt-25">
           {loading ? (
-            <div className="eg-review__box text-center">
+            <div className="eg-review__box ig-empty-state text-center">
               <h3>Loading cart...</h3>
             </div>
           ) : loginRequired ? (
-            <div className="eg-review__box text-center">
+            <div className="eg-review__box ig-empty-state text-center">
               <h3>Login to view your cart</h3>
               <p>Add products after signing in to keep them saved.</p>
               <AuthActionButton className="eg-btn mt-25">
@@ -73,7 +94,7 @@ export default function CartPage() {
               </AuthActionButton>
             </div>
           ) : items.length === 0 ? (
-            <div className="eg-review__box text-center">
+            <div className="eg-review__box ig-empty-state text-center">
               <h3>Your cart is empty</h3>
               <p>Pick your supplements and they will appear here.</p>
               <Link href="/shop" className="eg-btn mt-25">
@@ -82,36 +103,76 @@ export default function CartPage() {
             </div>
           ) : (
             <div className="ig-cart-layout">
-              <div className="ig-cart-list">
-                {items.map((item) => (
-                  <article className="ig-cart-item" key={item.id}>
-                    <Link href={`/product/${item.product.slug || item.product.id}`} className="ig-cart-item__image">
-                      <img src={productImage(item.product)} alt={item.product.title} />
-                    </Link>
-                    <div className="ig-cart-item__body">
-                      <h3>{item.product.title}</h3>
-                      <p>{[item.variant?.flavour, item.variant?.weightLabel, item.size?.size].filter(Boolean).join(" / ")}</p>
-                      <strong>{currency(item.price)}</strong>
-                      <div className="ig-cart-item__actions">
-                        <button type="button" onClick={() => changeQuantity(item, item.quantity - 1)}>-</button>
-                        <span>{item.quantity}</span>
-                        <button type="button" onClick={() => changeQuantity(item, item.quantity + 1)}>+</button>
-                        <button type="button" className="ig-cart-remove" onClick={() => removeItem(item.id)}>
-                          Remove
-                        </button>
+              <div className="ig-cart-table-wrap">
+                <div className="ig-cart-table" role="table" aria-label="Shopping cart">
+                  <div className="ig-cart-row ig-cart-row--head" role="row">
+                    <span role="columnheader">Item</span>
+                    <span role="columnheader">Price</span>
+                    <span role="columnheader">GST</span>
+                    <span role="columnheader">Quantity</span>
+                    <span role="columnheader">Total</span>
+                    <span role="columnheader">Remove</span>
+                  </div>
+                  {items.map((item) => (
+                    <div className="ig-cart-row" role="row" key={item.id}>
+                      <div className="ig-cart-product" role="cell">
+                        <Link href={`/product/${item.product.slug || item.product.id}`} className="ig-cart-product__image">
+                          <img src={productImage(item.product)} alt={item.product.title} />
+                        </Link>
+                        <div className="ig-cart-product__copy">
+                          <h3>
+                            <Link href={`/product/${item.product.slug || item.product.id}`}>
+                              {item.product.title}
+                            </Link>
+                          </h3>
+                          <p>{[item.variant?.flavour, item.variant?.weightLabel, item.size?.size].filter(Boolean).join(" / ")}</p>
+                        </div>
                       </div>
+                      <strong className="ig-cart-price" role="cell">{currency(item.price)}</strong>
+                      <div className="ig-cart-gst" role="cell">
+                        <span className="ig-cart-gst__value">
+                          {currency(cartItemGstTotal(item))}
+                          {cartItemGstRate(item) > 0 && <small>{cartItemGstRate(item)}% GST</small>}
+                        </span>
+                      </div>
+                      <div className="ig-cart-quantity" role="cell">
+                        <span className="ig-cart-mobile-label">Quantity</span>
+                        <div className="ig-cart-stepper">
+                          <span>{item.quantity}</span>
+                          <div>
+                            <button type="button" aria-label={`Increase ${item.product.title} quantity`} onClick={() => changeQuantity(item, item.quantity + 1)}>
+                              +
+                            </button>
+                            <button type="button" aria-label={`Decrease ${item.product.title} quantity`} onClick={() => changeQuantity(item, item.quantity - 1)} disabled={item.quantity <= 1}>
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <strong className="ig-cart-line-total" role="cell">{currency(cartItemPayableTotal(item))}</strong>
+                      <button type="button" className="ig-cart-remove" aria-label={`Remove ${item.product.title}`} onClick={() => removeItem(item.id)} role="cell">
+                        <X size={29} strokeWidth={2.4} />
+                      </button>
                     </div>
-                  </article>
-                ))}
+                  ))}
+                </div>
+                
               </div>
               <aside className="ig-cart-summary">
-                <span>Total</span>
-                <strong>{currency(total)}</strong>
-                <Link href="/checkout" className="eg-btn mb-15 text-center d-block">
-                  <span>Proceed to Checkout</span>
-                </Link>
-                <Link href="/shop" className="eg-btn text-center d-block" style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.15)", color: "#fff" }}>
-                  <span>Continue Shopping</span>
+                <div className="ig-cart-summary__line">
+                  <span>Subtotal</span>
+                  <strong>{currency(subtotal)}</strong>
+                </div>
+                <div className="ig-cart-summary__line">
+                  <span>GST</span>
+                  <strong>{currency(gstTotal)}</strong>
+                </div>
+                <div className="ig-cart-summary__line ig-cart-summary__line--total">
+                  <span>Total</span>
+                  <strong>{currency(total)}</strong>
+                </div>
+                <Link href="/checkout" className="ig-cart-checkout">
+                  Proceed To Checkout
                 </Link>
               </aside>
             </div>

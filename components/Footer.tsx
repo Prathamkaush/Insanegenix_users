@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { defaultStorefrontSettings, phoneHref, type StorefrontSettings } from "@/lib/settings";
 
 const productLinks = ["Creatine", "Dart", "EAA", "ISO", "Mass Gainer"];
 
@@ -17,7 +18,11 @@ const pageLinks = [
   ["Contact Us", "/contact"],
 ];
 
-export default function Footer() {
+export default function Footer({
+  settings = defaultStorefrontSettings,
+}: {
+  settings?: StorefrontSettings;
+}) {
   return (
     <footer className="eg-footer-2__area black-bg scene">
       <div className="eg-footer-2 p-relative z-index-1">
@@ -87,11 +92,11 @@ export default function Footer() {
                       <ul>
                         <li className="phone">
                           <span className="icon"><i className="fal fa-phone-alt"></i></span>
-                          <a href="tel:0203701425">020 370 1425</a>
+                          <a href={phoneHref(settings.supportPhone)}>{settings.supportPhone}</a>
                         </li>
                         <li className="mail">
                           <span className="icon"><i className="fal fa-envelope"></i></span>
-                          <a href="mailto:info@insanegenix.com">info@insanegenix.com</a>
+                          <a href={`mailto:${settings.supportEmail}`}>{settings.supportEmail}</a>
                         </li>
                       </ul>
                     </div>

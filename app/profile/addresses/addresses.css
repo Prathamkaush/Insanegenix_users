@@ -1,5 +1,7 @@
 .addresses-container {
   max-width: 900px;
+  min-width: 0;
+  width: 100%;
 }
 
 .addresses-header {
@@ -77,6 +79,7 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .form-group {
@@ -341,6 +344,7 @@
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    align-items: stretch;
   }
 
   .addresses-header h1 {
@@ -353,6 +357,7 @@
 
   .addresses-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .form-row {
@@ -364,6 +369,24 @@
   }
 
   .address-form {
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+
+  .address-card {
+    padding: 1rem;
+  }
+
+  .default-badge {
+    position: static;
+    width: fit-content;
+    margin-bottom: 0.85rem;
+  }
+
+  .address-actions {
+    flex-wrap: wrap;
+  }
+
+  .btn-set-default {
+    flex-basis: 100%;
   }
 }

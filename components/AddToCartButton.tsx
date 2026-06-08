@@ -40,7 +40,7 @@ export default function AddToCartButton({
       await addToCart(product.id, variantId ?? defaultVariant?.id, sizeId, quantity);
       setMessage("Added");
       setIsAnimating(true);
-      window.dispatchEvent(new Event("cart:updated"));
+      window.dispatchEvent(new CustomEvent("cart:updated", { detail: { delta: quantity } }));
       setTimeout(() => setIsAnimating(false), 600);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "";

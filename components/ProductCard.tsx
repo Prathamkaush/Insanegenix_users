@@ -1,6 +1,5 @@
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
-import WishlistButton from "@/components/WishlistButton";
 import { Product, currency, getProductPricing, productImage } from "@/lib/products";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -12,16 +11,16 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="product-card">
-      <Link
-        href={`/product/${product.slug}`}
-        className="product-card__cover-link"
-        aria-label={`View ${product.title}`}
-      />
+      <Link href={`/product/${product.slug}`} className="product-card__image-wrapper">
+        <img src={productImage(product)} alt={product.title} className="product-card__image" />
+      </Link>
 
       <div className="product-card__content">
-        <h4 className="product-card__title">
+        <Link href={`/product/${product.slug}`} className="product-card__title-link">
+          <h4 className="product-card__title">
           {product.title}
-        </h4>
+          </h4>
+        </Link>
 
         {meta ? <p className="product-card__meta">{meta}</p> : null}
 
@@ -46,19 +45,12 @@ export default function ProductCard({ product }: { product: Product }) {
           ) : null}
         </div>
 
-          <div className="buttons-row">
         <div className="product-card__actions">
-          <AddToCartButton product={product} className="product-card__cart-btn" label="Add To Cart" />
+          <AddToCartButton product={product} className="product-card__cart-icon-btn" />
+          <Link href={`/product/${product.slug}`} className="product-card__buy-btn">
+            Buy Now
+          </Link>
         </div>
-
-        <div className="product-card__wishlist">
-          <WishlistButton productId={product.id} />
-        </div>
-        </div>
-      </div>
-
-      <div className="product-card__image-wrapper">
-        <img src={productImage(product)} alt={product.title} className="product-card__image" />
       </div>
     </div>
   );

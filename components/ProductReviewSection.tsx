@@ -5,14 +5,36 @@ import AuthActionButton from "@/components/AuthActionButton";
 import { getCustomerToken } from "@/lib/cart";
 import { getProductReviews, ProductReview, submitProductReview } from "@/lib/reviews";
 
-function Stars({ rating, interactive = false, onSelect }: { rating: number; interactive?: boolean; onSelect?: (rating: number) => void }) {
+function Stars({
+  rating,
+  interactive = false,
+  onSelect,
+  onPreview,
+  onLeave,
+}: {
+  rating: number;
+  interactive?: boolean;
+  onSelect?: (rating: number) => void;
+  onPreview?: (rating: number) => void;
+  onLeave?: () => void;
+}) {
   return (
     <div className="ig-review-stars" aria-label={`${rating} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map((star) => {
         const active = star <= rating;
         if (interactive) {
           return (
-            <button key={star} type="button" className={active ? "active" : ""} onClick={() => onSelect?.(star)}>
+            <button
+              key={star}
+              type="button"
+              className={active ? "active" : ""}
+              onClick={() => onSelect?.(star)}
+              onMouseEnter={() => onPreview?.(star)}
+              onFocus={() => onPreview?.(star)}
+              onMouseLeave={onLeave}
+              onBlur={onLeave}
+              aria-label={`Rate ${star} out of 5`}
+            >
               <img src="/assets/img/icon/rating-star.svg" alt="" />
             </button>
           );
@@ -40,7 +62,8 @@ export default function ProductReviewSection({
   const [reviews, setReviews] = useState<ProductReview[]>([]);
   const [average, setAverage] = useState(initialAverage);
   const [total, setTotal] = useState(initialTotal);
-  const [rating, setRating] = useState(5);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -64,11 +87,18 @@ export default function ProductReviewSection({
     setMessage(null);
     setError(null);
 
+    if (rating < 1) {
+      setError("Please select a star rating before submitting.");
+      return;
+    }
+
     try {
       setSubmitting(true);
       await submitProductReview(productId, rating, comment.trim());
       setComment("");
-      setMessage("Thanks, your rating has been submitted.");
+      setRating(0);
+      setHoverRating(0);
+      setMessage("Thanks, your authentic rating has been submitted.");
       await refreshReviews();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unable to submit review";
@@ -91,7 +121,19 @@ export default function ProductReviewSection({
       {loggedIn ? (
         <form className="ig-review-form" onSubmit={handleSubmit}>
           <label>Rate this product</label>
-          <Stars rating={rating} interactive onSelect={setRating} />
+          <div className="ig-review-rating-picker">
+            <Stars
+              rating={hoverRating || rating}
+              interactive
+              onSelect={(selectedRating) => {
+                setRating(selectedRating);
+                setError(null);
+              }}
+              onPreview={setHoverRating}
+              onLeave={() => setHoverRating(0)}
+            />
+            <span>{rating ? `${rating}/5 selected` : "Select your rating"}</span>
+          </div>
           <textarea
             value={comment}
             onChange={(event) => setComment(event.target.value)}

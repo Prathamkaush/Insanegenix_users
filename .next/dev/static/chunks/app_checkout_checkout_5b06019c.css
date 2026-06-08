@@ -295,9 +295,25 @@
   font-size: 11px;
 }
 
+.ig-checkout-item-mini__info .ig-checkout-item-mini__gst {
+  color: #ffffffb8;
+  margin-top: 3px;
+  font-weight: 700;
+}
+
 .ig-checkout-item-mini__price {
   color: #fff;
+  text-align: right;
+  gap: 3px;
   font-size: 13px;
+  font-weight: 700;
+  display: grid;
+}
+
+.ig-checkout-item-mini__price small {
+  color: #ffffff7a;
+  text-transform: uppercase;
+  font-size: 10px;
   font-weight: 700;
 }
 

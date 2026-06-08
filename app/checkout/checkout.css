@@ -296,10 +296,26 @@
   margin: 0;
 }
 
+.ig-checkout-item-mini__info .ig-checkout-item-mini__gst {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 700;
+  margin-top: 3px;
+}
+
 .ig-checkout-item-mini__price {
   color: #fff;
   font-weight: 700;
   font-size: 13px;
+  display: grid;
+  gap: 3px;
+  text-align: right;
+}
+
+.ig-checkout-item-mini__price small {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* Address Form Modal */

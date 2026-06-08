@@ -3721,6 +3721,8 @@ a.ui-button:active {
   -ms-transition: all 0.3s 0s ease-out;
   -o-transition: all 0.3s 0s ease-out;
   transition: all 0.3s 0s ease-out;
+  margin-top: -18px;
+  margin-right:-20px
 }
 .eg-header__mobile-toggler:hover {
   background: var(--eg-red-1);
@@ -9691,8 +9693,7 @@ a.ui-button:active {
   background: linear-gradient(270deg, rgb(0 0 0), rgb(255 0 0 / 67%));
     /* background: linear-gradient(265.48deg, #fdc00f 21.72%,  #e10b18 115.5%); */
     padding: 22px 0;
-    margin-top: 80px;   /* top menu ke niche gap */
-    margin-bottom: 40px; /* bottom spacing */
+    margin-top: 80px;   
     position: relative;
     z-index: 1;
 }

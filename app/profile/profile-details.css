@@ -1,5 +1,6 @@
 .profile-details {
   width: 100%;
+  min-width: 0;
 }
 
 .details-header {
@@ -323,23 +324,33 @@
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    align-items: stretch;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1.25rem;
   }
 
   .details-header h1 {
     font-size: 1.4rem;
+    line-height: 1.15;
+    word-break: normal;
   }
 
   .btn-edit {
     width: 100%;
+    min-height: 58px;
+    justify-content: center;
   }
 
   .details-form {
     grid-template-columns: 1fr;
-    padding: 1.5rem;
+    padding: 1rem;
+    gap: 1rem;
+    min-width: 0;
   }
 
   .details-view {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .profile-image-editor {
@@ -350,9 +361,49 @@
   .detail-identity {
     flex-direction: column;
     text-align: center;
+    min-height: 0;
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .detail-avatar {
+    width: 86px;
+    height: 86px;
+    font-size: 1.8rem;
+  }
+
+  .detail-identity__copy {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .detail-identity__copy h2 {
+    font-size: 1.35rem;
+    overflow-wrap: anywhere;
+  }
+
+  .detail-identity__copy p {
+    overflow-wrap: anywhere;
+  }
+
+  .detail-item {
+    min-height: 0;
+    padding: 1rem;
+  }
+
+  .detail-item p {
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .form-actions {
     flex-direction: column;
+  }
+
+  .form-group input,
+  .btn-primary,
+  .btn-secondary {
+    min-height: 52px;
   }
 }

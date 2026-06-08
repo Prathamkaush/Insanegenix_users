@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddToCartButton from "@/components/AddToCartButton";
 import WishlistButton from "@/components/WishlistButton";
 import { Product } from "@/lib/products";
@@ -26,6 +26,10 @@ export default function ProductPurchaseControls({
   const increment = () => {
     setQuantity((current) => Math.min(safeMaxQuantity, current + 1));
   };
+
+  useEffect(() => {
+    setQuantity((current) => Math.min(Math.max(1, current), safeMaxQuantity));
+  }, [safeMaxQuantity]);
 
   return (
     <div className="eg-product-details__quantity d-flex align-items-center mb-30 mt-30">

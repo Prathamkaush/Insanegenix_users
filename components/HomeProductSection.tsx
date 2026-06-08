@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import ShopProductCard from "@/components/ShopProductCard";
 import { Product } from "@/lib/products";
 
 type HomeProductSectionProps = {
@@ -52,7 +52,7 @@ export default function HomeProductSection({
             <div className="swiper-wrapper">
               {products.slice(0, 8).map((product) => (
                 <div key={product.id} className="swiper-slide ig-home-product-slide">
-                  <ProductCard product={product} />
+                  <ShopProductCard product={product} />
                 </div>
               ))}
             </div>

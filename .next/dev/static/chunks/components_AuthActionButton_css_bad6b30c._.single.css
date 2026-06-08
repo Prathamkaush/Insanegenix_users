@@ -1,5 +1,6 @@
 /* [project]/components/AuthActionButton.css [app-client] (css) */
 .ig-user-menu-wrapper {
+  max-width: 118px;
   display: inline-block;
   position: relative;
 }
@@ -81,8 +82,9 @@
   background: none;
   border: none;
   align-items: center;
-  gap: .5rem;
-  padding: .5rem 0;
+  gap: .38rem;
+  max-width: 118px;
+  padding: .45rem 0;
   transition: all .2s;
   display: flex;
 }
@@ -93,9 +95,55 @@
 
 .ig-header-auth-btn .user {
   align-items: center;
-  gap: .25rem;
-  font-weight: 500;
+  gap: .16rem;
+  min-width: 0;
+  font-weight: 700;
   display: flex;
+}
+
+.ig-account-icon, .ig-account-chevron {
+  flex: none;
+}
+
+.ig-account-label {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0;
+  max-width: 76px;
+  font-size: .78rem;
+  line-height: 1;
+  display: block;
+  overflow: hidden;
+}
+
+.ig-account-copy {
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  max-width: 72px;
+  line-height: 1;
+  display: flex;
+}
+
+.ig-account-hi {
+  color: #fff;
+  font-size: .66rem;
+  font-weight: 700;
+  line-height: .95;
+  display: block;
+}
+
+.ig-account-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0;
+  color: #fff;
+  max-width: 72px;
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1.05;
+  display: block;
+  overflow: hidden;
 }
 
 .eg-menu__header-divider {
@@ -106,6 +154,32 @@
 }
 
 @media (max-width: 768px) {
+  .ig-user-menu-wrapper, .ig-header-auth-btn {
+    max-width: 92px;
+  }
+
+  .ig-account-label {
+    max-width: 54px;
+    font-size: .72rem;
+  }
+
+  .ig-account-copy, .ig-account-name {
+    max-width: 50px;
+  }
+
+  .ig-account-hi {
+    font-size: .58rem;
+  }
+
+  .ig-account-name {
+    font-size: .68rem;
+  }
+
+  .ig-account-chevron {
+    width: 14px;
+    height: 14px;
+  }
+
   .ig-user-dropdown {
     width: auto;
     min-width: auto;

@@ -1,5 +1,7 @@
 /* [project]/app/profile/addresses/addresses.css [app-client] (css) */
 .addresses-container {
+  width: 100%;
+  min-width: 0;
   max-width: 900px;
 }
 
@@ -76,6 +78,7 @@
 .form-row {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   display: grid;
 }
@@ -339,6 +342,7 @@
   .addresses-header {
     text-align: center;
     flex-direction: column;
+    align-items: stretch;
     gap: 1rem;
   }
 
@@ -350,7 +354,12 @@
     width: 100%;
   }
 
-  .addresses-grid, .form-row {
+  .addresses-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-row {
     grid-template-columns: 1fr;
   }
 
@@ -358,8 +367,22 @@
     flex-direction: column;
   }
 
-  .address-form {
-    padding: 1.5rem;
+  .address-form, .address-card {
+    padding: 1rem;
+  }
+
+  .default-badge {
+    width: fit-content;
+    margin-bottom: .85rem;
+    position: static;
+  }
+
+  .address-actions {
+    flex-wrap: wrap;
+  }
+
+  .btn-set-default {
+    flex-basis: 100%;
   }
 }
 

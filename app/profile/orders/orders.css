@@ -1,5 +1,7 @@
 .orders-container {
   max-width: 900px;
+  min-width: 0;
+  width: 100%;
 }
 
 .orders-header {
@@ -232,6 +234,11 @@
 }
 
 @media (max-width: 768px) {
+  .orders-header {
+    margin-bottom: 1.4rem;
+    padding-bottom: 1.2rem;
+  }
+
   .orders-header h1 {
     font-size: 1.4rem;
   }
@@ -255,8 +262,21 @@
     padding: 1rem;
   }
 
+  .order-info,
+  .order-amount {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .order-info h3,
+  .order-date,
+  .order-amount .amount {
+    overflow-wrap: anywhere;
+  }
+
   .pagination {
     flex-wrap: wrap;
+    gap: 0.65rem;
   }
 
   .btn-pagination {

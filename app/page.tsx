@@ -1,12 +1,32 @@
 import Link from "next/link";
 import Script from "next/script";
+import HomeHeroSlider from "@/components/HomeHeroSlider";
 import HomeProductSection from "@/components/HomeProductSection";
+import { getHomepageSections, homepageMediaUrl, HomepageMedia } from "@/lib/homepage";
 import { getProducts, productImage } from "@/lib/products";
 import { getLatestReviews } from "@/lib/reviews";
 
 export default async function HomePage() {
-  const [products, latestReviews] = await Promise.all([getProducts(), getLatestReviews(4)]);
+  const [products, latestReviews, homepageSections] = await Promise.all([
+    getProducts(),
+    getLatestReviews(4),
+    getHomepageSections(),
+  ]);
   const trendingProducts = products.filter((product) => product.isTrending);
+  const heroSection = homepageSections.find(
+    (section) => section.type === "HERO" && section.config?.sectionKind !== "VIDEO",
+  );
+  const videoSection = homepageSections.find(
+    (section) =>
+      section.type === "HERO" &&
+      (section.config?.sectionKind === "VIDEO" || section.config?.videoBanner?.enabled),
+  );
+  const heroSlides = Array.isArray(heroSection?.config?.slides)
+    ? heroSection.config.slides.filter((slide: any) => slide.media)
+    : [];
+  const videoBanner = videoSection?.config?.videoBanner?.enabled
+    ? videoSection.config.videoBanner
+    : null;
   const productSections = [
     { id: "latest", title: "Latest Products", products: products.slice(0, 8) },
     {
@@ -25,25 +45,7 @@ export default async function HomePage() {
     <main className="fix bg-black">
 
       {/* ── MAIN SLIDER ── */}
-      <div className="main-slider swiper myMainSlider">
-        <div className="swiper-wrapper">
-          <div className="swiper-slide">
-            <picture>
-              <source srcSet="/assets/img/slider/slider-m-1.png" media="(max-width: 768px)" />
-              <img src="/assets/img/slider/slider-1.png" alt="InsaneGenix performance supplements hero" />
-            </picture>
-          </div>
-          <div className="swiper-slide">
-            <picture>
-              <source srcSet="/assets/img/slider/slider-m-1.png" media="(max-width: 768px)" />
-              <img src="/assets/img/slider/slider-2.png" alt="InsaneGenix training nutrition hero" />
-            </picture>
-          </div>
-        </div>
-        <div className="swiper-pagination"></div>
-        <div className="swiper-button-next"></div>
-        <div className="swiper-button-prev"></div>
-      </div>
+      <HomeHeroSlider slides={heroSlides} />
 
       {/* ── TRENDING PRODUCTS ── */}
       <div className="ig-hero-trending">
@@ -178,25 +180,7 @@ export default async function HomePage() {
       </div>
 
       {/* ── VIDEO AREA ── */}
-      <div className="eg-video__area">
-        <div
-          className="eg-video__bg"
-          data-background="/assets/img/others/video-area-bg.png"
-          style={{ backgroundImage: "url('/assets/img/others/video-area-bg.png')" }}
-        >
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <div className="eg-video__btn">
-                  <a href="#" className="eg-video__popup popup-video eg-video__ripple" aria-label="Play InsaneGenix video">
-                    <i className="fas fa-play"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <HomepageVideoBanner banner={videoBanner} sectionTitle={videoSection?.title} />
 
       {/* ── WHY CHOOSE INSANEGENIX ── */}
       <section className="eg-formula__area black-bg scene">
@@ -377,6 +361,53 @@ export default async function HomePage() {
       </section>
 
     </main>
+  );
+}
+
+function HomepageVideoBanner({ banner, sectionTitle }: { banner: any; sectionTitle?: string | null }) {
+  const backgroundMedia = banner?.backgroundMedia as HomepageMedia | undefined;
+  const videoMedia = banner?.videoMedia as HomepageMedia | undefined;
+  const backgroundUrl = homepageMediaUrl(backgroundMedia) || "/assets/img/others/video-area-bg.png";
+  const videoUrl = homepageMediaUrl(videoMedia) || banner?.externalVideoUrl || "#";
+  const title = banner?.title || sectionTitle || "#InsaneGenix";
+
+  return (
+    <div className="eg-video__area">
+      <div
+        className="eg-video__bg ig-home-video-banner"
+        data-background={backgroundUrl}
+        style={{ backgroundImage: backgroundMedia?.type === "IMAGE" ? `url('${backgroundUrl}')` : undefined }}
+      >
+        {backgroundMedia?.type === "VIDEO" ? (
+          <video
+            className="ig-home-video-banner__background"
+            src={backgroundUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        ) : null}
+        {title ? (
+          <div className="ig-home-video-banner__title">
+            <p>Watch InsaneGenix</p>
+            <h2>{title}</h2>
+          </div>
+        ) : null}
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="eg-video__btn">
+                <a href={videoUrl} className="eg-video__popup popup-video eg-video__ripple" aria-label="Play InsaneGenix video">
+                  <i className="fas fa-play"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

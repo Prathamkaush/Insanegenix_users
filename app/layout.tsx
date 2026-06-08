@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
 import AuthModal from "@/components/AuthModal";
+import { getStorefrontSettings } from "@/lib/settings";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,7 +13,9 @@ export const metadata: Metadata = {
     "Shop premium fitness supplements including whey protein, creatine, pre workout, EAA, gainers, and sports nutrition products at InsaneGenix.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getStorefrontSettings();
+
   return (
     <html lang="en">
       <head>
@@ -27,9 +30,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Preloader />
-        <Header />
-        {children}
-        <Footer />
+        {settings.maintenanceMode ? (
+          <main className="min-vh-100 d-flex align-items-center justify-content-center black-bg px-4 text-center">
+            <div style={{ maxWidth: 560 }}>
+              <img
+                src="/assets/img/logo/footer-logo.png"
+                alt="InsaneGenix"
+                style={{ maxWidth: 220, marginBottom: 28 }}
+              />
+              <p className="text-danger fw-bold text-uppercase mb-3" style={{ letterSpacing: "0.22em" }}>
+                Maintenance Mode
+              </p>
+              <h1 className="text-white fw-bold mb-3">We are updating the store.</h1>
+              <p className="text-gray mb-4">
+                The storefront is temporarily unavailable. For urgent support, contact us below.
+              </p>
+              <div className="d-flex flex-column gap-2 align-items-center">
+                <a className="text-white fw-bold" href={`mailto:${settings.supportEmail}`}>
+                  {settings.supportEmail}
+                </a>
+                <a className="text-white fw-bold" href={`tel:${settings.supportPhone.replace(/[^\d+]/g, "")}`}>
+                  {settings.supportPhone}
+                </a>
+              </div>
+            </div>
+          </main>
+        ) : (
+          <>
+            <Header />
+            {children}
+            <Footer settings={settings} />
+          </>
+        )}
         <AuthModal />
         <Script src="/assets/js/vendor/jquery.js" strategy="beforeInteractive" />
         <Script src="/assets/js/vendor/waypoints.js" strategy="afterInteractive" />
