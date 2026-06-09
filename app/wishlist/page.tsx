@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowRight, Heart } from "lucide-react";
 import AuthActionButton from "@/components/AuthActionButton";
 import Breadcrumb from "@/components/Breadcrumb";
 import WishlistButton from "@/components/WishlistButton";
@@ -61,34 +62,60 @@ export default function WishlistPage() {
               </Link>
             </div>
           ) : (
-            <div className="ig-wishlist-grid">
-              {items.map((item) => (
-                <article className="ig-wishlist-card" key={item.id}>
-                  <Link href={`/product/${item.product.slug}`} className="ig-wishlist-card__image">
-                    <img src={productImage(item.product)} alt={item.product.title} />
-                  </Link>
-                  <div className="ig-wishlist-card__body">
-                    <span>{item.variant?.flavour || item.product.category?.name || "InsaneGenix"}</span>
-                    <h3>
-                      <Link href={`/product/${item.product.slug}`}>{item.product.title}</Link>
-                    </h3>
-                    {item.variant?.weightLabel ? <p>{item.variant.weightLabel}</p> : null}
-                    <strong>{currency(item.variant?.price || item.product.finalPrice || item.product.price)}</strong>
-                    <div className="ig-wishlist-card__actions">
-                      <Link href={`/product/${item.product.slug}`} className="eg-btn">
-                        <span>View Product</span>
+            <div className="ig-wishlist-shell">
+              <div className="ig-wishlist-page-head">
+                <div>
+                  <span className="ig-wishlist-kicker">Saved for later</span>
+                  <h1>Your wishlist</h1>
+                  <p>
+                    {items.length} saved product{items.length === 1 ? "" : "s"} ready when you are
+                  </p>
+                </div>
+                <Link href="/shop" className="ig-wishlist-continue">
+                  Explore products <ArrowRight size={16} />
+                </Link>
+              </div>
+
+              <div className="ig-wishlist-grid">
+                {items.map((item) => (
+                  <article className="ig-wishlist-card" key={item.id}>
+                    <div className="ig-wishlist-card__media">
+                      <Link href={`/product/${item.product.slug}`} className="ig-wishlist-card__image">
+                        <img src={productImage(item.product)} alt={item.product.title} />
                       </Link>
-                      <WishlistButton
-                        productId={item.productId}
-                        variantId={item.variantId || undefined}
-                        onWishedChange={(wished) => {
-                          if (!wished) setItems((current) => current.filter((currentItem) => currentItem.id !== item.id));
-                        }}
-                      />
+                      <div className="ig-wishlist-card__remove">
+                        <WishlistButton
+                          productId={item.productId}
+                          variantId={item.variantId || undefined}
+                          onWishedChange={(wished) => {
+                            if (!wished) setItems((current) => current.filter((currentItem) => currentItem.id !== item.id));
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </article>
-              ))}
+
+                    <div className="ig-wishlist-card__body">
+                      <span>{item.variant?.flavour || item.product.category?.name || "InsaneGenix"}</span>
+                      <h3>
+                        <Link href={`/product/${item.product.slug}`}>{item.product.title}</Link>
+                      </h3>
+                      <p>{item.variant?.weightLabel || "Select your preferred option"}</p>
+                      <div className="ig-wishlist-card__price">
+                        <small>From</small>
+                        <strong>{currency(item.variant?.price || item.product.finalPrice || item.product.price)}</strong>
+                      </div>
+                      <Link href={`/product/${item.product.slug}`} className="ig-wishlist-view ig-primary-action">
+                        View product <ArrowRight size={15} />
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <div className="ig-wishlist-footnote">
+                <Heart size={15} />
+                Saved products remain here while you are signed in.
+              </div>
             </div>
           )}
         </div>

@@ -225,10 +225,6 @@
   color: #f87171;
 }
 
-.ig-price-breakdown {
-  margin-bottom: 24px;
-}
-
 .ig-price-row {
   color: #ffffffb3;
   justify-content: space-between;
@@ -407,7 +403,7 @@
 .ig-success-wrapper {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto;
+  margin: -150px auto 0;
   padding: 80px 20px;
 }
 
@@ -508,6 +504,377 @@
 
   .ig-success-actions {
     flex-direction: column;
+  }
+}
+
+.checkout-area {
+  background: url("/assets/img/price/peice-shape-02.png") 0 100% / 150px no-repeat, url("/assets/img/price/peice-shape-03.png") right 10% bottom 48px / 185px no-repeat, linear-gradient(105deg, #ff474b 0%, #9c2d2f 43%, #0b0000 100%);
+  min-height: 720px;
+  padding: 54px 0 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ig-checkout-shell {
+  width: 100%;
+}
+
+.ig-checkout-page-head {
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.ig-checkout-page-head > div:first-child > span {
+  color: #fff;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  font-size: 11px;
+  font-weight: 900;
+  display: block;
+}
+
+.ig-checkout-page-head h1 {
+  color: #fff;
+  text-transform: none;
+  margin: 0;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.ig-checkout-page-head p {
+  color: #ffffffad;
+  margin: 9px 0 0;
+  font-size: 14px;
+}
+
+.ig-checkout-progress {
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 6px;
+  display: flex;
+}
+
+.ig-checkout-progress span {
+  color: #ffffff6b;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.ig-checkout-progress span.active {
+  color: #fff;
+}
+
+.ig-checkout-progress i {
+  background: #ffffff47;
+  width: 28px;
+  height: 1px;
+}
+
+.ig-checkout-container {
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 28px;
+}
+
+.ig-checkout-section {
+  background: #111514f2;
+  border-color: #ffffff1c;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  padding: 24px;
+  box-shadow: 0 18px 48px #0003;
+}
+
+.ig-checkout-title {
+  letter-spacing: .03em;
+  text-transform: none;
+  margin-bottom: 18px;
+  padding-bottom: 15px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.ig-checkout-title button {
+  color: #fff;
+  letter-spacing: 0;
+  font-size: 11px;
+}
+
+.ig-address-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.ig-address-card {
+  background: #ffffff09;
+  border-radius: 12px;
+  min-height: 132px;
+  padding: 16px;
+}
+
+.ig-address-card:hover {
+  transform: translateY(-2px);
+}
+
+.ig-address-card.active {
+  background: #e5091417;
+  border-color: #ff4550;
+  box-shadow: inset 0 0 0 1px #e509141f;
+}
+
+.ig-address-card h4 {
+  padding-right: 54px;
+  font-size: 14px;
+}
+
+.ig-address-card p, .ig-address-card .phone {
+  font-size: 12px;
+}
+
+.ig-address-card .badge {
+  letter-spacing: .06em;
+  border-radius: 999px;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.ig-add-address-card {
+  background: #ffffff06;
+  border-radius: 12px;
+  min-height: 128px;
+  font-size: 13px;
+}
+
+.ig-payment-methods {
+  gap: 12px;
+}
+
+.ig-payment-option {
+  background: #ffffff09;
+  border-radius: 12px;
+  min-height: 106px;
+  padding: 17px;
+}
+
+.ig-payment-option:hover {
+  transform: translateY(-2px);
+}
+
+.ig-payment-option.active {
+  background: #e5091417;
+  border-color: #ff4550;
+}
+
+.ig-payment-option input[type="radio"] {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.ig-payment-option label {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.ig-payment-option span {
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.ig-checkout-summary-box {
+  background: #111514f7;
+  border-color: #ffffff1c;
+  border-radius: 18px;
+  padding: 24px;
+  top: 118px;
+  box-shadow: 0 22px 60px #0000004d;
+}
+
+.ig-checkout-summary-box h3 {
+  text-transform: none;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+.ig-checkout-items {
+  max-height: 260px;
+  margin-bottom: 17px;
+  padding-bottom: 15px;
+}
+
+.ig-checkout-item-mini {
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.ig-checkout-item-mini img {
+  background: #f4f4f4;
+  border-radius: 9px;
+  width: 52px;
+  height: 52px;
+  padding: 5px;
+}
+
+.ig-checkout-item-mini__info h5 {
+  max-width: 150px;
+  font-size: 12px;
+}
+
+.ig-checkout-item-mini__info p, .ig-checkout-item-mini__info .ig-checkout-item-mini__gst {
+  font-size: 10px;
+}
+
+.ig-checkout-item-mini__price {
+  font-size: 12px;
+}
+
+.ig-checkout-item-mini__price small {
+  font-size: 8px;
+}
+
+.ig-coupon-form {
+  gap: 8px;
+  margin-bottom: 17px;
+  padding-bottom: 17px;
+}
+
+.ig-coupon-form input {
+  background: #0003;
+  border-radius: 10px;
+  min-width: 0;
+  height: 42px;
+  font-size: 12px;
+}
+
+.ig-coupon-form button {
+  border-radius: 10px;
+  min-width: 78px;
+  height: 42px;
+  padding: 0 16px;
+  font-size: 11px;
+}
+
+.ig-price-breakdown {
+  margin-bottom: 20px;
+}
+
+.ig-price-row {
+  margin-bottom: 11px;
+  font-size: 12px;
+}
+
+.ig-price-row.total {
+  margin-top: 14px;
+  padding-top: 15px;
+  font-size: 16px;
+}
+
+.ig-checkout-summary-box .ig-add-cart-btn {
+  text-transform: none;
+  background: linear-gradient(90deg, #e50914, #ff3b3b);
+  border-radius: 12px;
+  min-height: 52px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ig-checkout-summary-box .ig-add-cart-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ff3b3b, #e50914);
+  box-shadow: 0 12px 28px #e509143d;
+}
+
+.ig-address-modal__panel {
+  border-radius: 18px;
+}
+
+.ig-form-group input, .ig-form-group select {
+  border-radius: 10px;
+}
+
+@media (max-width: 991px) {
+  .ig-checkout-page-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ig-checkout-container {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-checkout-summary-box {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .checkout-area {
+    background: url("/assets/img/price/peice-shape-03.png") right -34px bottom 24px / 128px no-repeat, linear-gradient(120deg, #ff474b 0%, #8f2729 48%, #0b0000 100%);
+    min-height: 0;
+    padding: 36px 0 88px;
+  }
+
+  .ig-checkout-page-head {
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  .ig-checkout-page-head h1 {
+    font-size: 30px;
+  }
+
+  .ig-checkout-progress {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .ig-checkout-section, .ig-checkout-summary-box {
+    border-radius: 14px;
+    padding: 19px;
+  }
+
+  .ig-checkout-title {
+    gap: 12px;
+    font-size: 15px;
+    align-items: flex-start !important;
+  }
+
+  .ig-payment-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-checkout-item-mini__info h5 {
+    max-width: 42vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .ig-checkout-page-head p {
+    font-size: 13px;
+  }
+
+  .ig-address-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-coupon-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ig-coupon-form button {
+    width: 100%;
+  }
+
+  .ig-checkout-item-mini__price {
+    font-size: 11px;
   }
 }
 

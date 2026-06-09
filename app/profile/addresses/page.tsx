@@ -150,7 +150,7 @@ export default function AddressesPage() {
       <div className="addresses-header">
         <h1>My Addresses</h1>
         {!showForm && (
-          <button className="btn-add-address" onClick={() => setShowForm(true)}>
+          <button className="btn-add-address ig-primary-action" onClick={() => setShowForm(true)}>
             <Plus size={18} />
             <span>Add New Address</span>
           </button>
@@ -250,7 +250,7 @@ export default function AddressesPage() {
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="btn-primary" disabled={submitting}>
+            <button type="submit" className="btn-primary ig-primary-action" disabled={submitting}>
               {submitting ? (
                 <>
                   <Loader2 size={18} className="spinner" />

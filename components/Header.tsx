@@ -22,6 +22,15 @@ const fallbackCategories: HeaderCategory[] = [
   { id: "fit-foods", name: "Fit Foods", image: "/assets/img/category/Fit-Foods.jpg" },
 ];
 
+const defaultPopularSearches = [
+  "Protein",
+  "Creatine",
+  "Pre Workout",
+  "Whey Protein",
+  "Mass Gainer",
+  "Recovery",
+];
+
 function categoryImageUrl(image?: string | null) {
   if (!image) return "/assets/img/category/Proteins.jpg";
   if (image.startsWith("http") || image.startsWith("/")) return image;
@@ -36,6 +45,9 @@ export default function Header() {
   const [animateCart, setAnimateCart] = useState(false);
   const [animateWishlist, setAnimateWishlist] = useState(false);
   const [categorySheetOpen, setCategorySheetOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [productTags, setProductTags] = useState<string[]>([]);
 
   const fetchCounts = useCallback(async (isInitial = false) => {
     const token = getCustomerToken();
@@ -128,9 +140,46 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    fetch(`${API_URL}/products?limit=1`, { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        if (Array.isArray(data?.availableTags)) {
+          setProductTags(data.availableTags.filter((tag: unknown): tag is string => typeof tag === "string"));
+        }
+      })
+      .catch(() => setProductTags([]));
+  }, []);
+
+  useEffect(() => {
     document.body.classList.toggle("ig-category-sheet-lock", categorySheetOpen);
     return () => document.body.classList.remove("ig-category-sheet-lock");
   }, [categorySheetOpen]);
+
+  useEffect(() => {
+    document.body.classList.toggle("ig-search-overlay-lock", searchOpen);
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSearchOpen(false);
+    };
+
+    if (searchOpen) window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.classList.remove("ig-search-overlay-lock");
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [searchOpen]);
+
+  useEffect(() => {
+    setSearchOpen(false);
+  }, [pathname]);
+
+  const popularSearches = [...categories.map((category) => category.name), ...productTags, ...defaultPopularSearches]
+    .filter((term, index, terms) => {
+      const normalizedTerm = term.trim().toLowerCase();
+      return normalizedTerm && terms.findIndex((item) => item.trim().toLowerCase() === normalizedTerm) === index;
+    })
+    .slice(0, 10);
 
   const isActiveMobileNav = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -199,11 +248,17 @@ export default function Header() {
                       <div className="eg-menu__header-actions actions-2 d-none d-lg-block">
                         <ul className="d-flex align-items-center">
                           <li className="eg-menu__header-search">
-                            <Link href="/shop" aria-label="Search">
+                            <button
+                              type="button"
+                              className="ig-header-search-trigger"
+                              aria-label="Open product search"
+                              aria-haspopup="dialog"
+                              onClick={() => setSearchOpen(true)}
+                            >
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 6.35 6.35">
                                 <path d="M2.894.511a2.384 2.384 0 0 0-2.38 2.38 2.386 2.386 0 0 0 2.38 2.384c.56 0 1.076-.197 1.484-.523l.991.991a.265.265 0 0 0 .375-.374l-.991-.992a2.37 2.37 0 0 0 .523-1.485C5.276 1.58 4.206.51 2.894.51zm0 .53c1.026 0 1.852.825 1.852 1.85S3.92 4.746 2.894 4.746s-1.851-.827-1.851-1.853.825-1.852 1.851-1.852z" fill="#fff" />
                               </svg>
-                            </Link>
+                            </button>
                           </li>
                           <li className="eg-menu__header-divider">|</li>
                           <li className={`eg-menu__header-wishlist custom-cart-icon ${animateWishlist ? "animate-icon-pop" : ""}`}>
@@ -388,6 +443,67 @@ export default function Header() {
           </div>
         </div>
       </div>
+      {searchOpen && (
+        <div
+          className="ig-search-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ig-search-title"
+        >
+          <div className="ig-search-overlay__top">
+            <Link href="/" className="ig-search-overlay__logo" aria-label="InsaneGenix home">
+              <img src="/assets/img/logo/logo-black.png" alt="InsaneGenix" />
+            </Link>
+            <button
+              type="button"
+              className="ig-search-overlay__close"
+              onClick={() => setSearchOpen(false)}
+              aria-label="Close search"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m6.4 5 12.6 12.6-1.4 1.4L5 6.4zm12.6 1.4L6.4 19 5 17.6 17.6 5z" />
+              </svg>
+            </button>
+          </div>
+          <div className="ig-search-overlay__content">
+            <h2 id="ig-search-title">What are you looking for?</h2>
+            <form className="ig-search-overlay__form" action="/shop" method="get">
+              <label className="visually-hidden" htmlFor="header-product-search">
+                Search products
+              </label>
+              <input
+                id="header-product-search"
+                name="search"
+                type="search"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                placeholder="Enter your keyword..."
+                autoComplete="off"
+                autoFocus
+              />
+              <button type="submit" aria-label="Search products" disabled={!searchTerm.trim()}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m21 20-4.65-4.65a7.5 7.5 0 1 0-1.41 1.41L19.59 21zM5 10.5a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0" />
+                </svg>
+              </button>
+            </form>
+            <div className="ig-search-overlay__popular">
+              <span>Popular searches</span>
+              <div>
+                {popularSearches.map((term) => (
+                  <Link
+                    key={term}
+                    href={`/shop?search=${encodeURIComponent(term)}`}
+                    onClick={() => setSearchOpen(false)}
+                  >
+                    {term}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

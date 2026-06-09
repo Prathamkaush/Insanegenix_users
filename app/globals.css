@@ -1467,7 +1467,7 @@ a {
   margin: 72px auto 0;
   padding: 54px 34px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0;
+  border-radius: 20%;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)),
     rgba(13, 18, 17, 0.96);
@@ -1488,8 +1488,8 @@ a {
 .wishlist-area .ig-empty-state h3 {
   margin: 0;
   color: #ffffff;
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 800;
+  font-size: clamp(10px, 4vw, 40px);
+  font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -1524,7 +1524,7 @@ a {
 .wishlist-area .ig-empty-state .eg-btn:hover {
   border-color: transparent;
   background: linear-gradient(90deg, #ffb51b 0%, #ff7a00 45%, #ef1d16 100%);
-  color: #ffffff;
+  color: black;
   transform: translateY(-2px);
 }
 
@@ -2945,6 +2945,1060 @@ a {
   }
 }
 
+/* Full-screen product search */
+body.ig-search-overlay-lock {
+  overflow: hidden;
+}
+
+.ig-header-search-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ig-header-search-trigger svg {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.ig-header-search-trigger:hover svg {
+  opacity: 0.72;
+  transform: scale(1.08);
+}
+
+.ig-search-overlay {
+  position: fixed;
+  z-index: 100000;
+  inset: 0;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 82% 16%, rgba(229, 9, 20, 0.07), transparent 24%),
+    #fff;
+  color: #171717;
+  animation: ig-search-reveal 0.24s ease both;
+}
+
+@keyframes ig-search-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ig-search-overlay__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1600px, calc(100% - 80px));
+  margin: 0 auto;
+  padding: 44px 0;
+}
+
+.ig-search-overlay__logo {
+  display: inline-flex;
+  align-items: center;
+  width: 150px;
+}
+
+.ig-search-overlay__logo img {
+  width: 100%;
+}
+
+.ig-search-overlay__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f2f2f2;
+  color: #171717;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.ig-search-overlay__close:hover {
+  background: #e50914;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.ig-search-overlay__close svg {
+  width: 25px;
+  fill: currentColor;
+}
+
+.ig-search-overlay__content {
+  width: min(1600px, calc(100% - 80px));
+  margin: clamp(90px, 16vh, 190px) auto 80px;
+}
+
+.ig-search-overlay__content h2 {
+  margin-bottom: 28px;
+  color: #171717;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ig-search-overlay__form {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #272727;
+}
+
+.ig-search-overlay__form input {
+  flex: 1;
+  min-width: 0;
+  height: 96px;
+  padding: 0 24px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #171717;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+}
+
+.ig-search-overlay__form input::placeholder {
+  color: #7f8791;
+  opacity: 1;
+}
+
+.ig-search-overlay__form input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.ig-search-overlay__form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #171717;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ig-search-overlay__form button:hover:not(:disabled) {
+  background: #171717;
+  color: #fff;
+}
+
+.ig-search-overlay__form button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.ig-search-overlay__form button svg {
+  width: 37px;
+  fill: currentColor;
+}
+
+.ig-search-overlay__popular {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 34px;
+}
+
+.ig-search-overlay__popular > span {
+  padding-top: 10px;
+  color: #171717;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.ig-search-overlay__popular > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ig-search-overlay__popular a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 39px;
+  padding: 8px 18px;
+  border: 1px solid #dedede;
+  border-radius: 999px;
+  background: #fafafa;
+  color: #4d5258;
+  font-size: 13px;
+  font-weight: 700;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.ig-search-overlay__popular a:hover {
+  border-color: #e50914;
+  background: #e50914;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .ig-search-overlay__top,
+  .ig-search-overlay__content {
+    width: calc(100% - 36px);
+  }
+
+  .ig-search-overlay__top {
+    padding: 24px 0;
+  }
+
+  .ig-search-overlay__logo {
+    width: 112px;
+  }
+
+  .ig-search-overlay__close {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ig-search-overlay__content {
+    margin-top: 17vh;
+  }
+
+  .ig-search-overlay__form input {
+    height: 74px;
+    padding: 0 8px;
+    font-size: 26px;
+  }
+
+  .ig-search-overlay__form button {
+    width: 54px;
+    height: 54px;
+  }
+
+  .ig-search-overlay__form button svg {
+    width: 29px;
+  }
+
+  .ig-search-overlay__popular {
+    flex-direction: column;
+    gap: 13px;
+    margin-top: 26px;
+  }
+
+  .ig-search-overlay__popular > span {
+    padding-top: 0;
+  }
+
+  .ig-search-overlay__popular a {
+    min-height: 36px;
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+}
+
+/* Shared primary action, matching the product Add to Cart interaction */
+.ig-primary-action.ig-primary-action {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #ff263c;
+  background: linear-gradient(90deg, #f20d1d 0%, #ff3d49 100%);
+  color: #fff !important;
+  cursor: pointer;
+  transition:
+    color 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ig-primary-action.ig-primary-action::after {
+  position: absolute;
+  content: "";
+  width: 120%;
+  height: 0;
+  left: 50%;
+  top: 50%;
+  border-radius: 0;
+  background: #fff;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transition: height 500ms ease;
+  z-index: -1;
+}
+
+.ig-primary-action.ig-primary-action:hover:not(:disabled) {
+  border-color: #fff;
+  background: linear-gradient(90deg, #f20d1d 0%, #ff3d49 100%);
+  color: #151515 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(229, 9, 20, 0.26);
+}
+
+.ig-primary-action.ig-primary-action:hover:not(:disabled)::after {
+  height: 420%;
+}
+
+.ig-primary-action.ig-primary-action > span,
+.ig-primary-action.ig-primary-action > svg {
+  position: relative;
+  z-index: 1;
+}
+
+.ig-primary-action.ig-primary-action:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.32);
+  outline-offset: 3px;
+}
+
+.ig-primary-action.ig-primary-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
+  box-shadow: none;
+}
+
+.ig-primary-action--compact.ig-primary-action--compact {
+  min-height: 38px;
+  padding: 8px 14px !important;
+  border-radius: 10px;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+}
+
+/* Shop catalog */
+.ig-shop-page {
+  min-height: 760px;
+  padding: 48px 0 120px;
+  background:
+    url("/assets/img/price/peice-shape-02.png") left bottom / 150px auto no-repeat,
+    url("/assets/img/price/peice-shape-03.png") right 8% bottom 44px / 180px auto no-repeat,
+    linear-gradient(105deg, #ff474b 0%, #9c2d2f 43%, #0b0000 100%);
+}
+
+.ig-shop-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 30px;
+}
+
+.ig-shop-head > div > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ig-shop-head h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: none;
+}
+
+.ig-shop-head p {
+  margin: 9px 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.ig-shop-search {
+  display: grid;
+  grid-template-columns: 22px minmax(210px, 1fr) auto;
+  align-items: center;
+  width: min(100%, 430px);
+  min-height: 50px;
+  padding-left: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 13px;
+  background: rgba(17, 21, 20, 0.94);
+  overflow: hidden;
+}
+
+.ig-shop-search svg {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ig-shop-search input {
+  min-width: 0;
+  height: 48px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+}
+
+.ig-shop-search input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.ig-shop-search button {
+  align-self: stretch;
+  padding: 0 20px;
+  border: 0;
+  background: #fff;
+  color: #151515;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ig-shop-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+
+.ig-shop-sidebar {
+  position: sticky;
+  top: 110px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(247, 247, 247, 0.97);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.2);
+}
+
+.ig-shop-sidebar__title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 18px;
+  border-bottom: 1px solid #e6e6e6;
+  color: #181818;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.ig-shop-sidebar__title a {
+  margin-left: auto;
+  color: #e50914;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.ig-shop-filter-form {
+  padding: 4px 18px 18px;
+}
+
+.ig-shop-filter-form fieldset {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 16px 0;
+  border: 0;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.ig-shop-filter-form legend,
+.ig-shop-tags h3 {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #151515;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ig-shop-filter-form label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 8px;
+  color: #70747c;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ig-shop-filter-form label:hover,
+.ig-shop-filter-form label.active {
+  background: #fff;
+  color: #151515;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+}
+
+.ig-shop-filter-form input[type="radio"],
+.ig-shop-filter-form input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: #e50914;
+}
+
+.ig-shop-rating-option {
+  color: #e98900;
+  letter-spacing: 0.06em;
+}
+
+.ig-shop-price-range {
+  padding: 2px 2px 5px;
+}
+
+.ig-shop-price-range__values {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: #555b64;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.ig-shop-price-range__control {
+  position: relative;
+  height: 24px;
+}
+
+.ig-shop-price-range__rail,
+.ig-shop-price-range__fill {
+  position: absolute;
+  top: 10px;
+  height: 4px;
+  border-radius: 999px;
+}
+
+.ig-shop-price-range__rail {
+  left: 0;
+  right: 0;
+  background: #d8d8d8;
+}
+
+.ig-shop-price-range__fill {
+  background: linear-gradient(90deg, #e50914, #ff3b3b);
+}
+
+.ig-shop-price-range__control input[type="range"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+  appearance: none;
+}
+
+.ig-shop-price-range__control input[type="range"]::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #e50914;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+  cursor: grab;
+  pointer-events: auto;
+  appearance: none;
+}
+
+.ig-shop-price-range__control input[type="range"]::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #e50914;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.ig-shop-price-range__control input[type="range"]:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid rgba(229, 9, 20, 0.22);
+  outline-offset: 2px;
+}
+
+.ig-shop-apply {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 16px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ig-shop-tags {
+  padding: 18px;
+  border-top: 1px solid #e4e4e4;
+}
+
+.ig-shop-tags > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ig-shop-tags a {
+  padding: 7px 10px;
+  border: 1px solid #dedede;
+  border-radius: 999px;
+  background: #fff;
+  color: #666b73;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ig-shop-tags a:hover,
+.ig-shop-tags a.active {
+  border-color: #e50914;
+  background: #e50914;
+  color: #fff;
+}
+
+.ig-shop-results {
+  min-width: 0;
+}
+
+.ig-shop-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 58px;
+  margin-bottom: 18px;
+  padding: 10px 14px 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 13px;
+  background: rgba(17, 21, 20, 0.92);
+}
+
+.ig-shop-toolbar p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 12px;
+}
+
+.ig-shop-toolbar form {
+  display: flex;
+  gap: 8px;
+}
+
+.ig-shop-toolbar select,
+.ig-shop-toolbar button {
+  height: 36px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ig-shop-toolbar select {
+  min-width: 170px;
+  padding: 0 30px 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #fff;
+  color: #222;
+}
+
+.ig-shop-toolbar button {
+  padding: 0 13px;
+  border: 0;
+  background: #e50914;
+  color: #fff;
+}
+
+.ig-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.ig-shop-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(177, 53, 54, 0.96), rgba(66, 12, 12, 0.97));
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ig-shop-card:hover {
+  border-color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.26);
+}
+
+.ig-shop-card__media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 238px;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.ig-shop-card__media > a {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.ig-shop-card__media img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.ig-shop-card:hover .ig-shop-card__media img {
+  transform: scale(1.04);
+}
+
+.ig-shop-card__badges {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  right: 13px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ig-diet-badge,
+.ig-stock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(10, 12, 12, 0.84);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.ig-diet-badge i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9aa0a6;
+}
+
+.ig-diet-badge.is-vegetarian i,
+.ig-diet-badge.is-vegan i {
+  background: #31b75b;
+}
+
+.ig-diet-badge.is-non-vegetarian i {
+  background: #b53a2f;
+}
+
+.ig-stock-badge.is-in {
+  color: #8be7a5;
+}
+
+.ig-stock-badge.is-out {
+  color: #ff969d;
+}
+
+.ig-shop-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 19px;
+  text-align: center;
+}
+
+.ig-shop-card__category {
+  margin-bottom: 6px;
+  color: #ffb3b8;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ig-shop-card h3 {
+  margin: 0 0 11px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+.ig-shop-card h3 a {
+  color: #fff;
+}
+
+.ig-shop-card__rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ig-shop-card__rating > div {
+  display: flex;
+  gap: 2px;
+}
+
+.ig-shop-card__rating span {
+  color: rgba(255, 255, 255, 0.24);
+  font-size: 14px;
+}
+
+.ig-shop-card__rating span.active {
+  color: #ffb020;
+}
+
+.ig-shop-card__rating small {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ig-shop-card__tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-height: 24px;
+  margin-bottom: 12px;
+}
+
+.ig-shop-card__tags span {
+  padding: 5px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ig-shop-card__price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: auto;
+  margin-bottom: 18px;
+}
+
+.ig-shop-card__price strong {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.ig-shop-card__price del {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+}
+
+.ig-shop-card__price > span {
+  color: #9be6ad;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ig-shop-card__actions {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 9px;
+}
+
+.ig-shop-card__cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: #151515;
+  color: #fff;
+}
+
+.ig-shop-card__cart:hover:not(:disabled) {
+  border-color: #fff;
+  background: #000;
+  transform: translateY(-2px);
+}
+
+.ig-shop-card__view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ig-shop-empty {
+  padding: 70px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(17, 21, 20, 0.94);
+  text-align: center;
+}
+
+.ig-shop-empty h2 {
+  color: #fff;
+  font-size: 24px;
+}
+
+.ig-shop-empty p {
+  margin: 8px 0 22px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.ig-shop-empty a {
+  display: inline-flex;
+  padding: 14px 22px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ig-shop-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 34px;
+}
+
+.ig-shop-pagination a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: #fff;
+  color: #555;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.ig-shop-pagination a:hover,
+.ig-shop-pagination a.active {
+  border-color: #151515;
+  background: #151515;
+  color: #fff;
+}
+
+.ig-shop-pagination a.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+@media (max-width: 1199px) {
+  .ig-shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991px) {
+  .ig-shop-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ig-shop-search {
+    width: 100%;
+  }
+
+  .ig-shop-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-shop-sidebar {
+    position: static;
+  }
+
+  .ig-shop-filter-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+  }
+
+  .ig-shop-apply {
+    align-self: end;
+  }
+}
+
+@media (max-width: 767px) {
+  .ig-shop-page {
+    min-height: 0;
+    padding: 36px 0 88px;
+    background:
+      url("/assets/img/price/peice-shape-03.png") right -34px bottom 24px / 128px auto no-repeat,
+      linear-gradient(120deg, #ff474b 0%, #8f2729 48%, #0b0000 100%);
+  }
+
+  .ig-shop-head h1 {
+    font-size: 30px;
+  }
+
+  .ig-shop-search {
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+  }
+
+  .ig-shop-search button {
+    padding: 0 14px;
+  }
+
+  .ig-shop-filter-form {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-shop-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ig-shop-toolbar form {
+    width: 100%;
+  }
+
+  .ig-shop-toolbar select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ig-shop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 1199px) {
   .ig-contact-layout {
     grid-template-columns: 1fr;
@@ -3063,38 +4117,86 @@ a {
 
 .ig-product-review-section {
   margin-top: 24px;
+  height: auto;
 }
 
-.ig-review-section__header {
+.ig-review-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: 48px;
+}
+
+.ig-review-summary {
+  padding-right: 48px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ig-review-eyebrow,
+.ig-review-modal__heading > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--eg-theme-primary);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ig-review-summary h3,
+.ig-review-cta h3,
+.ig-review-list-heading h3 {
+  margin: 0;
+}
+
+.ig-review-score {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 18px;
-  margin-bottom: 22px;
+  margin-top: 20px;
 }
 
-.ig-review-section__header h3 {
-  margin-bottom: 6px;
+.ig-review-score > strong {
+  color: #fff;
+  font-size: clamp(48px, 6vw, 70px);
+  font-weight: 800;
+  line-height: 0.9;
 }
 
-.ig-review-section__header p,
+.ig-review-score p,
+.ig-review-total,
+.ig-review-cta p,
+.ig-review-login p,
+.ig-review-item p,
+.ig-review-item__top span {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.ig-review-score p,
+.ig-review-total,
+.ig-review-cta p,
 .ig-review-login p,
 .ig-review-item p {
-  color: rgba(255, 255, 255, 0.68);
   margin: 0;
+}
+
+.ig-review-total {
+  margin-top: 12px;
+  font-size: 14px;
 }
 
 .ig-review-stars {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
+  color: rgba(255, 255, 255, 0.25);
 }
 
 .ig-review-stars span,
 .ig-review-stars button {
-  width: 18px;
-  height: 18px;
-  opacity: 0.28;
+  display: inline-flex;
+  width: 19px;
+  height: 19px;
+  color: rgba(255, 255, 255, 0.24);
 }
 
 .ig-review-stars button {
@@ -3102,36 +4204,114 @@ a {
   background: transparent;
   padding: 0;
   cursor: pointer;
-  transition: opacity 0.16s ease, transform 0.16s ease;
+  transition: color 0.16s ease, transform 0.16s ease;
 }
 
 .ig-review-stars button:hover,
 .ig-review-stars button:focus-visible {
-  opacity: 1;
+  color: #ffb020;
   transform: translateY(-2px) scale(1.08);
   outline: none;
 }
 
 .ig-review-stars span.active,
 .ig-review-stars button.active {
-  opacity: 1;
+  color: #ffb020;
 }
 
-.ig-review-stars img {
+.ig-review-stars svg {
   width: 100%;
   height: 100%;
+}
+
+.ig-review-stars.is-large span {
+  width: 23px;
+  height: 23px;
+}
+
+.ig-review-stars.is-interactive {
+  gap: 7px;
+}
+
+.ig-review-stars.is-interactive button {
+  width: 38px;
+  height: 38px;
+}
+
+.ig-review-distribution {
+  display: grid;
+  gap: 11px;
+  margin-top: 24px;
+}
+
+.ig-review-distribution__row {
+  display: grid;
+  grid-template-columns: 48px minmax(100px, 1fr) 40px;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ig-review-distribution__row > span:last-child {
+  text-align: right;
+}
+
+.ig-review-distribution__track {
+  height: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ig-review-distribution__track i {
+  display: block;
+  height: 100%;
+  min-width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ffb020, #ff7a00);
+  transition: width 0.35s ease;
+}
+
+.ig-review-cta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ig-review-cta p {
+  margin-top: 12px;
+  line-height: 1.7;
+}
+
+.ig-review-write-button {
+  width: 100%;
+  margin-top: 24px;
+  min-height: 50px;
+  padding: 12px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ig-review-write-button:hover {
+  border-color: var(--eg-theme-primary);
+  background: var(--eg-theme-primary);
+  transform: translateY(-2px);
 }
 
 .ig-review-rating-picker {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
-}
-
-.ig-review-rating-picker .ig-review-stars button {
-  width: 24px;
-  height: 24px;
 }
 
 .ig-review-rating-picker > span {
@@ -3142,13 +4322,25 @@ a {
 
 .ig-review-form {
   display: grid;
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: 16px;
 }
 
+.ig-review-form fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ig-review-form legend,
 .ig-review-form label {
+  display: block;
+  margin-bottom: 10px;
   color: #fff;
-  font-weight: 700;
+  font-weight: 800;
+}
+
+.ig-review-form fieldset legend {
+  width: 100%;
 }
 
 .ig-review-form textarea {
@@ -3157,9 +4349,14 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(0, 0, 0, 0.28);
   color: #fff;
-  border-radius: 8px;
-  padding: 14px 16px;
+  min-height: 150px;
+  border-radius: 12px;
+  padding: 16px;
   outline: none;
+}
+
+.ig-review-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .ig-review-form textarea:focus {
@@ -3168,8 +4365,10 @@ a {
 }
 
 .ig-review-message {
+  margin: 14px 0 0;
   font-size: 14px;
   font-weight: 700;
+  line-height: 1.5;
 }
 
 .ig-review-message.success {
@@ -3181,25 +4380,62 @@ a {
 }
 
 .ig-review-login {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ig-review-login h4 {
+  margin: 0;
+  color: #fff;
+}
+
+.ig-review-submit {
+  width: 100%;
+  margin-top: 2px;
+}
+
+.ig-review-moderation-note {
+  margin: -4px 0 0;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 12px;
+  text-align: center;
+}
+
+.ig-review-list-wrap {
+  margin-top: 34px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ig-review-list-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.ig-review-list-heading span {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .ig-review-list {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
 .ig-review-item {
-  padding: 16px;
-  border-radius: 8px;
+  padding: 18px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
 }
@@ -3213,14 +4449,891 @@ a {
 }
 
 .ig-review-item__top strong {
+  display: block;
   color: #fff;
 }
 
+.ig-review-item__top span {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+}
+
+.ig-review-modal-lock {
+  overflow: hidden;
+}
+
+.ig-review-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ig-review-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(5px);
+}
+
+.ig-review-modal__panel {
+  position: relative;
+  width: min(100%, 680px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  background: #111514;
+  color: #fff;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.56);
+}
+
+.ig-review-modal__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+  color: #fff;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.ig-review-modal__close:hover {
+  border-color: var(--eg-theme-primary);
+  background: var(--eg-theme-primary);
+}
+
+.ig-review-modal__heading {
+  margin-bottom: 26px;
+  padding-right: 48px;
+}
+
+.ig-review-modal__heading h3 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: clamp(26px, 4vw, 36px);
+  text-transform: none;
+}
+
+.ig-review-modal__heading p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+@media (max-width: 767px) {
+  .ig-review-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .ig-review-summary {
+    padding-right: 0;
+    padding-bottom: 30px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .ig-review-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 575px) {
-  .ig-review-section__header,
-  .ig-review-login,
+  .ig-product-review-section {
+    padding: 20px;
+  }
+
+  .ig-review-score {
+    align-items: flex-start;
+  }
+
+  .ig-review-distribution__row {
+    grid-template-columns: 44px minmax(80px, 1fr) 36px;
+    gap: 8px;
+  }
+
+  .ig-review-list-heading,
   .ig-review-item__top {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .ig-review-modal {
+    align-items: flex-end;
+    padding: 10px;
+  }
+
+  .ig-review-modal__panel {
+    max-height: calc(100vh - 20px);
+    padding: 28px 20px 22px;
+    border-radius: 18px 18px 12px 12px;
+  }
+
+.ig-review-stars.is-interactive button {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* Refined cart */
+.cart-area {
+  min-height: 720px;
+  padding: 54px 0 120px;
+  background:
+    url("/assets/img/price/peice-shape-02.png") left bottom / 150px auto no-repeat,
+    url("/assets/img/price/peice-shape-03.png") right 10% bottom 48px / 185px auto no-repeat,
+    linear-gradient(105deg, #ff474b 0%, #9c2d2f 43%, #0b0000 100%);
+}
+
+.ig-cart-shell {
+  width: 100%;
+}
+
+.ig-cart-page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.ig-cart-kicker {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--eg-theme-primary);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ig-cart-page-head h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: none;
+}
+
+.ig-cart-page-head p {
+  margin: 9px 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 14px;
+}
+
+.ig-cart-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ig-cart-continue:hover {
+  color: #fff;
+}
+
+.ig-cart-layout {
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 28px;
+  margin-top: 0;
+}
+
+.ig-cart-table {
+  display: grid;
+  gap: 12px;
+}
+
+.ig-cart-row {
+  grid-template-columns: minmax(250px, 1.8fr) minmax(78px, 0.55fr) minmax(82px, 0.58fr) minmax(118px, 0.75fr) minmax(92px, 0.65fr) 38px;
+  column-gap: 14px;
+  min-height: 142px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.14);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.ig-cart-row:not(.ig-cart-row--head):hover {
+  border-color: rgba(229, 9, 20, 0.42);
+  background: rgba(255, 255, 255, 0.065);
+  transform: translateY(-2px);
+}
+
+.ig-cart-row--head {
+  min-height: auto;
+  padding: 0 18px 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ig-cart-product {
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 18px;
+}
+
+.ig-cart-product__image {
+  width: 104px;
+  height: 104px;
+  padding: 9px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f4f4f4;
+}
+
+.ig-cart-product__copy {
+  min-width: 0;
+}
+
+.ig-cart-product__tag {
+  display: block;
+  margin-bottom: 6px;
+  color: #ff8c8c;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ig-cart-product__copy h3 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+.ig-cart-product__copy h3 a:hover {
+  color: #ff8c8c;
+  opacity: 1;
+}
+
+.ig-cart-product__copy p {
+  min-height: 0;
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.ig-cart-price,
+.ig-cart-gst,
+.ig-cart-line-total {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ig-cart-line-total {
+  color: #fff;
+}
+
+.ig-cart-gst__value {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.ig-cart-gst__value small {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+
+.ig-cart-stepper {
+  display: grid;
+  grid-template-columns: 34px 38px 34px;
+  width: auto;
+  height: 38px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.ig-cart-stepper > span {
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 13px;
+}
+
+.ig-cart-stepper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.76);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ig-cart-stepper button:first-child {
+  border-bottom: 0;
+}
+
+.ig-cart-stepper button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+}
+
+.ig-cart-remove {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.48);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.ig-cart-remove:hover {
+  border-color: rgba(229, 9, 20, 0.55);
+  background: rgba(229, 9, 20, 0.13);
+  color: #ff747b;
+}
+
+.ig-cart-summary {
+  position: sticky;
+  top: 118px;
+  min-height: 0;
+  margin-left: 0;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 18px;
+  background: rgba(20, 23, 22, 0.96);
+  color: #fff;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.3);
+}
+
+.ig-cart-summary__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ig-cart-summary__head > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.ig-cart-summary__head small {
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ig-cart-summary__line {
+  margin-bottom: 14px;
+  padding: 0 0 14px;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.ig-cart-summary__line span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ig-cart-summary__line strong {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ig-cart-summary__line--total {
+  margin: 4px 0 22px;
+  padding: 4px 0 0;
+}
+
+.ig-cart-summary__line--total span {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.ig-cart-summary__line--total strong {
+  color: #fff;
+  font-size: 20px;
+}
+
+.ig-cart-checkout {
+  gap: 9px;
+  min-height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #e50914, #ff3b3b);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ig-cart-checkout:hover {
+  background: linear-gradient(90deg, #ff3b3b, #e50914);
+  box-shadow: 0 12px 28px rgba(229, 9, 20, 0.24);
+}
+
+.ig-cart-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+@media (max-width: 1199px) {
+  .ig-cart-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+
+  .ig-cart-row {
+    grid-template-columns: minmax(220px, 1.65fr) minmax(70px, 0.5fr) minmax(74px, 0.52fr) minmax(108px, 0.7fr) minmax(82px, 0.58fr) 36px;
+    column-gap: 10px;
+  }
+
+  .ig-cart-product {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .ig-cart-product__image {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 991px) {
+  .ig-cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-cart-summary {
+    position: static;
+    max-width: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .cart-area {
+    padding: 36px 0 88px;
+    background:
+      url("/assets/img/price/peice-shape-03.png") right -34px bottom 24px / 128px auto no-repeat,
+      linear-gradient(120deg, #ff474b 0%, #8f2729 48%, #0b0000 100%);
+  }
+
+  .ig-cart-page-head {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  .ig-cart-page-head h1 {
+    font-size: 30px;
+  }
+
+  .ig-cart-continue {
+    padding: 0;
+  }
+
+  .ig-cart-row {
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 0;
+    border-color: rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .ig-cart-product {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .ig-cart-product__image {
+    width: 88px;
+    height: 88px;
+    padding: 7px;
+  }
+
+  .ig-cart-product__copy h3 {
+    font-size: 16px;
+  }
+
+  .ig-cart-price,
+  .ig-cart-gst,
+  .ig-cart-line-total,
+  .ig-cart-quantity {
+    padding-top: 11px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 14px;
+  }
+
+  .ig-cart-price::before,
+  .ig-cart-gst::before,
+  .ig-cart-line-total::before,
+  .ig-cart-mobile-label {
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .ig-cart-stepper {
+    grid-template-columns: 32px 36px 32px;
+    height: 36px;
+  }
+
+  .ig-cart-remove {
+    width: auto;
+    height: 36px;
+    padding: 0 11px;
+    border-color: rgba(229, 9, 20, 0.28);
+    color: #ff747b;
+  }
+
+  .ig-cart-remove::after {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .ig-cart-summary {
+    padding: 21px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ig-cart-product {
+    grid-template-columns: 76px minmax(0, 1fr);
+  }
+
+  .ig-cart-product__image {
+    width: 76px;
+    height: 76px;
+  }
+}
+
+/* Refined wishlist */
+.wishlist-area {
+  min-height: 720px;
+  padding: 54px 0 120px;
+  background:
+    url("/assets/img/price/peice-shape-02.png") left bottom / 150px auto no-repeat,
+    url("/assets/img/price/peice-shape-03.png") right 10% bottom 48px / 185px auto no-repeat,
+    linear-gradient(105deg, #ff474b 0%, #9c2d2f 43%, #0b0000 100%);
+}
+
+.ig-wishlist-shell {
+  width: 100%;
+}
+
+.ig-wishlist-page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.ig-wishlist-kicker {
+  display: block;
+  margin-bottom: 7px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ig-wishlist-page-head h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: none;
+}
+
+.ig-wishlist-page-head p {
+  margin: 9px 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+}
+
+.ig-wishlist-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ig-wishlist-continue:hover {
+  color: #fff;
+}
+
+.ig-wishlist-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 0;
+}
+
+.ig-wishlist-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-color: rgba(255, 255, 255, 0.11);
+  border-radius: 16px;
+  background: rgba(17, 21, 20, 0.96);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ig-wishlist-card:hover {
+  border-color: rgba(229, 9, 20, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.28);
+}
+
+.ig-wishlist-card__media {
+  position: relative;
+}
+
+.ig-wishlist-card__image {
+  width: 100%;
+  min-height: 230px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 58%),
+    #151918;
+}
+
+.ig-wishlist-card__image img {
+  max-height: 190px;
+  transition: transform 0.25s ease;
+}
+
+.ig-wishlist-card:hover .ig-wishlist-card__image img {
+  transform: scale(1.04);
+}
+
+.ig-wishlist-card__remove {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.ig-wishlist-card__remove .ig-wishlist-btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 10px;
+  background: rgba(10, 12, 12, 0.88);
+  color: #ff747b;
+  backdrop-filter: blur(8px);
+}
+
+.ig-wishlist-card__remove .ig-wishlist-btn:hover:not(:disabled) {
+  border-color: rgba(229, 9, 20, 0.58);
+  background: rgba(229, 9, 20, 0.18);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.ig-wishlist-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.ig-wishlist-card__body > span {
+  margin-bottom: 7px;
+  color: #ff747b;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.ig-wishlist-card__body h3 {
+  margin-bottom: 7px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.ig-wishlist-card__body p {
+  min-height: 20px;
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+.ig-wishlist-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: auto;
+  margin-bottom: 18px;
+}
+
+.ig-wishlist-card__price small {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ig-wishlist-card__body .ig-wishlist-card__price strong {
+  display: inline;
+  margin: 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.ig-wishlist-view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  border-radius: 11px;
+  background: linear-gradient(90deg, #e50914, #ff3b3b);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.ig-wishlist-view:hover {
+  background: linear-gradient(90deg, #ff3b3b, #e50914);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(229, 9, 20, 0.24);
+  transform: translateY(-1px);
+}
+
+.ig-wishlist-footnote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 22px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 11px;
+}
+
+@media (max-width: 1199px) {
+  .ig-wishlist-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .wishlist-area {
+    min-height: 0;
+    padding: 36px 0 88px;
+    background:
+      url("/assets/img/price/peice-shape-03.png") right -34px bottom 24px / 128px auto no-repeat,
+      linear-gradient(120deg, #ff474b 0%, #8f2729 48%, #0b0000 100%);
+  }
+
+  .ig-wishlist-page-head {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 0;
+    margin-bottom: 24px;
+  }
+
+  .ig-wishlist-page-head h1 {
+    font-size: 30px;
+  }
+
+  .ig-wishlist-continue {
+    padding: 0;
+  }
+
+  .ig-wishlist-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ig-wishlist-card {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+  }
+
+  .ig-wishlist-card__image {
+    height: 100%;
+    min-height: 210px;
+    padding: 14px;
+  }
+
+  .ig-wishlist-card__image img {
+    max-height: 170px;
+  }
+
+  .ig-wishlist-card__body {
+    padding: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ig-wishlist-card {
+    grid-template-columns: 108px minmax(0, 1fr);
+  }
+
+  .ig-wishlist-card__image {
+    min-height: 190px;
+    padding: 10px;
+  }
+
+  .ig-wishlist-card__body h3 {
+    font-size: 15px;
+  }
+
+  .ig-wishlist-card__body {
+    padding: 15px;
+  }
+
+  .ig-wishlist-view {
+    min-height: 42px;
+    font-size: 11px;
   }
 }

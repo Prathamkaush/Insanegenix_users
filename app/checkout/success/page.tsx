@@ -64,7 +64,7 @@ function SuccessPageContent() {
             <div className="ig-success-info-grid">
               <div className="ig-success-info-col">
                 <h4>Order Reference ID</h4>
-                <p>#IG-{orderIdParam}</p>
+                <p>#{orderIdParam}</p>
               </div>
               <div className="ig-success-info-col">
                 <h4>Status</h4>
@@ -124,7 +124,7 @@ function SuccessPageContent() {
         <div className="ig-success-info-grid">
           <div className="ig-success-info-col">
             <h4>Order Reference ID</h4>
-            <p className="font-weight-800 text-white">#IG-{order.id}</p>
+            <p className="font-weight-800 text-white">#{order.id}</p>
           </div>
           <div className="ig-success-info-col">
             <h4>Total Paid / Due</h4>

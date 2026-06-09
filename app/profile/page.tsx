@@ -151,7 +151,7 @@ export default function ProfileDetailsPage() {
       <div className="details-header">
         <h1>Profile Details</h1>
         {!editing && (
-          <button className="btn-edit" onClick={handleEdit}>
+          <button className="btn-edit ig-primary-action" onClick={handleEdit}>
             <Edit2 size={18} />
             <span>Edit Profile</span>
           </button>
@@ -239,7 +239,7 @@ export default function ProfileDetailsPage() {
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="btn-primary" disabled={updating}>
+            <button type="submit" className="btn-primary ig-primary-action" disabled={updating}>
               {updating ? (
                 <>
                   <Loader2 size={18} className="spinner" />

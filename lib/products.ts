@@ -34,6 +34,8 @@ export type Product = {
   brandName?: string | null;
   productLine?: string | null;
   dietaryPreference?: string | null;
+  dietaryType?: "UNSPECIFIED" | "VEGETARIAN" | "NON_VEGETARIAN" | "VEGAN" | null;
+  tags?: string[];
   proteinType?: string | null;
   servingSize?: string | null;
   servingsPerContainer?: string | number | null;
@@ -65,7 +67,7 @@ export type Product = {
   img2?: string | null;
   img3?: string | null;
   img4?: string | null;
-  category?: { name?: string };
+  category?: { id?: number; name?: string };
   type?: { name?: string };
   variants?: ProductVariant[];
   sizes?: Array<{ id?: number; size: string; stock?: number; price?: string | number | null }>;
@@ -76,30 +78,85 @@ export type Product = {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3030";
 
-export const fallbackProducts: Product[] = [
-  { id: 1, title: "Creatine", slug: "creatine", price: 1104, finalPrice: 1104, img1: "Creatine.png", goal: "Muscle", stock: 20 },
-  { id: 2, title: "D3 + K2 Omega 3", slug: "d3-k2-omega-3", price: 1380, finalPrice: 1380, img1: "D3-K2.png", goal: "Wellness", stock: 20 },
-  { id: 3, title: "Dart", slug: "dart", price: 2944, finalPrice: 2944, img1: "Dart.png", goal: "Pre Workout", stock: 20 },
-  { id: 4, title: "EAA", slug: "eaa", price: 3220, finalPrice: 3220, img1: "EAA.png", goal: "Recovery", stock: 20 },
-  { id: 5, title: "ISO", slug: "iso", price: 14168, finalPrice: 14168, img1: "ISO.png", goal: "Lean Muscle", stock: 20 },
-  { id: 6, title: "Mass Gainer", slug: "mass-gainer", price: 6992, finalPrice: 6992, img1: "Mass-Gainer.png", goal: "Mass Gain", stock: 20 },
-  { id: 7, title: "Whey", slug: "whey", price: 10028, finalPrice: 10028, img1: "Whey.png", goal: "Protein", stock: 20 },
-];
+const bundledProductImages = new Set([
+  "Creatine.png",
+  "D3-K2.png",
+  "Dart.png",
+  "EAA.png",
+  "ISO.png",
+  "Mass-Gainer.png",
+  "Whey.png",
+]);
 
 export async function getProducts(params?: { categoryId?: string | number }): Promise<Product[]> {
-  try {
-    const searchParams = new URLSearchParams({ limit: "24" });
-    if (params?.categoryId) {
-      searchParams.set("categoryId", String(params.categoryId));
-    }
+  const data = await getProductCatalog(params);
+  return data.products;
+}
 
-    const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, { cache: "no-store" });
-    if (!res.ok) return fallbackProducts;
+export type ProductCatalogParams = {
+  page?: string | number;
+  limit?: string | number;
+  categoryId?: string | number;
+  minPrice?: string | number;
+  maxPrice?: string | number;
+  sort?: string;
+  stock?: string;
+  search?: string;
+  dietaryType?: string;
+  tag?: string;
+  minRating?: string | number;
+};
+
+export type ProductCatalog = {
+  products: Product[];
+  total: number;
+  page: number;
+  pages: number;
+  availableTags: string[];
+};
+
+export type ProductCategory = {
+  id: number;
+  name: string;
+  image?: string | null;
+};
+
+export async function getProductCatalog(params?: ProductCatalogParams): Promise<ProductCatalog> {
+  const searchParams = new URLSearchParams();
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && String(value) !== "") {
+      searchParams.set(key, String(value));
+    }
+  });
+  if (!searchParams.has("limit")) searchParams.set("limit", "9");
+
+  const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error(`Products API returned ${res.status}`);
+  }
+  const data = await res.json();
+  const products = Array.isArray(data)
+    ? data
+    : data.products || data.data?.products || data.data;
+  return {
+    products: Array.isArray(products) ? products : [],
+    total: Number(data.total ?? products?.length ?? 0),
+    page: Number(data.page || 1),
+    pages: Number(data.pages || 1),
+    availableTags: Array.isArray(data.availableTags) ? data.availableTags : [],
+  };
+}
+
+export async function getProductCategories(): Promise<ProductCategory[]> {
+  try {
+    const res = await fetch(`${API_URL}/categories`, { next: { revalidate: 60 } });
+    if (!res.ok) return [];
     const data = await res.json();
-    const products = Array.isArray(data) ? data : data.products || data.data?.products || data.data;
-    return products?.length ? products : fallbackProducts;
+    return Array.isArray(data) ? data : [];
   } catch {
-    return fallbackProducts;
+    return [];
   }
 }
 
@@ -110,9 +167,11 @@ export async function getProduct(slug: string): Promise<Product | null> {
       const data = await res.json();
       return data.product || data;
     }
-  } catch {}
+  } catch (error) {
+    console.error(`Unable to fetch product "${slug}" from the API`, error);
+  }
 
-  return fallbackProducts.find((product) => product.slug === slug) || null;
+  return null;
 }
 
 export function productImage(
@@ -123,8 +182,8 @@ export function productImage(
   if (!image) return "/assets/img/product/Whey.png";
   if (String(image).startsWith("http")) return String(image);
   if (String(image).startsWith("/")) return String(image);
-  if (!fallbackProducts.some((item) => item.img1 === image)) return `${API_URL}/uploads/products/${image}`;
-  return `/assets/img/product/${image}`;
+  if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
+  return `${API_URL}/uploads/products/${image}`;
 }
 
 export function getProductPricing(product: Product, variant?: ProductVariant) {

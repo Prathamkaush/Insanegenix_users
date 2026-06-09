@@ -446,7 +446,7 @@ export default function CheckoutPage() {
     <main className="fix">
       <Breadcrumb title="Checkout" />
       
-      <section className="checkout-area pt-120 pb-120 bg-black">
+      <section className="checkout-area">
         <div className="container">
           {loading ? (
             <div className="text-center py-5">
@@ -476,7 +476,17 @@ export default function CheckoutPage() {
               </Link>
             </div>
           ) : (
-            <div className="ig-checkout-container">
+            <div className="ig-checkout-shell">
+              <div className="ig-checkout-page-head">
+                <div>
+                  <span>Secure checkout</span>
+                  <h1>Complete your order</h1>
+                  <p>Choose your delivery address and preferred payment method.</p>
+                </div>
+                
+              </div>
+
+              <div className="ig-checkout-container">
               
               {/* Left Column: Form Steps */}
               <div>
@@ -487,8 +497,7 @@ export default function CheckoutPage() {
                     <button 
                       type="button"
                       onClick={() => setShowAddressModal(true)}
-                      className="btn btn-sm d-flex align-items-center text-danger p-0"
-                      style={{ fontSize: "14px", fontWeight: "700" }}
+                      className="btn btn-sm d-flex align-items-center ig-primary-action ig-primary-action--compact"
                     >
                       <Plus size={16} className="mr-1" /> Add Address
                     </button>
@@ -692,7 +701,7 @@ export default function CheckoutPage() {
                     type="button" 
                     onClick={handlePlaceOrder}
                     disabled={submitLoading || previewLoading || cartItems.length === 0 || !selectedAddressId}
-                    className="ig-add-cart-btn w-100 py-3"
+                    className="ig-add-cart-btn ig-primary-action w-100 py-3"
                   >
                     {submitLoading ? (
                       <>
@@ -712,6 +721,7 @@ export default function CheckoutPage() {
                 </div>
               </aside>
 
+              </div>
             </div>
           )}
         </div>
@@ -828,7 +838,7 @@ export default function CheckoutPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="eg-btn"
+                  className="eg-btn ig-primary-action"
                   disabled={addressLoading}
                 >
                   {addressLoading ? <Loader2 className="animate-spin text-white" size={14} /> : "Save & Choose"}
