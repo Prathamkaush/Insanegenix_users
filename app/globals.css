@@ -1052,6 +1052,25 @@ a {
   max-height: 520px;
   object-fit: contain;
   transition: opacity 0.22s ease, transform 0.22s ease;
+  animation: ig-product-gallery-fade 0.42s ease;
+}
+
+@keyframes ig-product-gallery-fade {
+  from {
+    opacity: 0.25;
+    transform: scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ig-product-gallery__main img {
+    animation: none;
+  }
 }
 
 .eg-product-details__thumb-nav .nav-tabs .nav-link {

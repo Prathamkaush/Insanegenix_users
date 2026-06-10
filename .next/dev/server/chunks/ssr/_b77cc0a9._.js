@@ -111,23 +111,49 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 function ProductGallery({ images, title }) {
     const [activeIndex, setActiveIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [isPaused, setIsPaused] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const activeImage = images[activeIndex] || images[0];
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (images.length < 2 || isPaused) return;
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReducedMotion) return;
+        const timer = window.setTimeout(()=>{
+            setActiveIndex((current)=>(current + 1) % images.length);
+        }, 4000);
+        return ()=>window.clearTimeout(timer);
+    }, [
+        activeIndex,
+        images.length,
+        isPaused
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (activeIndex >= images.length) setActiveIndex(0);
+    }, [
+        activeIndex,
+        images.length
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "eg-product-details__thumb-tab mb-85 ig-product-gallery",
+        onMouseEnter: ()=>setIsPaused(true),
+        onMouseLeave: ()=>setIsPaused(false),
+        onFocusCapture: ()=>setIsPaused(true),
+        onBlurCapture: (event)=>{
+            if (!event.currentTarget.contains(event.relatedTarget)) setIsPaused(false);
+        },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "eg-product-details__thumb-content w-img ig-product-gallery__main",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                     src: activeImage,
-                    alt: title
-                }, void 0, false, {
+                    alt: `${title} view ${activeIndex + 1}`
+                }, activeImage, false, {
                     fileName: "[project]/components/ProductGallery.tsx",
-                    lineNumber: 12,
+                    lineNumber: 38,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/ProductGallery.tsx",
-                lineNumber: 11,
+                lineNumber: 37,
                 columnNumber: 7
             }, this),
             images.length > 1 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -140,33 +166,34 @@ function ProductGallery({ images, title }) {
                             type: "button",
                             onClick: ()=>setActiveIndex(index),
                             "aria-label": `Show ${title} image ${index + 1}`,
+                            "aria-selected": index === activeIndex,
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: image,
                                 alt: `${title} view ${index + 1}`
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductGallery.tsx",
-                                lineNumber: 25,
+                                lineNumber: 52,
                                 columnNumber: 17
                             }, this)
                         }, image, false, {
                             fileName: "[project]/components/ProductGallery.tsx",
-                            lineNumber: 18,
+                            lineNumber: 44,
                             columnNumber: 15
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/components/ProductGallery.tsx",
-                    lineNumber: 16,
+                    lineNumber: 42,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/ProductGallery.tsx",
-                lineNumber: 15,
+                lineNumber: 41,
                 columnNumber: 9
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/components/ProductGallery.tsx",
-        lineNumber: 10,
+        lineNumber: 28,
         columnNumber: 5
     }, this);
 }
