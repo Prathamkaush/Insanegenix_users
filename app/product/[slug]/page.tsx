@@ -44,7 +44,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
       <Breadcrumb title={product.title} />
 
       <section className="eg-product-single__area pb-120">
-        <div className="container">
+        <div className="container mt-50">
           <div className="row align-items-start">
             <div className="col-lg-6">
               <ProductGallery images={images} title={product.title} />
