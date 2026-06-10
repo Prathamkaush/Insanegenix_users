@@ -4660,6 +4660,17 @@ body.ig-search-overlay-lock {
   gap: 12px;
 }
 
+.ig-cart-error {
+  margin: 0 0 12px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(20, 0, 0, 0.38);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .ig-cart-row {
   grid-template-columns: minmax(250px, 1.8fr) minmax(78px, 0.55fr) minmax(82px, 0.58fr) minmax(118px, 0.75fr) minmax(92px, 0.65fr) 38px;
   column-gap: 14px;
@@ -4816,6 +4827,12 @@ body.ig-search-overlay-lock {
   color: #ff747b;
 }
 
+.ig-cart-remove:disabled,
+.ig-cart-stepper button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .ig-cart-summary {
   position: sticky;
   top: 118px;
@@ -4970,7 +4987,10 @@ body.ig-search-overlay-lock {
   }
 
   .ig-cart-row {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
     gap: 12px;
+    min-width: 0;
     padding: 16px;
     margin-bottom: 0;
     border-color: rgba(255, 255, 255, 0.1);
@@ -4981,6 +5001,8 @@ body.ig-search-overlay-lock {
   .ig-cart-product {
     grid-template-columns: 88px minmax(0, 1fr);
     gap: 14px;
+    width: 100%;
+    min-width: 0;
   }
 
   .ig-cart-product__image {
@@ -4991,12 +5013,15 @@ body.ig-search-overlay-lock {
 
   .ig-cart-product__copy h3 {
     font-size: 16px;
+    overflow-wrap: anywhere;
   }
 
   .ig-cart-price,
   .ig-cart-gst,
   .ig-cart-line-total,
   .ig-cart-quantity {
+    width: 100%;
+    min-width: 0;
     padding-top: 11px;
     border-top: 1px solid rgba(255, 255, 255, 0.07);
     font-size: 14px;

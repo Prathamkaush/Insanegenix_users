@@ -4511,6 +4511,17 @@ body.ig-search-overlay-lock {
   display: grid;
 }
 
+.ig-cart-error {
+  color: #fff;
+  background: #14000061;
+  border: 1px solid #ffffff2e;
+  border-radius: 10px;
+  margin: 0 0 12px;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .ig-cart-row {
   background: #ffffff0b;
   border: 1px solid #ffffff1a;
@@ -4663,6 +4674,11 @@ body.ig-search-overlay-lock {
   color: #ff747b;
   background: #e5091421;
   border-color: #e509148c;
+}
+
+.ig-cart-remove:disabled, .ig-cart-stepper button:disabled {
+  cursor: not-allowed;
+  opacity: .45;
 }
 
 .ig-cart-summary {
@@ -4820,7 +4836,10 @@ body.ig-search-overlay-lock {
     background: #ffffff0b;
     border-color: #ffffff1a;
     border-radius: 14px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
     gap: 12px;
+    min-width: 0;
     margin-bottom: 0;
     padding: 16px;
   }
@@ -4828,6 +4847,8 @@ body.ig-search-overlay-lock {
   .ig-cart-product {
     grid-template-columns: 88px minmax(0, 1fr);
     gap: 14px;
+    width: 100%;
+    min-width: 0;
   }
 
   .ig-cart-product__image {
@@ -4837,11 +4858,14 @@ body.ig-search-overlay-lock {
   }
 
   .ig-cart-product__copy h3 {
+    overflow-wrap: anywhere;
     font-size: 16px;
   }
 
   .ig-cart-price, .ig-cart-gst, .ig-cart-line-total, .ig-cart-quantity {
     border-top: 1px solid #ffffff12;
+    width: 100%;
+    min-width: 0;
     padding-top: 11px;
     font-size: 14px;
   }

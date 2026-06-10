@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import ShopProductCard from "@/components/ShopProductCard";
 import { Product } from "@/lib/products";
 
@@ -12,6 +15,67 @@ export default function HomeProductSection({
   title,
   products,
 }: HomeProductSectionProps) {
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const nextRef = useRef<HTMLButtonElement | null>(null);
+  const prevRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel || products.length < 2) return;
+
+    let swiper: any;
+    let retryTimer: ReturnType<typeof setTimeout> | undefined;
+    let cancelled = false;
+
+    const initialize = () => {
+      if (cancelled) return;
+
+      if (!window.Swiper) {
+        retryTimer = setTimeout(initialize, 100);
+        return;
+      }
+
+      if ((carousel as any).swiper) {
+        (carousel as any).swiper.destroy(true, true);
+      }
+
+      swiper = new window.Swiper(carousel, {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        speed: 500,
+        loop: products.length > 4,
+        allowTouchMove: true,
+        simulateTouch: true,
+        touchStartPreventDefault: false,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: nextRef.current,
+          prevEl: prevRef.current,
+        },
+        observer: true,
+        observeParents: true,
+        breakpoints: {
+          576: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          992: { slidesPerView: 2 },
+          1200: { slidesPerView: 3 },
+          1400: { slidesPerView: 4 },
+        },
+      });
+    };
+
+    initialize();
+
+    return () => {
+      cancelled = true;
+      if (retryTimer) clearTimeout(retryTimer);
+      if (swiper) swiper.destroy(true, true);
+    };
+  }, [products.length]);
+
   return (
     <section className={`product-area-2 ig-home-product-section ig-home-product-section--${id}`}>
       <div className="eg-product-2">
@@ -28,6 +92,7 @@ export default function HomeProductSection({
               <div className="col-lg-5">
                 <div className="eg-product-2__arrow d-flex justify-content-end mb-30">
                   <button
+                    ref={prevRef}
                     type="button"
                     className="eg-product-2__prev ig-home-product-prev"
                     aria-label={`Previous ${title}`}
@@ -35,6 +100,7 @@ export default function HomeProductSection({
                     <span>{arrowIcon("previous")}</span>
                   </button>
                   <button
+                    ref={nextRef}
                     type="button"
                     className="eg-product-2__next ig-home-product-next"
                     aria-label={`Next ${title}`}
@@ -48,7 +114,7 @@ export default function HomeProductSection({
         </div>
 
         {products.length ? (
-          <div className="swiper eg-product-2__active ig-home-product-carousel">
+          <div ref={carouselRef} className="swiper eg-product-2__active ig-home-product-carousel">
             <div className="swiper-wrapper">
               {products.slice(0, 8).map((product) => (
                 <div key={product.id} className="swiper-slide ig-home-product-slide">

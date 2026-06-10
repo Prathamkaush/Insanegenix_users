@@ -22,6 +22,8 @@ export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [loginRequired, setLoginRequired] = useState(false);
+  const [pendingItemId, setPendingItemId] = useState<number | null>(null);
+  const [cartError, setCartError] = useState("");
 
   const loadCart = async () => {
     if (!getCustomerToken()) {
@@ -44,8 +46,14 @@ export default function CartPage() {
 
   useEffect(() => {
     loadCart();
-    window.addEventListener("cart:updated", loadCart);
-    return () => window.removeEventListener("cart:updated", loadCart);
+
+    const handleCartUpdated = (event: Event) => {
+      const detail = (event as CustomEvent<{ source?: string }>).detail;
+      if (detail?.source !== "cart-page") loadCart();
+    };
+
+    window.addEventListener("cart:updated", handleCartUpdated);
+    return () => window.removeEventListener("cart:updated", handleCartUpdated);
   }, []);
 
   const subtotal = useMemo(() => items.reduce((sum, item) => sum + cartItemSubtotal(item), 0), [items]);
@@ -53,28 +61,44 @@ export default function CartPage() {
   const total = subtotal + gstTotal;
   const itemCount = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items]);
 
-  const notifyCartCount = (nextItems: CartItem[]) => {
-    const count = nextItems.reduce((sum, item) => sum + item.quantity, 0);
-    window.dispatchEvent(new CustomEvent("cart:updated", { detail: { count } }));
+  const notifyCartCount = (count: number) => {
+    window.dispatchEvent(new CustomEvent("cart:updated", {
+      detail: { count, source: "cart-page" },
+    }));
   };
 
   const changeQuantity = async (item: CartItem, quantity: number) => {
-    if (quantity < 1) return;
-    await updateCartItem(item.id, quantity);
-    setItems((current) => {
-      const nextItems = current.map((currentItem) => (currentItem.id === item.id ? { ...currentItem, quantity } : currentItem));
-      notifyCartCount(nextItems);
-      return nextItems;
-    });
+    if (quantity < 1 || pendingItemId !== null) return;
+
+    try {
+      setPendingItemId(item.id);
+      setCartError("");
+      await updateCartItem(item.id, quantity);
+      setItems((current) => current.map((currentItem) => (
+        currentItem.id === item.id ? { ...currentItem, quantity } : currentItem
+      )));
+      notifyCartCount(itemCount - item.quantity + quantity);
+    } catch (error) {
+      setCartError(error instanceof Error ? error.message : "Could not update the cart quantity.");
+    } finally {
+      setPendingItemId(null);
+    }
   };
 
-  const removeItem = async (id: number) => {
-    await removeCartItem(id);
-    setItems((current) => {
-      const nextItems = current.filter((item) => item.id !== id);
-      notifyCartCount(nextItems);
-      return nextItems;
-    });
+  const removeItem = async (item: CartItem) => {
+    if (pendingItemId !== null) return;
+
+    try {
+      setPendingItemId(item.id);
+      setCartError("");
+      await removeCartItem(item.id);
+      setItems((current) => current.filter((currentItem) => currentItem.id !== item.id));
+      notifyCartCount(Math.max(0, itemCount - item.quantity));
+    } catch (error) {
+      setCartError(error instanceof Error ? error.message : "Could not remove this product.");
+    } finally {
+      setPendingItemId(null);
+    }
   };
 
   return (
@@ -119,6 +143,9 @@ export default function CartPage() {
 
               <div className="ig-cart-layout">
                 <div className="ig-cart-table-wrap">
+                  {cartError ? (
+                    <p className="ig-cart-error" role="alert">{cartError}</p>
+                  ) : null}
                   <div className="ig-cart-table" role="table" aria-label="Shopping cart">
                     <div className="ig-cart-row ig-cart-row--head" role="row">
                       <span role="columnheader">Product</span>
@@ -154,17 +181,36 @@ export default function CartPage() {
                         <div className="ig-cart-quantity" role="cell">
                           <span className="ig-cart-mobile-label">Quantity</span>
                           <div className="ig-cart-stepper">
-                            <button type="button" aria-label={`Decrease ${item.product.title} quantity`} onClick={() => changeQuantity(item, item.quantity - 1)} disabled={item.quantity <= 1}>
+                            <button
+                              type="button"
+                              aria-label={`Decrease ${item.product.title} quantity`}
+                              onClick={() => changeQuantity(item, item.quantity - 1)}
+                              disabled={item.quantity <= 1 || pendingItemId !== null}
+                            >
                               <Minus size={14} />
                             </button>
-                            <span aria-live="polite">{item.quantity}</span>
-                            <button type="button" aria-label={`Increase ${item.product.title} quantity`} onClick={() => changeQuantity(item, item.quantity + 1)}>
+                            <span aria-live="polite">
+                              {pendingItemId === item.id ? "..." : item.quantity}
+                            </span>
+                            <button
+                              type="button"
+                              aria-label={`Increase ${item.product.title} quantity`}
+                              onClick={() => changeQuantity(item, item.quantity + 1)}
+                              disabled={pendingItemId !== null}
+                            >
                               <Plus size={14} />
                             </button>
                           </div>
                         </div>
                         <strong className="ig-cart-line-total" role="cell">{currency(cartItemPayableTotal(item))}</strong>
-                        <button type="button" className="ig-cart-remove" aria-label={`Remove ${item.product.title}`} onClick={() => removeItem(item.id)} role="cell">
+                        <button
+                          type="button"
+                          className="ig-cart-remove"
+                          aria-label={`Remove ${item.product.title}`}
+                          onClick={() => removeItem(item)}
+                          disabled={pendingItemId !== null}
+                          role="cell"
+                        >
                           <Trash2 size={18} />
                         </button>
                       </div>

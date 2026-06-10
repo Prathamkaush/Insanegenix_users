@@ -96,10 +96,12 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 __turbopack_context__.s([
     "currency",
     ()=>currency,
-    "fallbackProducts",
-    ()=>fallbackProducts,
     "getProduct",
     ()=>getProduct,
+    "getProductCatalog",
+    ()=>getProductCatalog,
+    "getProductCategories",
+    ()=>getProductCategories,
     "getProductPricing",
     ()=>getProductPricing,
     "getProducts",
@@ -109,95 +111,55 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
-const fallbackProducts = [
-    {
-        id: 1,
-        title: "Creatine",
-        slug: "creatine",
-        price: 1104,
-        finalPrice: 1104,
-        img1: "Creatine.png",
-        goal: "Muscle",
-        stock: 20
-    },
-    {
-        id: 2,
-        title: "D3 + K2 Omega 3",
-        slug: "d3-k2-omega-3",
-        price: 1380,
-        finalPrice: 1380,
-        img1: "D3-K2.png",
-        goal: "Wellness",
-        stock: 20
-    },
-    {
-        id: 3,
-        title: "Dart",
-        slug: "dart",
-        price: 2944,
-        finalPrice: 2944,
-        img1: "Dart.png",
-        goal: "Pre Workout",
-        stock: 20
-    },
-    {
-        id: 4,
-        title: "EAA",
-        slug: "eaa",
-        price: 3220,
-        finalPrice: 3220,
-        img1: "EAA.png",
-        goal: "Recovery",
-        stock: 20
-    },
-    {
-        id: 5,
-        title: "ISO",
-        slug: "iso",
-        price: 14168,
-        finalPrice: 14168,
-        img1: "ISO.png",
-        goal: "Lean Muscle",
-        stock: 20
-    },
-    {
-        id: 6,
-        title: "Mass Gainer",
-        slug: "mass-gainer",
-        price: 6992,
-        finalPrice: 6992,
-        img1: "Mass-Gainer.png",
-        goal: "Mass Gain",
-        stock: 20
-    },
-    {
-        id: 7,
-        title: "Whey",
-        slug: "whey",
-        price: 10028,
-        finalPrice: 10028,
-        img1: "Whey.png",
-        goal: "Protein",
-        stock: 20
-    }
-];
+const bundledProductImages = new Set([
+    "Creatine.png",
+    "D3-K2.png",
+    "Dart.png",
+    "EAA.png",
+    "ISO.png",
+    "Mass-Gainer.png",
+    "Whey.png"
+]);
 async function getProducts(params) {
-    try {
-        const searchParams = new URLSearchParams({
-            limit: "24"
-        });
-        if (params?.categoryId) {
-            searchParams.set("categoryId", String(params.categoryId));
+    const data = await getProductCatalog(params);
+    return data.products;
+}
+async function getProductCatalog(params) {
+    const searchParams = new URLSearchParams();
+    Object.entries(params || {}).forEach(([key, value])=>{
+        if (value !== undefined && value !== null && String(value) !== "") {
+            searchParams.set(key, String(value));
         }
-        const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
-            cache: "no-store"
+    });
+    if (!searchParams.has("limit")) searchParams.set("limit", "9");
+    const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
+        cache: "no-store"
+    });
+    if (!res.ok) {
+        throw new Error(`Products API returned ${res.status}`);
+    }
+    const data = await res.json();
+    const products = Array.isArray(data) ? data : data.products || data.data?.products || data.data;
+    return {
+        products: Array.isArray(products) ? products : [],
+        total: Number(data.total ?? products?.length ?? 0),
+        page: Number(data.page || 1),
+        pages: Number(data.pages || 1),
+        availableTags: Array.isArray(data.availableTags) ? data.availableTags : []
+    };
+}
+async function getProductCategories() {
+    try {
+        const res = await fetch(`${API_URL}/categories`, {
+            next: {
+                revalidate: 60
+            }
         });
-        if (!res.ok) return fallbackProducts;
+        if (!res.ok) return [];
         const data = await res.json();
-        const products = Array.isArray(data) ? data : data.products || data.data?.products || data.data;
-        return products?.length ? products : fallbackProducts;
+        return Array.isArray(data) ? data : [];
     } catch  {
-        return fallbackProducts;
+        return [];
     }
 }
 async function getProduct(slug) {
@@ -211,16 +173,18 @@ async function getProduct(slug) {
             const data = await res.json();
             return data.product || data;
         }
-    } catch  {}
-    return fallbackProducts.find((product)=>product.slug === slug) || null;
+    } catch (error) {
+        console.error(`Unable to fetch product "${slug}" from the API`, error);
+    }
+    return null;
 }
 function productImage(product, imageKey = "img1") {
     const image = product[imageKey] || product.img1;
     if (!image) return "/assets/img/product/Whey.png";
     if (String(image).startsWith("http")) return String(image);
     if (String(image).startsWith("/")) return String(image);
-    if (!fallbackProducts.some((item)=>item.img1 === image)) return `${API_URL}/uploads/products/${image}`;
-    return `/assets/img/product/${image}`;
+    if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
+    return `${API_URL}/uploads/products/${image}`;
 }
 function getProductPricing(product, variant) {
     const basePrice = Number(variant?.price ?? product.price ?? 0);

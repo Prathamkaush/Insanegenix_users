@@ -417,45 +417,6 @@ $(".decrement").click(function () {
 	});
 
 
-	document.querySelectorAll('.ig-home-product-carousel').forEach(function (carousel) {
-		var section = carousel.closest('.ig-home-product-section');
-		var slideCount = carousel.querySelectorAll('.swiper-slide').length;
-
-		new Swiper(carousel, {
-			slidesPerView: 4,
-			loop: slideCount > 4,
-			spaceBetween: 0,
-			autoplay: slideCount > 1 ? {
-				delay: 5000,
-			} : false,
-			navigation: {
-				nextEl: section ? section.querySelector('.ig-home-product-next') : null,
-				prevEl: section ? section.querySelector('.ig-home-product-prev') : null,
-			},
-			breakpoints: {
-				'1400': {
-					slidesPerView: 4,
-				},
-				'1200': {
-					slidesPerView: 3,
-				},
-				'992': {
-					slidesPerView: 2,
-				},
-				'768': {
-					slidesPerView: 2,
-				},
-				'576': {
-					slidesPerView: 1,
-				},
-				'0': {
-					slidesPerView: 1,
-				},
-			},
-		});
-	});
-
-
 	var product3Slider = new Swiper('.eg-product-3__active', {
 		slidesPerView: 4,
 		loop: true,
