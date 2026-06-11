@@ -9,9 +9,7 @@ import ProductVariantPurchase from "@/components/ProductVariantPurchase";
 import {
   Product,
   ProductVariant,
-  currency,
   getProduct,
-  getProductPricing,
   getProducts,
   productImage,
 } from "@/lib/products";
@@ -28,9 +26,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
 
   const images = productImages(product);
   const defaultVariant = product.variants?.find((variant) => variant.isDefault) || product.variants?.[0];
-  const { currentPrice: price, originalPrice: mrp } = getProductPricing(product, defaultVariant);
-  const maxQuantity = Number(defaultVariant?.stock ?? product.stock ?? 0);
-  const inStock = maxQuantity > 0;
+  const inStock = Number(defaultVariant?.stock ?? product.stock ?? 0) > 0;
   const category = product.category?.name || product.type?.name || "Sports Nutrition";
   const relatedProducts = allProducts.filter((item) => item.slug !== product.slug).slice(0, 4);
   const benefits = normalizeList(product.keyBenefits);
@@ -76,12 +72,6 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
 
                   <p>{product.shortDescription || product.description || "Premium InsaneGenix performance supplement."}</p>
 
-                  <div className="eg-product-details__price mt-30">
-                    <h4 className="eg-product-details__ammount">
-                      {mrp && Number(mrp) > Number(price) ? <del className="old-ammount">{currency(mrp)}</del> : null}
-                      {currency(price)}
-                    </h4>
-                  </div>
                 </div>
 
                 <div className="ig-product-highlights">

@@ -172,8 +172,6 @@ function WishlistButton({ productId, variantId, label = false, onWishedChange })
 __turbopack_context__.s([
     "currency",
     ()=>currency,
-    "fallbackProducts",
-    ()=>fallbackProducts,
     "getProduct",
     ()=>getProduct,
     "getProductCatalog",
@@ -188,121 +186,42 @@ __turbopack_context__.s([
     ()=>productImage
 ]);
 const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
-const fallbackProducts = [
-    {
-        id: 1,
-        title: "Creatine",
-        slug: "creatine",
-        price: 1104,
-        finalPrice: 1104,
-        img1: "Creatine.png",
-        goal: "Muscle",
-        stock: 20
-    },
-    {
-        id: 2,
-        title: "D3 + K2 Omega 3",
-        slug: "d3-k2-omega-3",
-        price: 1380,
-        finalPrice: 1380,
-        img1: "D3-K2.png",
-        goal: "Wellness",
-        stock: 20
-    },
-    {
-        id: 3,
-        title: "Dart",
-        slug: "dart",
-        price: 2944,
-        finalPrice: 2944,
-        img1: "Dart.png",
-        goal: "Pre Workout",
-        stock: 20
-    },
-    {
-        id: 4,
-        title: "EAA",
-        slug: "eaa",
-        price: 3220,
-        finalPrice: 3220,
-        img1: "EAA.png",
-        goal: "Recovery",
-        stock: 20
-    },
-    {
-        id: 5,
-        title: "ISO",
-        slug: "iso",
-        price: 14168,
-        finalPrice: 14168,
-        img1: "ISO.png",
-        goal: "Lean Muscle",
-        stock: 20
-    },
-    {
-        id: 6,
-        title: "Mass Gainer",
-        slug: "mass-gainer",
-        price: 6992,
-        finalPrice: 6992,
-        img1: "Mass-Gainer.png",
-        goal: "Mass Gain",
-        stock: 20
-    },
-    {
-        id: 7,
-        title: "Whey",
-        slug: "whey",
-        price: 10028,
-        finalPrice: 10028,
-        img1: "Whey.png",
-        goal: "Protein",
-        stock: 20
-    }
-];
+const bundledProductImages = new Set([
+    "Creatine.png",
+    "D3-K2.png",
+    "Dart.png",
+    "EAA.png",
+    "ISO.png",
+    "Mass-Gainer.png",
+    "Whey.png"
+]);
 async function getProducts(params) {
     const data = await getProductCatalog(params);
     return data.products;
 }
 async function getProductCatalog(params) {
-    try {
-        const searchParams = new URLSearchParams();
-        Object.entries(params || {}).forEach(([key, value])=>{
-            if (value !== undefined && value !== null && String(value) !== "") {
-                searchParams.set(key, String(value));
-            }
-        });
-        if (!searchParams.has("limit")) searchParams.set("limit", "9");
-        const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
-            cache: "no-store"
-        });
-        if (!res.ok) {
-            return {
-                products: fallbackProducts,
-                total: fallbackProducts.length,
-                page: 1,
-                pages: 1,
-                availableTags: []
-            };
+    const searchParams = new URLSearchParams();
+    Object.entries(params || {}).forEach(([key, value])=>{
+        if (value !== undefined && value !== null && String(value) !== "") {
+            searchParams.set(key, String(value));
         }
-        const data = await res.json();
-        const products = Array.isArray(data) ? data : data.products || data.data?.products || data.data;
-        return {
-            products: Array.isArray(products) ? products : [],
-            total: Number(data.total ?? products?.length ?? 0),
-            page: Number(data.page || 1),
-            pages: Number(data.pages || 1),
-            availableTags: Array.isArray(data.availableTags) ? data.availableTags : []
-        };
-    } catch  {
-        return {
-            products: fallbackProducts,
-            total: fallbackProducts.length,
-            page: 1,
-            pages: 1,
-            availableTags: []
-        };
+    });
+    if (!searchParams.has("limit")) searchParams.set("limit", "9");
+    const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
+        cache: "no-store"
+    });
+    if (!res.ok) {
+        throw new Error(`Products API returned ${res.status}`);
     }
+    const data = await res.json();
+    const products = Array.isArray(data) ? data : data.products || data.data?.products || data.data;
+    return {
+        products: Array.isArray(products) ? products : [],
+        total: Number(data.total ?? products?.length ?? 0),
+        page: Number(data.page || 1),
+        pages: Number(data.pages || 1),
+        availableTags: Array.isArray(data.availableTags) ? data.availableTags : []
+    };
 }
 async function getProductCategories() {
     try {
@@ -329,16 +248,18 @@ async function getProduct(slug) {
             const data = await res.json();
             return data.product || data;
         }
-    } catch  {}
-    return fallbackProducts.find((product)=>product.slug === slug) || null;
+    } catch (error) {
+        console.error(`Unable to fetch product "${slug}" from the API`, error);
+    }
+    return null;
 }
 function productImage(product, imageKey = "img1") {
     const image = product[imageKey] || product.img1;
     if (!image) return "/assets/img/product/Whey.png";
     if (String(image).startsWith("http")) return String(image);
     if (String(image).startsWith("/")) return String(image);
-    if (!fallbackProducts.some((item)=>item.img1 === image)) return `${API_URL}/uploads/products/${image}`;
-    return `/assets/img/product/${image}`;
+    if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
+    return `${API_URL}/uploads/products/${image}`;
 }
 function getProductPricing(product, variant) {
     const basePrice = Number(variant?.price ?? product.price ?? 0);
@@ -583,7 +504,9 @@ function WishlistPage() {
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "ig-wishlist-grid",
-                                children: items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
+                                children: items.map((item)=>{
+                                    const pricing = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getProductPricing"])(item.product, item.variant || undefined);
+                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
                                         className: "ig-wishlist-card",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -597,12 +520,12 @@ function WishlistPage() {
                                                             alt: item.product.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/wishlist/page.tsx",
-                                                            lineNumber: 84,
+                                                            lineNumber: 90,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/wishlist/page.tsx",
-                                                        lineNumber: 83,
+                                                        lineNumber: 89,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -615,18 +538,18 @@ function WishlistPage() {
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/wishlist/page.tsx",
-                                                            lineNumber: 87,
+                                                            lineNumber: 93,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/wishlist/page.tsx",
-                                                        lineNumber: 86,
+                                                        lineNumber: 92,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/wishlist/page.tsx",
-                                                lineNumber: 82,
+                                                lineNumber: 88,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -636,7 +559,7 @@ function WishlistPage() {
                                                         children: item.variant?.flavour || item.product.category?.name || "InsaneGenix"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/wishlist/page.tsx",
-                                                        lineNumber: 98,
+                                                        lineNumber: 104,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -645,19 +568,19 @@ function WishlistPage() {
                                                             children: item.product.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/wishlist/page.tsx",
-                                                            lineNumber: 100,
+                                                            lineNumber: 106,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/wishlist/page.tsx",
-                                                        lineNumber: 99,
+                                                        lineNumber: 105,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                         children: item.variant?.weightLabel || "Select your preferred option"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/wishlist/page.tsx",
-                                                        lineNumber: 102,
+                                                        lineNumber: 108,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -667,20 +590,27 @@ function WishlistPage() {
                                                                 children: "From"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/wishlist/page.tsx",
-                                                                lineNumber: 104,
+                                                                lineNumber: 110,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                                children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["currency"])(item.variant?.price || item.product.finalPrice || item.product.price)
+                                                                children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["currency"])(pricing.currentPrice)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/wishlist/page.tsx",
-                                                                lineNumber: 105,
+                                                                lineNumber: 111,
                                                                 columnNumber: 25
-                                                            }, this)
+                                                            }, this),
+                                                            pricing.originalPrice ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("del", {
+                                                                children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["currency"])(pricing.originalPrice)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/wishlist/page.tsx",
+                                                                lineNumber: 113,
+                                                                columnNumber: 27
+                                                            }, this) : null
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/wishlist/page.tsx",
-                                                        lineNumber: 103,
+                                                        lineNumber: 109,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -692,27 +622,28 @@ function WishlistPage() {
                                                                 size: 15
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/wishlist/page.tsx",
-                                                                lineNumber: 108,
+                                                                lineNumber: 117,
                                                                 columnNumber: 38
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/wishlist/page.tsx",
-                                                        lineNumber: 107,
+                                                        lineNumber: 116,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/wishlist/page.tsx",
-                                                lineNumber: 97,
+                                                lineNumber: 103,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, item.id, true, {
                                         fileName: "[project]/app/wishlist/page.tsx",
-                                        lineNumber: 81,
+                                        lineNumber: 87,
                                         columnNumber: 19
-                                    }, this))
+                                    }, this);
+                                })
                             }, void 0, false, {
                                 fileName: "[project]/app/wishlist/page.tsx",
                                 lineNumber: 79,
@@ -725,14 +656,14 @@ function WishlistPage() {
                                         size: 15
                                     }, void 0, false, {
                                         fileName: "[project]/app/wishlist/page.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 126,
                                         columnNumber: 17
                                     }, this),
                                     "Saved products remain here while you are signed in."
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/wishlist/page.tsx",
-                                lineNumber: 115,
+                                lineNumber: 125,
                                 columnNumber: 15
                             }, this)
                         ]

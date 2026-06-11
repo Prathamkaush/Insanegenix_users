@@ -14,7 +14,10 @@ export type WishlistItem = {
     flavour?: string | null;
     weightLabel?: string | null;
     price?: string | number | null;
-    stock?: number | null;
+    mrp?: string | number | null;
+    discountType?: string | null;
+    discountValue?: string | number | null;
+    stock?: number;
     image1?: string | null;
   } | null;
 };

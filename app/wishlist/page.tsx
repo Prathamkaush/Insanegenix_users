@@ -6,7 +6,7 @@ import { ArrowRight, Heart } from "lucide-react";
 import AuthActionButton from "@/components/AuthActionButton";
 import Breadcrumb from "@/components/Breadcrumb";
 import WishlistButton from "@/components/WishlistButton";
-import { currency, productImage } from "@/lib/products";
+import { currency, getProductPricing, productImage } from "@/lib/products";
 import { getCustomerToken, getWishlist, WishlistItem } from "@/lib/wishlist";
 
 export default function WishlistPage() {
@@ -77,7 +77,13 @@ export default function WishlistPage() {
               </div>
 
               <div className="ig-wishlist-grid">
-                {items.map((item) => (
+                {items.map((item) => {
+                  const pricing = getProductPricing(
+                    item.product,
+                    item.variant || undefined,
+                  );
+
+                  return (
                   <article className="ig-wishlist-card" key={item.id}>
                     <div className="ig-wishlist-card__media">
                       <Link href={`/product/${item.product.slug}`} className="ig-wishlist-card__image">
@@ -102,14 +108,18 @@ export default function WishlistPage() {
                       <p>{item.variant?.weightLabel || "Select your preferred option"}</p>
                       <div className="ig-wishlist-card__price">
                         <small>From</small>
-                        <strong>{currency(item.variant?.price || item.product.finalPrice || item.product.price)}</strong>
+                        <strong>{currency(pricing.currentPrice)}</strong>
+                        {pricing.originalPrice ? (
+                          <del>{currency(pricing.originalPrice)}</del>
+                        ) : null}
                       </div>
                       <Link href={`/product/${item.product.slug}`} className="ig-wishlist-view ig-primary-action">
                         View product <ArrowRight size={15} />
                       </Link>
                     </div>
                   </article>
-                ))}
+                  );
+                })}
               </div>
 
               <div className="ig-wishlist-footnote">

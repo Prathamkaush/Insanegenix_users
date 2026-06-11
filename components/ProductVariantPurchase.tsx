@@ -2,7 +2,12 @@
 
 import { useMemo, useState } from "react";
 import ProductPurchaseControls from "@/components/ProductPurchaseControls";
-import { Product, ProductVariant } from "@/lib/products";
+import {
+  Product,
+  ProductVariant,
+  currency,
+  getProductPricing,
+} from "@/lib/products";
 
 export default function ProductVariantPurchase({
   product,
@@ -25,9 +30,25 @@ export default function ProductVariantPurchase({
   );
   const maxQuantity = Number(selectedVariant?.stock ?? product.stock ?? 0);
   const inStock = maxQuantity > 0;
+  const { currentPrice, originalPrice, discountPercent } = getProductPricing(
+    product,
+    selectedVariant || undefined,
+  );
 
   return (
     <>
+      <div className="eg-product-details__price mt-30">
+        <h4 className="eg-product-details__ammount">
+          {originalPrice && originalPrice > currentPrice ? (
+            <del className="old-ammount">{currency(originalPrice)}</del>
+          ) : null}
+          {currency(currentPrice)}
+        </h4>
+        {discountPercent && discountPercent > 0 ? (
+          <span className="product-card__badge">{discountPercent}% off</span>
+        ) : null}
+      </div>
+
       {variants.length ? (
         <div className="ig-product-panel mt-30">
           <h4 className="eg-product-details__quantity-title mb-15">Available Options</h4>
