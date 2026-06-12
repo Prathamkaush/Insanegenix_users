@@ -114,10 +114,10 @@ export default function HomeProductSection({
         </div>
 
         {products.length ? (
-          <div ref={carouselRef} className="swiper eg-product-2__active ig-home-product-carousel">
+          <div ref={carouselRef} className="swiper  eg-product-2__active ig-home-product-carousel">
             <div className="swiper-wrapper">
               {products.slice(0, 8).map((product) => (
-                <div key={product.id} className="swiper-slide ig-home-product-slide">
+                <div key={product.id} className="swiper-slide mb-40 mt-40 ig-home-product-slide">
                   <HomeProductCard product={product} />
                 </div>
               ))}
