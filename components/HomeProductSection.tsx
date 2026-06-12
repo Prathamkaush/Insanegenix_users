@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import ShopProductCard from "@/components/ShopProductCard";
+import HomeProductCard from "@/components/HomeProductCard";
 import { Product } from "@/lib/products";
 
 type HomeProductSectionProps = {
@@ -62,7 +62,7 @@ export default function HomeProductSection({
           768: { slidesPerView: 2 },
           992: { slidesPerView: 2 },
           1200: { slidesPerView: 3 },
-          1400: { slidesPerView: 4 },
+          1400: { slidesPerView: 3 },
         },
       });
     };
@@ -118,7 +118,7 @@ export default function HomeProductSection({
             <div className="swiper-wrapper">
               {products.slice(0, 8).map((product) => (
                 <div key={product.id} className="swiper-slide ig-home-product-slide">
-                  <ShopProductCard product={product} />
+                  <HomeProductCard product={product} />
                 </div>
               ))}
             </div>

@@ -1353,6 +1353,186 @@ a {
   padding-bottom: 42px;
 }
 
+.home-product-card {
+  width: 100%;
+  min-height: 520px;
+  padding: 44px 56px 24px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: linear-gradient(180deg, #190000 0%, #4b0000 47%, #f20c18 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.32);
+  color: #ffffff;
+  text-align: center;
+  transition:
+    background 0.35s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.home-product-card:hover {
+  background: #131817;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.home-product-card__content {
+  position: relative;
+  z-index: 2;
+}
+
+.home-product-card__title-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.22s ease;
+}
+
+.home-product-card__title-link:hover {
+  color: #ff3152;
+}
+
+.home-product-card__title {
+  margin: 0 0 6px;
+  color: inherit;
+  font-size: clamp(28px, 2vw, 36px);
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-product-card__meta {
+  margin: 0 0 12px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.home-product-card__prices {
+  min-height: 26px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 20px;
+}
+
+.home-product-card__original-price {
+  font-size: 15px;
+  text-decoration: line-through;
+}
+
+.home-product-card__price {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.home-product-card__actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 12px;
+}
+
+.home-product-card__shop {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 22px;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: #181d1c;
+  border: 0;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background-position 0.35s ease;
+}
+
+.home-product-card:hover .home-product-card__shop {
+  background: linear-gradient(100deg, #ffb719 0%, #ff7a0a 48%, #f0281a 100%);
+  background-size: 160% 100%;
+  background-position: 0 0;
+}
+
+.home-product-card .home-product-card__shop:hover {
+  background-position: 100% 0;
+  box-shadow: 0 10px 28px rgba(255, 92, 20, 0.34);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.home-product-card__wishlist {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  z-index: 3;
+}
+
+.home-product-card__wishlist .ig-wishlist-btn {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 50%;
+  background: #181d1c;
+}
+
+.home-product-card__wishlist .ig-wishlist-btn:hover,
+.home-product-card__wishlist .ig-wishlist-btn.is-active {
+  border-color: #ff3152;
+  background: #ff3152;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.home-product-card__image-link {
+  width: 100%;
+  min-height: 250px;
+  margin-top: 14px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.home-product-card__image {
+  width: 100%;
+  height: 250px;
+  padding: 0 10px;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 22px rgba(0, 0, 0, 0.28));
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.home-product-card:hover .home-product-card__image {
+  transform: translateY(-5px) scale(1.035);
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.5));
+}
+
 .eg-product-2__thumb {
   min-height: 300px;
   display: flex;
@@ -2237,6 +2417,19 @@ a {
     width: 66px;
     height: 66px;
   }
+
+  .home-product-card {
+    min-height: 500px;
+    padding: 40px 34px 24px;
+  }
+
+  .home-product-card__image-link {
+    min-height: 240px;
+  }
+
+  .home-product-card__image {
+    height: 240px;
+  }
 }
 
 @media (max-width: 1199px) {
@@ -2328,6 +2521,49 @@ a {
 
   .shop-product-card__image {
     padding: 22px;
+  }
+
+  .home-product-card {
+    min-height: 480px;
+    padding: 36px 22px 22px;
+  }
+
+  .home-product-card__title {
+    font-size: 27px;
+  }
+
+  .home-product-card__meta {
+    font-size: 16px;
+  }
+
+  .home-product-card__prices,
+  .home-product-card__price {
+    font-size: 18px;
+  }
+
+  .home-product-card__shop {
+    min-height: 50px;
+    font-size: 17px;
+  }
+
+  .home-product-card__actions {
+    grid-template-columns: minmax(0, 1fr) 50px;
+    gap: 10px;
+  }
+
+  .home-product-card__wishlist,
+  .home-product-card__wishlist .ig-wishlist-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .home-product-card__image-link {
+    min-height: 230px;
+  }
+
+  .home-product-card__image {
+    height: 230px;
+    padding: 0 8px;
   }
 
   .eg-product-2__active .swiper-slide,
@@ -2961,6 +3197,279 @@ a {
   .ig-cart-line-total,
   .ig-cart-quantity {
     font-size: 21px;
+  }
+}
+
+.ig-authenticity-area {
+  min-height: 720px;
+  padding: 110px 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(229, 9, 20, 0.18), transparent 32%),
+    #080808;
+}
+
+.ig-authenticity-grid {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 70px;
+  align-items: center;
+}
+
+.ig-authenticity-intro h1 {
+  max-width: 680px;
+  margin: 22px 0;
+  color: #fff;
+  font-size: clamp(48px, 7vw, 92px);
+  font-weight: 900;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-intro > p {
+  max-width: 620px;
+  color: #a1a1aa;
+  font-size: 18px;
+}
+
+.ig-authenticity-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #e50914;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 42px;
+}
+
+.ig-authenticity-steps div {
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ig-authenticity-steps strong,
+.ig-authenticity-steps span {
+  display: block;
+}
+
+.ig-authenticity-steps strong {
+  margin-bottom: 12px;
+  color: #e50914;
+  font-size: 13px;
+}
+
+.ig-authenticity-steps span {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-checker {
+  padding: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #111113;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+}
+
+.ig-authenticity-checker__icon,
+.ig-authenticity-result__icon {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  background: #e50914;
+  color: #fff;
+}
+
+.ig-authenticity-checker h2 {
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-checker > p,
+.ig-authenticity-checker > small {
+  color: #8b8b93;
+}
+
+.ig-authenticity-checker form {
+  margin: 28px 0 18px;
+}
+
+.ig-authenticity-checker label {
+  display: block;
+  margin-bottom: 9px;
+  color: #a1a1aa;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-checker input {
+  width: 100%;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #080808;
+  color: #fff;
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  outline: none;
+  text-align: center;
+}
+
+.ig-authenticity-checker input:focus {
+  border-color: #e50914;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.16);
+}
+
+.ig-authenticity-checker form button,
+.ig-authenticity-result > button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 14px;
+  padding: 15px;
+  border: 0;
+  background: #e50914;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-checker button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.ig-authenticity-error,
+.ig-authenticity-warning {
+  margin: 12px 0 0;
+  padding: 12px;
+  border: 1px solid rgba(229, 9, 20, 0.35);
+  background: rgba(229, 9, 20, 0.1);
+  color: #ff8b91;
+  font-size: 12px;
+}
+
+.ig-authenticity-result > span {
+  color: #e50914;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-result--authentic .ig-authenticity-result__icon {
+  background: #15803d;
+}
+
+.ig-authenticity-result--authentic > span {
+  color: #4ade80;
+}
+
+.ig-authenticity-result--already_verified .ig-authenticity-result__icon {
+  background: #b45309;
+}
+
+.ig-authenticity-product {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ig-authenticity-product img {
+  width: 74px;
+  height: 74px;
+  object-fit: cover;
+}
+
+.ig-authenticity-product strong {
+  display: block;
+  color: #fff;
+}
+
+.ig-authenticity-product p {
+  margin: 3px 0 0;
+  color: #8b8b93;
+  font-size: 11px;
+}
+
+.ig-authenticity-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 18px 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ig-authenticity-meta div {
+  padding: 12px;
+  background: #111113;
+}
+
+.ig-authenticity-meta dt {
+  color: #71717a;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ig-authenticity-meta dd {
+  margin: 4px 0 0;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 991px) {
+  .ig-authenticity-grid {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .ig-authenticity-checker {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 575px) {
+  .ig-authenticity-area {
+    padding: 70px 0;
+  }
+
+  .ig-authenticity-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .ig-authenticity-checker {
+    padding: 26px 20px;
+  }
+
+  .ig-authenticity-checker input {
+    font-size: 18px;
   }
 }
 
