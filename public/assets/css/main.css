@@ -6431,6 +6431,8 @@ a.ui-button:active {
 .eg-product-2__prev span, .eg-product-2__next span {
   position: absolute;
   left: 50%;
+  bottom: 1%;
+      margin: 0 -16px 0 -16px;
 }
 .eg-product-2__prev span svg, .eg-product-2__next span svg {
   fill: var(--eg-common-black-5);

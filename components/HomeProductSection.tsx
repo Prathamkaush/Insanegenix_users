@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import HomeProductCard from "@/components/HomeProductCard";
+import HomeProductCard from "@/components/ProductCard";
 import { Product } from "@/lib/products";
 
 type HomeProductSectionProps = {
