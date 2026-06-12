@@ -45,6 +45,7 @@ export default function Header() {
   const [animateCart, setAnimateCart] = useState(false);
   const [animateWishlist, setAnimateWishlist] = useState(false);
   const [categorySheetOpen, setCategorySheetOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [productTags, setProductTags] = useState<string[]>([]);
@@ -336,7 +337,55 @@ export default function Header() {
                       <i className="fas fa-times"></i>
                     </div>
                   </div>
-                  <div className="eg-mobile__menu-outer"></div>
+                  <div className="eg-mobile__menu-outer" data-react-mobile-menu>
+                    <ul className="navigation">
+                      <li>
+                        <Link href="/">Home</Link>
+                      </li>
+                      <li>
+                        <Link href="/about">About Us</Link>
+                      </li>
+                      <li className="eg-menu__has-children">
+                        <Link href="/shop">All Products</Link>
+                        <ul
+                          id="mobile-products-submenu"
+                          className="sub-menu"
+                          style={{ display: mobileProductsOpen ? "block" : "none" }}
+                        >
+                          {categories.map((category) => (
+                            <li key={category.id}>
+                              <Link href={`/shop?categoryId=${category.id}`}>
+                                <img
+                                  src={categoryImageUrl(category.image)}
+                                  alt=""
+                                  width="22"
+                                  height="22"
+                                />
+                                {category.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                        <button
+                          type="button"
+                          className={`dropdown-btn ${mobileProductsOpen ? "open" : ""}`}
+                          data-react-dropdown
+                          aria-label={mobileProductsOpen ? "Hide product categories" : "Show product categories"}
+                          aria-expanded={mobileProductsOpen}
+                          aria-controls="mobile-products-submenu"
+                          onClick={() => setMobileProductsOpen((open) => !open)}
+                        >
+                          <span className="fal fa-plus plus-line"></span>
+                        </button>
+                      </li>
+                      <li>
+                        <Link href="/authenticity">Authenticity</Link>
+                      </li>
+                      <li>
+                        <Link href="/contact">Contact Us</Link>
+                      </li>
+                    </ul>
+                  </div>
                 </nav>
               </div>
               <div className="eg-mobile__menu-backdrop"></div>

@@ -148,15 +148,17 @@
 
    if ($(".eg-mobile__menu").length) {
 		
-		var mobileMenuContent = $(".menu-area .eg-menu__main-menu").html();
-		$(".eg-mobile__menu .eg-mobile__menu-box .eg-mobile__menu-outer").append(
-		  mobileMenuContent
-		);
+		var mobileMenuOuter = $(".eg-mobile__menu .eg-mobile__menu-box .eg-mobile__menu-outer");
+		if (!mobileMenuOuter.find(".navigation").length) {
+			var mobileMenuContent = $(".menu-area .eg-menu__main-menu").html();
+			mobileMenuOuter.append(mobileMenuContent);
+		}
 		
 		//Dropdown Button
 		$(".eg-mobile__menu li.eg-menu__has-children .dropdown-btn").on(
 		  "click",
 		  function () {
+			 if ($(this).is("[data-react-dropdown]")) return;
 			 $(this).toggleClass("open");
 			 $(this).prev("ul").slideToggle(300);
 		  }

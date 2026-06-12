@@ -1503,6 +1503,34 @@ a {
   padding-bottom: 42px;
 }
 
+.eg-mobile__menu [data-react-dropdown] {
+  border: 0;
+  padding: 0;
+}
+
+.eg-mobile__menu [data-react-mobile-menu] .sub-menu {
+  visibility: visible;
+  opacity: 1;
+  width: 100%;
+  box-shadow: none;
+  background: none;
+  margin: 0;
+  padding: 0 0 4px 12px;
+  position: static;
+  transform: none;
+}
+
+.eg-mobile__menu [data-react-mobile-menu] .sub-menu li a {
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.eg-mobile__menu [data-react-mobile-menu] .sub-menu li img {
+  width: 28px;
+  height: 28px;
+  margin-right: 0;
+}
+
 .home-product-card {
   color: #fff;
   text-align: center;
