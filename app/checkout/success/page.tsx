@@ -57,7 +57,7 @@ function SuccessPageContent() {
         </div>
         <h2>Order Confirmed!</h2>
         <p className="text-gray">{error || "Your order was placed successfully. Thank you for shopping with us!"}</p>
-        
+
         {orderIdParam && (
           <div className="ig-success-details mb-4">
             <h3>Order Summary</h3>
@@ -120,7 +120,7 @@ function SuccessPageContent() {
 
       <div className="ig-success-details">
         <h3>Order Receipt</h3>
-        
+
         <div className="ig-success-info-grid">
           <div className="ig-success-info-col">
             <h4>Order Reference ID</h4>
@@ -135,7 +135,7 @@ function SuccessPageContent() {
         <div className="ig-success-info-grid">
           <div className="ig-success-info-col">
             <div className="d-flex align-items-center mb-1 text-gray" style={{ fontSize: "11px", fontWeight: "700" }}>
-              <MapPin size={12} className="mr-1 text-danger" /> DELIVERY ADDRESS
+              <MapPin size={12} className="mr-5 text-danger" /> DELIVERY ADDRESS
             </div>
             <p className="font-weight-700 text-white mb-1">{addressName}</p>
             <p>{addressText}</p>
@@ -144,7 +144,7 @@ function SuccessPageContent() {
 
           <div className="ig-success-info-col">
             <div className="d-flex align-items-center mb-1 text-gray" style={{ fontSize: "11px", fontWeight: "700" }}>
-              <CreditCard size={12} className="mr-1 text-danger" /> PAYMENT METHOD
+              <CreditCard size={12} className="mr-5 text-danger" /> PAYMENT METHOD
             </div>
             <p className="text-white font-weight-700">{order.paymentMethod === "COD" ? "Cash on Delivery (COD)" : "Paid Online (Razorpay)"}</p>
             <p className="text-gray" style={{ fontSize: "13px" }}>
@@ -156,7 +156,7 @@ function SuccessPageContent() {
         <div className="ig-success-info-grid border-top-white-5 pt-3">
           <div className="ig-success-info-col">
             <div className="d-flex align-items-center mb-1 text-gray" style={{ fontSize: "11px", fontWeight: "700" }}>
-              <Calendar size={12} className="mr-1 text-danger" /> ESTIMATED DELIVERY
+              <Calendar size={12} className="mr-5 text-danger" /> ESTIMATED DELIVERY
             </div>
             <p className="text-success font-weight-700">{deliveryStr}</p>
           </div>
@@ -168,9 +168,9 @@ function SuccessPageContent() {
           <ShoppingBag size={18} className="mr-2" />
           <span>Continue Shopping</span>
         </Link>
-        <Link 
-          href="/profile/orders" 
-          className="eg-btn d-flex align-items-center" 
+        <Link
+          href="/profile/orders"
+          className="eg-btn d-flex align-items-center"
           style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.15)", color: "#fff" }}
         >
           <span>Track Order History</span>

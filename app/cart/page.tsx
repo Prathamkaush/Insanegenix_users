@@ -105,7 +105,7 @@ export default function CartPage() {
     <main className="fix">
       <Breadcrumb title="Cart" />
       <section className="cart-area">
-        <div className="container mt-25">
+        <div className="container ">
           {loading ? (
             <div className="eg-review__box ig-empty-state text-center">
               <h3>Loading cart...</h3>

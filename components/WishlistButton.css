@@ -1,23 +1,33 @@
 .ig-wishlist-btn {
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
+  height: 30px;
+  width: 30px;
+
+  border-radius: 5px;
   justify-content: center;
   gap: 0.5rem;
   padding: 0;
-  color: #fff;
+  color: white;
   transition: all 0.2s ease;
+}
+
+.ig-wishlist-btn:hover {
+  color: #ef2d4f;
+  background: none;
 }
 
 .ig-wishlist-btn:hover:not(:disabled) {
   transform: scale(1.15);
-  color: #ffffff;
+  color: #ef2d4f;
 }
 
 .ig-wishlist-btn.is-active {
   color: #ffffff;
+  background: none;
 }
 
 .ig-wishlist-btn.is-animating {
@@ -28,15 +38,19 @@
   0% {
     transform: scale(1) rotate(0deg);
   }
+
   25% {
     transform: scale(1.15) rotate(-5deg);
   }
+
   50% {
     transform: scale(1.2) rotate(0deg);
   }
+
   75% {
     transform: scale(1.1) rotate(5deg);
   }
+
   100% {
     transform: scale(1) rotate(0deg);
   }
@@ -54,7 +68,7 @@
 
 .ig-wishlist-btn.has-label {
   padding: 0.5rem 1rem;
-  background: #111514;
+  background: none;
   border-radius: 6px;
   border: 1px solid #ffffff;
   color: #ffffff;

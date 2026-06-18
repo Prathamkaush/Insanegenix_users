@@ -264,6 +264,8 @@ table td.text-right {
 .action-buttons {
   display: flex;
   gap: 1rem;
+  display: flex;
+  gap: 1rem;
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -285,6 +287,28 @@ table td.text-right {
   background: #e91c3c;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 23, 68, 0.3);
+}
+
+.btn-secondary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
 }
 
 @media (max-width: 768px) {

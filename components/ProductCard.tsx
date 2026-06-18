@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
+import WishlistButton from "@/components/WishlistButton";
 import { Product, currency, getProductPricing, productImage } from "@/lib/products";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -11,9 +12,14 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="product-card">
-      <Link href={`/product/${product.slug}`} className="product-card__image-wrapper">
-        <img src={productImage(product)} alt={product.title} className="product-card__image" />
-      </Link>
+      <div className="ig-product-thumb-wrapper">
+        <Link href={`/product/${product.slug}`} className="product-card__image-wrapper">
+          <img src={productImage(product)} alt={product.title} className="product-card__image" />
+        </Link>
+        <div className="ig-product-wishlist-icon">
+          <WishlistButton productId={product.id} variantId={defaultVariant?.id} />
+        </div>
+      </div>
 
       <div className="product-card__content">
         <Link href={`/product/${product.slug}`} className="product-card__title-link">

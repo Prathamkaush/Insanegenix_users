@@ -287,6 +287,28 @@ table td.text-right {
   box-shadow: 0 4px 12px #ff17444d;
 }
 
+.btn-secondary {
+  color: #fff;
+  cursor: pointer;
+  background: #ffffff14;
+  border: 1px solid #ffffff24;
+  border-radius: 8px;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+  transition: all .2s;
+  display: flex;
+}
+
+.btn-secondary:hover {
+  background: #ffffff29;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px #ffffff0d;
+}
+
 @media (max-width: 768px) {
   .order-details-header {
     text-align: center;

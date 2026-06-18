@@ -2,17 +2,18 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
 import AuthActionButton from "@/components/AuthActionButton";
 import Breadcrumb from "@/components/Breadcrumb";
-import WishlistButton from "@/components/WishlistButton";
 import { currency, getProductPricing, productImage } from "@/lib/products";
-import { getCustomerToken, getWishlist, WishlistItem } from "@/lib/wishlist";
+import { getCustomerToken, getWishlist, toggleWishlist, WishlistItem } from "@/lib/wishlist";
 
 export default function WishlistPage() {
   const [items, setItems] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [loginRequired, setLoginRequired] = useState(false);
+  const [removingId, setRemovingId] = useState<number | null>(null);
 
   const loadWishlist = async () => {
     if (!getCustomerToken()) {
@@ -35,6 +36,20 @@ export default function WishlistPage() {
   useEffect(() => {
     loadWishlist();
   }, []);
+
+  const removeWishlistItem = async (item: WishlistItem) => {
+    try {
+      setRemovingId(item.id);
+      const result = await toggleWishlist(item.productId, item.variantId || undefined);
+
+      if (!result.wished) {
+        setItems((current) => current.filter((currentItem) => currentItem.id !== item.id));
+        window.dispatchEvent(new Event("wishlist:updated"));
+      }
+    } finally {
+      setRemovingId(null);
+    }
+  };
 
   return (
     <main className="fix">
@@ -84,46 +99,51 @@ export default function WishlistPage() {
                   );
 
                   return (
-                  <article className="ig-wishlist-card" key={item.id}>
-                    <div className="ig-wishlist-card__media">
-                      <Link href={`/product/${item.product.slug}`} className="ig-wishlist-card__image">
-                        <img src={productImage(item.product)} alt={item.product.title} />
-                      </Link>
-                      <div className="ig-wishlist-card__remove">
-                        <WishlistButton
-                          productId={item.productId}
-                          variantId={item.variantId || undefined}
-                          onWishedChange={(wished) => {
-                            if (!wished) setItems((current) => current.filter((currentItem) => currentItem.id !== item.id));
-                          }}
-                        />
+                    <article className="ig-wishlist-card" key={item.id}>
+                      <div className="ig-wishlist-card__media">
+                        <Link href={`/product/${item.product.slug}`} className="ig-wishlist-card__image">
+                          <img src={productImage(item.product)} alt={item.product.title} />
+                        </Link>
+                        <button
+                          type="button"
+                          className="ig-wishlist-card__remove"
+                          onClick={() => removeWishlistItem(item)}
+                          disabled={removingId === item.id}
+                          aria-label={`Remove ${item.product.title} from wishlist`}
+                        >
+                          <X size={18} strokeWidth={2.5} />
+                        </button>
                       </div>
-                    </div>
 
-                    <div className="ig-wishlist-card__body">
-                      <span>{item.variant?.flavour || item.product.category?.name || "InsaneGenix"}</span>
-                      <h3>
-                        <Link href={`/product/${item.product.slug}`}>{item.product.title}</Link>
-                      </h3>
-                      <p>{item.variant?.weightLabel || "Select your preferred option"}</p>
-                      <div className="ig-wishlist-card__price">
-                        <small>From</small>
-                        <strong>{currency(pricing.currentPrice)}</strong>
-                        {pricing.originalPrice ? (
-                          <del>{currency(pricing.originalPrice)}</del>
-                        ) : null}
+                      <div className="ig-wishlist-card__body">
+                        <span>{item.variant?.flavour || item.product.category?.name || "InsaneGenix"}</span>
+                        <h3>
+                          <Link href={`/product/${item.product.slug}`}>{item.product.title}</Link>
+                        </h3>
+                        <p>{item.variant?.weightLabel || "Select your preferred option"}</p>
+                        <div className="ig-wishlist-card__price">
+                          <small>From</small>
+                          <strong>{currency(pricing.currentPrice)}</strong>
+                          {pricing.originalPrice ? (
+                            <del>{currency(pricing.originalPrice)}</del>
+                          ) : null}
+                        </div>
+                        <AddToCartButton
+                          product={item.product}
+                          variantId={item.variantId || item.variant?.id || undefined}
+                          className="ig-wishlist-add-cart"
+                          label="Add to cart"
+                        />
+                        <Link href={`/product/${item.product.slug}`} className="ig-wishlist-view ig-primary-action">
+                          View product <ArrowRight size={15} />
+                        </Link>
                       </div>
-                      <Link href={`/product/${item.product.slug}`} className="ig-wishlist-view ig-primary-action">
-                        View product <ArrowRight size={15} />
-                      </Link>
-                    </div>
-                  </article>
+                    </article>
                   );
                 })}
               </div>
 
               <div className="ig-wishlist-footnote">
-                <Heart size={15} />
                 Saved products remain here while you are signed in.
               </div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { Check, ShoppingCart } from "lucide-react";
 import { addToCart } from "@/lib/cart";
 import { openAuthModal } from "@/lib/auth-modal";
 import { Product } from "@/lib/products";
@@ -38,7 +38,7 @@ export default function AddToCartButton({
       setLoading(true);
       setMessage("");
       await addToCart(product.id, variantId ?? defaultVariant?.id, sizeId, quantity);
-      setMessage("Added");
+      setMessage("Added to cart");
       setIsAnimating(true);
       window.dispatchEvent(new CustomEvent("cart:updated", { detail: { delta: quantity } }));
       setTimeout(() => setIsAnimating(false), 600);
@@ -74,8 +74,11 @@ export default function AddToCartButton({
         <span>{loading ? "Adding..." : message || label}</span>
       ) : (
         <>
-          <ShoppingCart size={18} />
-          {message && <span className="cart-feedback">{message}</span>}
+          {message === "Added to cart" ? (
+            <Check size={18} />
+          ) : (
+            <ShoppingCart size={18} />
+          )}
         </>
       )}
     </button>

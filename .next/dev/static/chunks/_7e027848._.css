@@ -866,8 +866,8 @@ a {
   transition: all .2s;
   display: flex;
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: -8px;
+  right: -10px;
 }
 
 .ig-product-wishlist-icon:hover {
@@ -5745,28 +5745,35 @@ body.ig-search-overlay-lock {
 }
 
 .ig-wishlist-card__remove {
+  color: #fff;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  background: #0a0c0ce0;
+  border: 1px solid #ffffff21;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  transition: border-color .2s, background .2s, color .2s, transform .2s;
+  display: inline-flex;
   position: absolute;
   top: 14px;
   right: 14px;
 }
 
-.ig-wishlist-card__remove .ig-wishlist-btn {
-  color: #ff747b;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  background: #0a0c0ce0;
-  border: 1px solid #ffffff21;
-  border-radius: 10px;
-  width: 38px;
-  height: 38px;
-  padding: 0;
-}
-
-.ig-wishlist-card__remove .ig-wishlist-btn:hover:not(:disabled) {
+.ig-wishlist-card__remove:hover:not(:disabled) {
   color: #fff;
   background: #e509142e;
   border-color: #e5091494;
   transform: translateY(-2px);
+}
+
+.ig-wishlist-card__remove:disabled {
+  cursor: not-allowed;
+  opacity: .55;
 }
 
 .ig-wishlist-card__body {
@@ -5818,6 +5825,30 @@ body.ig-search-overlay-lock {
   font-size: 18px;
   font-weight: 800;
   display: inline;
+}
+
+.ig-wishlist-add-cart {
+  color: #141414;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ffffff29;
+  border-radius: 11px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 46px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 900;
+  display: inline-flex;
+}
+
+.ig-wishlist-add-cart:hover:not(:disabled) {
+  color: #141414;
+  background: #ffffffe0;
+  border-color: #fff;
+  transform: translateY(-1px);
 }
 
 .ig-wishlist-view {
@@ -5922,7 +5953,7 @@ body.ig-search-overlay-lock {
     padding: 15px;
   }
 
-  .ig-wishlist-view {
+  .ig-wishlist-view, .ig-wishlist-add-cart {
     min-height: 42px;
     font-size: 11px;
   }

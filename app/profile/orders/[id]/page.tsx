@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Printer } from "lucide-react";
 import { getOrderById, Order } from "@/lib/profile";
 import "../order-details.css";
 
@@ -189,6 +189,10 @@ export default function OrderDetailsPage() {
       </div>
 
       <div className="action-buttons">
+        <button className="btn-secondary" onClick={() => window.open(`/profile/orders/${order.id}/invoice`, "_blank")}>
+          <Printer size={18} />
+          Download Invoice
+        </button>
         <button className="btn-primary" onClick={() => router.push("/shop")}>
           Continue Shopping
         </button>

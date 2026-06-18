@@ -40,10 +40,10 @@ export default function HomeProductSection({
       }
 
       swiper = new window.Swiper(carousel, {
-        slidesPerView: 1,
-        spaceBetween: 0,
+        slidesPerView: "auto",
+        spaceBetween: 16,
         speed: 500,
-        loop: products.length > 4,
+        loop: false,
         allowTouchMove: true,
         simulateTouch: true,
         touchStartPreventDefault: false,
@@ -57,13 +57,6 @@ export default function HomeProductSection({
         },
         observer: true,
         observeParents: true,
-        breakpoints: {
-          576: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          992: { slidesPerView: 2 },
-          1200: { slidesPerView: 3 },
-          1400: { slidesPerView: 3 },
-        },
       });
     };
 
@@ -111,25 +104,22 @@ export default function HomeProductSection({
               </div>
             ) : null}
           </div>
-        </div>
-
-        {products.length ? (
-          <div ref={carouselRef} className="swiper  eg-product-2__active ig-home-product-carousel">
-            <div className="swiper-wrapper">
-              {products.slice(0, 8).map((product) => (
-                <div key={product.id} className="swiper-slide mb-40 mt-40 ig-home-product-slide">
-                  <HomeProductCard product={product} />
-                </div>
-              ))}
+          {products.length ? (
+            <div ref={carouselRef} className="swiper eg-product-2__active ig-home-product-carousel">
+              <div className="swiper-wrapper">
+                {products.slice(0, 8).map((product) => (
+                  <div key={product.id} className="swiper-slide mb-40 mt-10 ig-home-product-slide">
+                    <HomeProductCard product={product} />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="container">
+          ) : (
             <div className="ig-home-product-section__empty">
               Products marked as {title.toLowerCase()} will appear here.
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );
