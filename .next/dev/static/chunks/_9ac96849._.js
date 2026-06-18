@@ -207,14 +207,14 @@ function CustomerInvoicePage() {
     const supportPhone = settings?.supportPhone || "020 370 1425";
     const address = settings?.address || "New Delhi, Delhi";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "jsx-b434d9c896ade26f" + " " + "invoice-outer-wrapper",
+        className: "jsx-54ff8f469cb6de1a" + " " + "invoice-outer-wrapper",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-b434d9c896ade26f" + " " + "invoice-action-bar no-print",
+                className: "jsx-54ff8f469cb6de1a" + " " + "invoice-action-bar no-print",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>router.back(),
-                        className: "jsx-b434d9c896ade26f" + " " + "btn-back",
+                        className: "jsx-54ff8f469cb6de1a" + " " + "btn-back",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__["ArrowLeft"], {
                                 size: 16
@@ -232,7 +232,7 @@ function CustomerInvoicePage() {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>window.print(),
-                        className: "jsx-b434d9c896ade26f" + " " + "btn-print",
+                        className: "jsx-54ff8f469cb6de1a" + " " + "btn-print",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__["Printer"], {
                                 size: 16
@@ -255,24 +255,25 @@ function CustomerInvoicePage() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-b434d9c896ade26f" + " " + "invoice-container",
+                className: "jsx-54ff8f469cb6de1a" + " " + "invoice-container",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-b434d9c896ade26f" + " " + "invoice-header",
+                        className: "jsx-54ff8f469cb6de1a" + " " + "invoice-header",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-b434d9c896ade26f" + " " + "company-details",
+                                className: "jsx-54ff8f469cb6de1a" + " " + "company-details",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "logo-text",
-                                        children: "INSANEGENIX"
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                        src: "/assets/img/logo/logo-white.png",
+                                        alt: "InsaneGenix Logo",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "company-logo"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
                                         lineNumber: 149,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "subtitle",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "subtitle",
                                         children: "Premium Sports Nutrition & Fitness Supplements"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -280,7 +281,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "address-text",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "address-text",
                                         children: address
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -288,7 +289,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "contact-text",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "contact-text",
                                         children: [
                                             "Email: ",
                                             supportEmail,
@@ -307,10 +308,10 @@ function CustomerInvoicePage() {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-b434d9c896ade26f" + " " + "invoice-meta",
+                                className: "jsx-54ff8f469cb6de1a" + " " + "invoice-meta",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: "TAX INVOICE"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -318,15 +319,15 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "meta-table",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "meta-table",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                            className: "jsx-b434d9c896ade26f",
+                                            className: "jsx-54ff8f469cb6de1a",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "jsx-b434d9c896ade26f",
+                                                            className: "jsx-54ff8f469cb6de1a",
                                                             children: "Invoice No:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -334,9 +335,9 @@ function CustomerInvoicePage() {
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "jsx-b434d9c896ade26f",
+                                                            className: "jsx-54ff8f469cb6de1a",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                                className: "jsx-b434d9c896ade26f",
+                                                                className: "jsx-54ff8f469cb6de1a",
                                                                 children: [
                                                                     "INV-",
                                                                     order.id
@@ -358,10 +359,10 @@ function CustomerInvoicePage() {
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "jsx-b434d9c896ade26f",
+                                                            className: "jsx-54ff8f469cb6de1a",
                                                             children: "Order Date:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -369,7 +370,7 @@ function CustomerInvoicePage() {
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "jsx-b434d9c896ade26f",
+                                                            className: "jsx-54ff8f469cb6de1a",
                                                             children: new Date(order.createdAt).toLocaleDateString("en-IN", {
                                                                 year: "numeric",
                                                                 month: "long",
@@ -387,10 +388,10 @@ function CustomerInvoicePage() {
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "jsx-b434d9c896ade26f",
+                                                            className: "jsx-54ff8f469cb6de1a",
                                                             children: "Payment Mode:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -398,9 +399,9 @@ function CustomerInvoicePage() {
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "jsx-b434d9c896ade26f",
+                                                            className: "jsx-54ff8f469cb6de1a",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "jsx-b434d9c896ade26f" + " " + "payment-badge",
+                                                                className: "jsx-54ff8f469cb6de1a" + " " + "payment-badge",
                                                                 children: order.paymentMethod === "COD" ? "Cash on Delivery" : "Online Payment (Paid)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -442,28 +443,28 @@ function CustomerInvoicePage() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("hr", {
-                        className: "jsx-b434d9c896ade26f" + " " + "divider"
+                        className: "jsx-54ff8f469cb6de1a" + " " + "divider"
                     }, void 0, false, {
                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
                         lineNumber: 179,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-b434d9c896ade26f" + " " + "addresses-grid",
+                        className: "jsx-54ff8f469cb6de1a" + " " + "addresses-grid",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-b434d9c896ade26f" + " " + "address-box",
+                                className: "jsx-54ff8f469cb6de1a" + " " + "address-box",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "jsx-b434d9c896ade26f",
-                                        children: "Billed To (Customer):"
+                                        className: "jsx-54ff8f469cb6de1a",
+                                        children: "Billed To  Address:"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
                                         lineNumber: 184,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "name",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "name",
                                         children: order.shippingAddress?.name || "Customer"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -471,7 +472,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: order.shippingAddress?.street
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -479,7 +480,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: [
                                             order.shippingAddress?.city,
                                             ", ",
@@ -493,7 +494,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "phone",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "phone",
                                         children: [
                                             "Phone: ",
                                             order.shippingAddress?.phone
@@ -510,10 +511,10 @@ function CustomerInvoicePage() {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-b434d9c896ade26f" + " " + "address-box",
+                                className: "jsx-54ff8f469cb6de1a" + " " + "address-box",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: "Shipped To / Delivery Address:"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -521,7 +522,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "name",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "name",
                                         children: order.shippingAddress?.name || "Customer"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -529,7 +530,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: order.shippingAddress?.street
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -537,7 +538,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: [
                                             order.shippingAddress?.city,
                                             ", ",
@@ -551,7 +552,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "phone",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "phone",
                                         children: [
                                             "Phone: ",
                                             order.shippingAddress?.phone
@@ -574,20 +575,20 @@ function CustomerInvoicePage() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-b434d9c896ade26f" + " " + "items-section",
+                        className: "jsx-54ff8f469cb6de1a" + " " + "items-section",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                            className: "jsx-b434d9c896ade26f" + " " + "items-table",
+                            className: "jsx-54ff8f469cb6de1a" + " " + "items-table",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                    className: "jsx-b434d9c896ade26f",
+                                    className: "jsx-54ff8f469cb6de1a",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 style: {
                                                     width: "5%"
                                                 },
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: "S.No"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -598,7 +599,7 @@ function CustomerInvoicePage() {
                                                 style: {
                                                     width: "45%"
                                                 },
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: "Product Description"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -610,7 +611,7 @@ function CustomerInvoicePage() {
                                                     width: "12%",
                                                     textAlign: "right"
                                                 },
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: "Base Price"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -622,7 +623,7 @@ function CustomerInvoicePage() {
                                                     width: "8%",
                                                     textAlign: "center"
                                                 },
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: "Qty"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -634,7 +635,7 @@ function CustomerInvoicePage() {
                                                     width: "10%",
                                                     textAlign: "right"
                                                 },
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: "GST Rate"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -646,7 +647,7 @@ function CustomerInvoicePage() {
                                                     width: "10%",
                                                     textAlign: "right"
                                                 },
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: "GST Amt"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -658,7 +659,7 @@ function CustomerInvoicePage() {
                                                     width: "10%",
                                                     textAlign: "right"
                                                 },
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: "Total"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -677,18 +678,18 @@ function CustomerInvoicePage() {
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                    className: "jsx-b434d9c896ade26f",
+                                    className: "jsx-54ff8f469cb6de1a",
                                     children: order.items?.map((item, index)=>{
                                         const totalItemGst = Number(item.gstAmount || 0) * item.quantity;
                                         const totalItemAmount = (Number(item.price || 0) + Number(item.gstAmount || 0)) * item.quantity;
                                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                            className: "jsx-b434d9c896ade26f",
+                                            className: "jsx-54ff8f469cb6de1a",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     style: {
                                                         textAlign: "center"
                                                     },
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: index + 1
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -696,10 +697,10 @@ function CustomerInvoicePage() {
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "jsx-b434d9c896ade26f" + " " + "product-title",
+                                                            className: "jsx-54ff8f469cb6de1a" + " " + "product-title",
                                                             children: item.productName || `Product #${item.productId}`
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -707,7 +708,7 @@ function CustomerInvoicePage() {
                                                             columnNumber: 23
                                                         }, this),
                                                         item.flavour || item.weightLabel ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "jsx-b434d9c896ade26f" + " " + "product-specs",
+                                                            className: "jsx-54ff8f469cb6de1a" + " " + "product-specs",
                                                             children: [
                                                                 item.flavour ? `Flavor: ${item.flavour}` : "",
                                                                 item.flavour && item.weightLabel ? " | " : "",
@@ -728,7 +729,7 @@ function CustomerInvoicePage() {
                                                     style: {
                                                         textAlign: "right"
                                                     },
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: money(item.price)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -739,7 +740,7 @@ function CustomerInvoicePage() {
                                                     style: {
                                                         textAlign: "center"
                                                     },
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: item.quantity
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -750,7 +751,7 @@ function CustomerInvoicePage() {
                                                     style: {
                                                         textAlign: "right"
                                                     },
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: [
                                                         Number(item.gstRate || 0),
                                                         "%"
@@ -764,7 +765,7 @@ function CustomerInvoicePage() {
                                                     style: {
                                                         textAlign: "right"
                                                     },
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: money(totalItemGst)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -775,7 +776,7 @@ function CustomerInvoicePage() {
                                                     style: {
                                                         textAlign: "right"
                                                     },
-                                                    className: "jsx-b434d9c896ade26f",
+                                                    className: "jsx-54ff8f469cb6de1a",
                                                     children: money(totalItemAmount)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -806,13 +807,13 @@ function CustomerInvoicePage() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-b434d9c896ade26f" + " " + "summary-section",
+                        className: "jsx-54ff8f469cb6de1a" + " " + "summary-section",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-b434d9c896ade26f" + " " + "terms-conditions",
+                                className: "jsx-54ff8f469cb6de1a" + " " + "terms-conditions",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: "Terms & Conditions:"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -820,7 +821,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: "1. Goods once sold will not be taken back or exchanged."
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -828,7 +829,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: "2. This is a computer-generated tax invoice and requires no physical signature."
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -836,7 +837,7 @@ function CustomerInvoicePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-b434d9c896ade26f" + " " + "thank-you",
+                                        className: "jsx-54ff8f469cb6de1a" + " " + "thank-you",
                                         children: "Thank you for shopping with InsaneGenix!"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -850,17 +851,17 @@ function CustomerInvoicePage() {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-b434d9c896ade26f" + " " + "totals-box",
+                                className: "jsx-54ff8f469cb6de1a" + " " + "totals-box",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                    className: "jsx-b434d9c896ade26f" + " " + "totals-table",
+                                    className: "jsx-54ff8f469cb6de1a" + " " + "totals-table",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                        className: "jsx-b434d9c896ade26f",
+                                        className: "jsx-54ff8f469cb6de1a",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: "Items Subtotal (Excl. GST):"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -868,7 +869,7 @@ function CustomerInvoicePage() {
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: money(pricing.itemsSubtotal)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -882,10 +883,10 @@ function CustomerInvoicePage() {
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: "Total CGST + SGST:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -893,7 +894,7 @@ function CustomerInvoicePage() {
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: money(pricing.gst)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -907,10 +908,10 @@ function CustomerInvoicePage() {
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "jsx-b434d9c896ade26f",
+                                                className: "jsx-54ff8f469cb6de1a",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: "Shipping Charges:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -918,7 +919,7 @@ function CustomerInvoicePage() {
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: pricing.shipping === 0 ? "FREE" : money(pricing.shipping)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -932,10 +933,10 @@ function CustomerInvoicePage() {
                                                 columnNumber: 17
                                             }, this),
                                             pricing.couponDiscount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "jsx-b434d9c896ade26f" + " " + "discount-row",
+                                                className: "jsx-54ff8f469cb6de1a" + " " + "discount-row",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: "Coupon Discount:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -943,7 +944,7 @@ function CustomerInvoicePage() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: [
                                                             "-",
                                                             money(pricing.couponDiscount)
@@ -960,10 +961,10 @@ function CustomerInvoicePage() {
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "jsx-b434d9c896ade26f" + " " + "grand-total-row",
+                                                className: "jsx-54ff8f469cb6de1a" + " " + "grand-total-row",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: "Grand Total (Incl. Taxes):"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -971,7 +972,7 @@ function CustomerInvoicePage() {
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "jsx-b434d9c896ade26f",
+                                                        className: "jsx-54ff8f469cb6de1a",
                                                         children: money(pricing.payable)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/orders/[id]/invoice/page.tsx",
@@ -1013,12 +1014,12 @@ function CustomerInvoicePage() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                id: "fde134e16e87431",
-                children: "@media print{header,footer,nav,.eg-header-2,.footer-area,#preloader,.invoice-action-bar,.no-print,.header__area,.footer__area,.preloader,.back-to-top{display:none!important}body,html{color:#000!important;background:#fff!important;width:100%!important;height:auto!important;margin:0!important;padding:0!important;font-size:12px!important}.invoice-outer-wrapper{background:#fff!important;min-height:auto!important;padding:0!important}.invoice-container{box-shadow:none!important;color:#000!important;background:#fff!important;border:none!important;width:100%!important;margin:0!important;padding:10mm!important}.payment-badge{color:#000!important;background:0 0!important;border:1px solid #000!important}hr.divider{border-top:1px solid #333!important}.items-table th{color:#000!important;background-color:#f0f0f0!important;border-bottom:2px solid #000!important}.items-table td,.items-table th{border:1px solid #ccc!important}.totals-table tr.grand-total-row td{color:#000!important;background-color:#f0f0f0!important;border-top:2px solid #000!important}}"
+                id: "9486e84d0087b036",
+                children: "@media print{header,footer,nav,.eg-header-2,.footer-area,#preloader,.invoice-action-bar,.no-print,.profile-sidebar,.header__area,.footer__area,.preloader,.back-to-top{display:none!important}body,html{color:#000!important;background:#fff!important;width:100%!important;height:auto!important;margin:0!important;padding:0!important;font-size:12px!important}.profile-container,.profile-content{width:100%!important;max-width:none!important;box-shadow:none!important;background:#fff!important;border:0!important;margin:0!important;padding:0!important;display:block!important}.invoice-outer-wrapper{background:#fff!important;min-height:auto!important;padding:0!important}.invoice-container{box-shadow:none!important;color:#000!important;background:#fff!important;border:none!important;width:100%!important;margin:0!important;padding:10mm!important}.payment-badge{color:#000!important;background:0 0!important;border:1px solid #000!important}hr.divider{border-top:1px solid #333!important}.items-table th{color:#000!important;background-color:#f0f0f0!important;border-bottom:2px solid #000!important}.items-table td,.items-table th{border:1px solid #ccc!important}.totals-table tr.grand-total-row td{color:#000!important;background-color:#f0f0f0!important;border-top:2px solid #000!important}}"
             }, void 0, false, void 0, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                id: "fb5fd38aab656dd8",
-                children: ".invoice-outer-wrapper.jsx-b434d9c896ade26f{color:#fff;background:#0d0d0d;flex-direction:column;align-items:center;min-height:100vh;padding:40px 20px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;display:flex}.invoice-action-bar.jsx-b434d9c896ade26f{justify-content:space-between;width:100%;max-width:800px;margin-bottom:20px;display:flex}.invoice-action-bar.jsx-b434d9c896ade26f button.jsx-b434d9c896ade26f{cursor:pointer;border:1px solid #ffffff26;border-radius:6px;align-items:center;gap:8px;padding:10px 20px;font-size:13px;font-weight:700;transition:all .2s;display:flex}.btn-back.jsx-b434d9c896ade26f{color:#fff;background:0 0}.btn-back.jsx-b434d9c896ade26f:hover{background:#ffffff14}.btn-print.jsx-b434d9c896ade26f{color:#fff;background:#ef2d4f;border-color:#ef2d4f!important}.btn-print.jsx-b434d9c896ade26f:hover{background:#d62040;transform:translateY(-1px)}.invoice-container.jsx-b434d9c896ade26f{color:#1a1a1a;box-sizing:border-box;background:#fff;border-radius:12px;width:100%;max-width:800px;padding:40px;box-shadow:0 8px 30px #00000080}.invoice-header.jsx-b434d9c896ade26f{justify-content:space-between;align-items:flex-start;gap:20px;display:flex}.logo-text.jsx-b434d9c896ade26f{letter-spacing:.05em;color:#ef2d4f;margin:0 0 4px;font-size:28px;font-weight:900}.company-details.jsx-b434d9c896ade26f .subtitle.jsx-b434d9c896ade26f{color:#666;text-transform:uppercase;margin:0 0 12px;font-size:11px;font-weight:600}.company-details.jsx-b434d9c896ade26f .address-text.jsx-b434d9c896ade26f{color:#333;margin:0 0 4px;font-size:13px}.company-details.jsx-b434d9c896ade26f .contact-text.jsx-b434d9c896ade26f{color:#555;margin:0;font-size:12px}.invoice-meta.jsx-b434d9c896ade26f{text-align:right}.invoice-meta.jsx-b434d9c896ade26f h2.jsx-b434d9c896ade26f{color:#1a1a1a;letter-spacing:.02em;margin:0 0 12px;font-size:22px;font-weight:800}.meta-table.jsx-b434d9c896ade26f{border-collapse:collapse;width:100%}.meta-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f{color:#444;padding:4px 8px;font-size:13px}.meta-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f:first-child{text-align:right;color:#777}.meta-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f:last-child{text-align:left}.payment-badge.jsx-b434d9c896ade26f{color:#1f8d4e;text-transform:uppercase;background:#e6f7ed;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:800}.divider.jsx-b434d9c896ade26f{border:0;border-top:1px solid #eee;margin:30px 0}.addresses-grid.jsx-b434d9c896ade26f{grid-template-columns:1fr 1fr;gap:30px;margin-bottom:30px;display:grid}.address-box.jsx-b434d9c896ade26f h3.jsx-b434d9c896ade26f{color:#888;text-transform:uppercase;letter-spacing:.05em;margin:0 0 10px;font-size:12px;font-weight:800}.address-box.jsx-b434d9c896ade26f p.jsx-b434d9c896ade26f{color:#444;margin:0 0 4px;font-size:13px;line-height:1.4}.address-box.jsx-b434d9c896ade26f .name.jsx-b434d9c896ade26f{color:#1a1a1a;margin-bottom:6px;font-size:14px;font-weight:700}.address-box.jsx-b434d9c896ade26f .phone.jsx-b434d9c896ade26f{color:#555;margin-top:6px}.items-section.jsx-b434d9c896ade26f{margin-bottom:40px}.items-table.jsx-b434d9c896ade26f{border-collapse:collapse;width:100%}.items-table.jsx-b434d9c896ade26f th.jsx-b434d9c896ade26f{text-transform:uppercase;color:#555;letter-spacing:.03em;background:#f8f8f8;border-bottom:2px solid #ddd;padding:12px 10px;font-size:11px;font-weight:800}.items-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f{color:#333;vertical-align:middle;border-bottom:1px solid #eee;padding:14px 10px;font-size:13px}.product-title.jsx-b434d9c896ade26f{color:#1a1a1a;margin-bottom:4px;font-weight:700;display:block}.product-specs.jsx-b434d9c896ade26f{color:#888;text-transform:uppercase;font-size:10px;font-weight:600;display:block}.summary-section.jsx-b434d9c896ade26f{justify-content:space-between;align-items:flex-start;gap:30px;display:flex}.terms-conditions.jsx-b434d9c896ade26f{width:45%}.terms-conditions.jsx-b434d9c896ade26f h4.jsx-b434d9c896ade26f{color:#666;text-transform:uppercase;letter-spacing:.02em;margin:0 0 8px;font-size:11px;font-weight:800}.terms-conditions.jsx-b434d9c896ade26f p.jsx-b434d9c896ade26f{color:#888;margin:0 0 4px;font-size:10px;line-height:1.4}.terms-conditions.jsx-b434d9c896ade26f .thank-you.jsx-b434d9c896ade26f{color:#ef2d4f;margin-top:16px;font-size:11px;font-weight:700}.totals-box.jsx-b434d9c896ade26f{width:50%}.totals-table.jsx-b434d9c896ade26f{border-collapse:collapse;width:100%}.totals-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f{color:#555;padding:8px 10px;font-size:13px}.totals-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f:first-child{text-align:right;color:#777}.totals-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f:last-child{text-align:right;color:#1a1a1a;font-weight:700}.discount-row.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f{color:#ef2d4f!important}.grand-total-row.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f{border-top:2px solid #ddd;padding-top:12px;font-size:16px!important}.grand-total-row.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f:first-child{font-weight:800;color:#1a1a1a!important}.grand-total-row.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f:last-child{font-weight:900;color:#ef2d4f!important}@media (width<=600px){.invoice-header.jsx-b434d9c896ade26f{flex-direction:column;gap:20px}.invoice-meta.jsx-b434d9c896ade26f{text-align:left}.meta-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f{padding-left:0}.meta-table.jsx-b434d9c896ade26f td.jsx-b434d9c896ade26f:first-child{text-align:left}.addresses-grid.jsx-b434d9c896ade26f{grid-template-columns:1fr;gap:20px}.summary-section.jsx-b434d9c896ade26f{flex-direction:column-reverse;gap:20px}.totals-box.jsx-b434d9c896ade26f,.terms-conditions.jsx-b434d9c896ade26f{width:100%}}"
+                id: "4485cdcd47eaa75",
+                children: ".invoice-outer-wrapper.jsx-54ff8f469cb6de1a{color:#fff;background:#0d0d0d;flex-direction:column;align-items:center;min-height:100vh;padding:40px 20px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;display:flex}.invoice-action-bar.jsx-54ff8f469cb6de1a{justify-content:space-between;width:100%;max-width:800px;margin-top:50px;margin-bottom:20px;display:flex}.invoice-action-bar.jsx-54ff8f469cb6de1a button.jsx-54ff8f469cb6de1a{cursor:pointer;border:1px solid #ffffff26;border-radius:6px;align-items:center;gap:8px;padding:10px 20px;font-size:13px;font-weight:700;transition:all .2s;display:flex}.btn-back.jsx-54ff8f469cb6de1a{color:#fff;background:0 0}.btn-back.jsx-54ff8f469cb6de1a:hover{background:#ffffff14}.btn-print.jsx-54ff8f469cb6de1a{color:#fff;background:#ef2d4f;border-color:#ef2d4f!important}.btn-print.jsx-54ff8f469cb6de1a:hover{background:#d62040;transform:translateY(-1px)}.invoice-container.jsx-54ff8f469cb6de1a{color:#1a1a1a;box-sizing:border-box;background:#fff;border-radius:12px;width:100%;max-width:800px;padding:40px;box-shadow:0 8px 30px #00000080}.invoice-header.jsx-54ff8f469cb6de1a{justify-content:space-between;align-items:flex-start;gap:20px;display:flex}.logo-text.jsx-54ff8f469cb6de1a{letter-spacing:.05em;color:#ef2d4f;margin:0 0 4px;font-size:28px;font-weight:900}.company-details.jsx-54ff8f469cb6de1a .subtitle.jsx-54ff8f469cb6de1a{color:#666;text-transform:uppercase;margin:0 0 12px;font-size:11px;font-weight:600}.company-details.jsx-54ff8f469cb6de1a .address-text.jsx-54ff8f469cb6de1a{color:#333;margin:0 0 4px;font-size:13px}.company-details.jsx-54ff8f469cb6de1a .contact-text.jsx-54ff8f469cb6de1a{color:#555;margin:0;font-size:12px}.invoice-meta.jsx-54ff8f469cb6de1a{text-align:right}.invoice-meta.jsx-54ff8f469cb6de1a h2.jsx-54ff8f469cb6de1a{color:#1a1a1a;letter-spacing:.02em;margin:0 0 12px;font-size:22px;font-weight:800}.meta-table.jsx-54ff8f469cb6de1a{border-collapse:collapse;width:100%}.meta-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a{color:#444;padding:4px 8px;font-size:13px}.meta-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a:first-child{text-align:right;color:#777}.meta-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a:last-child{text-align:left}.payment-badge.jsx-54ff8f469cb6de1a{color:#1f8d4e;text-transform:uppercase;background:#e6f7ed;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:800}.divider.jsx-54ff8f469cb6de1a{border:0;border-top:1px solid #eee;margin:30px 0}.addresses-grid.jsx-54ff8f469cb6de1a{grid-template-columns:1fr 1fr;gap:30px;margin-bottom:30px;display:grid}.address-box.jsx-54ff8f469cb6de1a h3.jsx-54ff8f469cb6de1a{color:#888;text-transform:uppercase;letter-spacing:.05em;margin:0 0 10px;font-size:12px;font-weight:800}.address-box.jsx-54ff8f469cb6de1a p.jsx-54ff8f469cb6de1a{color:#444;margin:0 0 4px;font-size:13px;line-height:1.4}.address-box.jsx-54ff8f469cb6de1a .name.jsx-54ff8f469cb6de1a{color:#1a1a1a;margin-bottom:6px;font-size:14px;font-weight:700}.address-box.jsx-54ff8f469cb6de1a .phone.jsx-54ff8f469cb6de1a{color:#555;margin-top:6px}.items-section.jsx-54ff8f469cb6de1a{margin-bottom:40px}.items-table.jsx-54ff8f469cb6de1a{border-collapse:collapse;width:100%}.items-table.jsx-54ff8f469cb6de1a th.jsx-54ff8f469cb6de1a{text-transform:uppercase;color:#555;letter-spacing:.03em;background:#f8f8f8;border-bottom:2px solid #ddd;padding:12px 10px;font-size:11px;font-weight:800}.items-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a{color:#333;vertical-align:middle;border-bottom:1px solid #eee;padding:14px 10px;font-size:13px}.product-title.jsx-54ff8f469cb6de1a{color:#1a1a1a;margin-bottom:4px;font-weight:700;display:block}.product-specs.jsx-54ff8f469cb6de1a{color:#888;text-transform:uppercase;font-size:10px;font-weight:600;display:block}.summary-section.jsx-54ff8f469cb6de1a{justify-content:space-between;align-items:flex-start;gap:30px;display:flex}.terms-conditions.jsx-54ff8f469cb6de1a{width:45%}.terms-conditions.jsx-54ff8f469cb6de1a h4.jsx-54ff8f469cb6de1a{color:#666;text-transform:uppercase;letter-spacing:.02em;margin:0 0 8px;font-size:11px;font-weight:800}.terms-conditions.jsx-54ff8f469cb6de1a p.jsx-54ff8f469cb6de1a{color:#888;margin:0 0 4px;font-size:10px;line-height:1.4}.terms-conditions.jsx-54ff8f469cb6de1a .thank-you.jsx-54ff8f469cb6de1a{color:#ef2d4f;margin-top:16px;font-size:11px;font-weight:700}.totals-box.jsx-54ff8f469cb6de1a{width:50%}.totals-table.jsx-54ff8f469cb6de1a{border-collapse:collapse;width:100%}.totals-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a{color:#555;padding:8px 10px;font-size:13px}.totals-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a:first-child{text-align:right;color:#777}.totals-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a:last-child{text-align:right;color:#1a1a1a;font-weight:700}.discount-row.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a{color:#ef2d4f!important}.grand-total-row.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a{border-top:2px solid #ddd;padding-top:12px;font-size:16px!important}.grand-total-row.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a:first-child{font-weight:800;color:#1a1a1a!important}.grand-total-row.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a:last-child{font-weight:900;color:#ef2d4f!important}@media (width<=600px){.invoice-header.jsx-54ff8f469cb6de1a{flex-direction:column;gap:20px}.invoice-meta.jsx-54ff8f469cb6de1a{text-align:left}.meta-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a{padding-left:0}.meta-table.jsx-54ff8f469cb6de1a td.jsx-54ff8f469cb6de1a:first-child{text-align:left}.addresses-grid.jsx-54ff8f469cb6de1a{grid-template-columns:1fr;gap:20px}.summary-section.jsx-54ff8f469cb6de1a{flex-direction:column-reverse;gap:20px}.totals-box.jsx-54ff8f469cb6de1a,.terms-conditions.jsx-54ff8f469cb6de1a{width:100%}}"
             }, void 0, false, void 0, this)
         ]
     }, void 0, true, {

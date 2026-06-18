@@ -19,6 +19,7 @@ interface UserData {
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const isInvoicePath = /^\/profile\/orders\/[^/]+\/invoice/.test(pathname);
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -64,6 +65,10 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
 
   if (!user) {
     return <div className="profile-error">Failed to load profile</div>;
+  }
+
+  if (isInvoicePath) {
+    return <>{children}</>;
   }
 
   return (

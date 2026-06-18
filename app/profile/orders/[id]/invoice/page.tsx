@@ -146,7 +146,7 @@ export default function CustomerInvoicePage() {
         {/* Invoice Header */}
         <div className="invoice-header">
           <div className="company-details">
-            <h1 className="logo-text">INSANEGENIX</h1>
+            <img src="/assets/img/logo/logo-white.png" alt="InsaneGenix Logo" className="company-logo" />
             <p className="subtitle">Premium Sports Nutrition & Fitness Supplements</p>
             <p className="address-text">{address}</p>
             <p className="contact-text">Email: {supportEmail} | Phone: {supportPhone}</p>
@@ -181,7 +181,7 @@ export default function CustomerInvoicePage() {
         {/* Addresses Grid */}
         <div className="addresses-grid">
           <div className="address-box">
-            <h3>Billed To (Customer):</h3>
+            <h3>Billed To  Address:</h3>
             <p className="name">{order.shippingAddress?.name || "Customer"}</p>
             <p>{order.shippingAddress?.street}</p>
             <p>{order.shippingAddress?.city}, {order.shippingAddress?.state} - {order.shippingAddress?.pincode}</p>
@@ -286,6 +286,7 @@ export default function CustomerInvoicePage() {
           header, footer, nav, 
           .eg-header-2, .footer-area, #preloader,
           .invoice-action-bar, .no-print,
+          .profile-sidebar,
           .header__area, .footer__area,
           .preloader, .back-to-top {
             display: none !important;
@@ -299,6 +300,18 @@ export default function CustomerInvoicePage() {
             width: 100% !important;
             height: auto !important;
             font-size: 12px !important;
+          }
+
+          .profile-container,
+          .profile-content {
+            display: block !important;
+            width: 100% !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff !important;
+            box-shadow: none !important;
+            border: 0 !important;
           }
 
           .invoice-outer-wrapper {
@@ -351,6 +364,7 @@ export default function CustomerInvoicePage() {
           min-height: 100vh;
           padding: 40px 20px;
           display: flex;
+          
           flex-direction: column;
           align-items: center;
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -363,6 +377,7 @@ export default function CustomerInvoicePage() {
           width: 100%;
           max-width: 800px;
           margin-bottom: 20px;
+          margin-top: 50px;
         }
 
         .invoice-action-bar button {
