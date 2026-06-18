@@ -11,6 +11,7 @@
   "/page": "app/page.js",
   "/product/[slug]/page": "app/product/[slug]/page.js",
   "/profile/addresses/page": "app/profile/addresses/page.js",
+  "/profile/orders/[id]/invoice/page": "app/profile/orders/[id]/invoice/page.js",
   "/profile/orders/[id]/page": "app/profile/orders/[id]/page.js",
   "/profile/orders/page": "app/profile/orders/page.js",
   "/profile/page": "app/profile/page.js",

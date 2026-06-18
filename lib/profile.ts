@@ -161,6 +161,8 @@ export interface OrderItem {
   id: number;
   productId: number;
   productName?: string;
+  flavour?: string | null;
+  weightLabel?: string | null;
   quantity: number;
   price: number;
   gstRate: number;
@@ -171,6 +173,7 @@ export interface Order {
   id: number;
   userId: number;
   status: string;
+  paymentMethod?: string | null;
   orderDate: string;
   totalAmount: number;
   totalGst: number;
@@ -197,6 +200,7 @@ function toNumber(value: unknown): number {
 function normalizeOrder(order: any): Order {
   return {
     ...order,
+    paymentMethod: order?.paymentMethod ?? order?.payment?.method ?? null,
     totalAmount: toNumber(order?.totalAmount),
     totalGst: toNumber(order?.totalGst),
     shippingCharge: toNumber(order?.shippingCharge),
@@ -217,6 +221,8 @@ function normalizeOrder(order: any): Order {
           ...item,
           productId: toNumber(item?.productId ?? item?.product?.id),
           productName: item?.productName || item?.product?.title,
+          flavour: item?.flavour ?? item?.flavor ?? item?.variant?.flavour ?? item?.variant?.flavor ?? null,
+          weightLabel: item?.weightLabel ?? item?.variant?.weightLabel ?? item?.variant?.weight ?? null,
           quantity: toNumber(item?.quantity),
           price: toNumber(item?.price),
           gstRate: toNumber(item?.gstRate),

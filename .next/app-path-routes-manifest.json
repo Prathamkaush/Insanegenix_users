@@ -11,6 +11,7 @@
   "/page": "/",
   "/product/[slug]/page": "/product/[slug]",
   "/profile/addresses/page": "/profile/addresses",
+  "/profile/orders/[id]/invoice/page": "/profile/orders/[id]/invoice",
   "/profile/orders/[id]/page": "/profile/orders/[id]",
   "/profile/orders/page": "/profile/orders",
   "/profile/page": "/profile",

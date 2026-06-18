@@ -35,6 +35,14 @@
         "nxtPid": "nxtPid"
       },
       "namedRegex": "^/profile/orders/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/profile/orders/[id]/invoice",
+      "regex": "^/profile/orders/([^/]+?)/invoice(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/profile/orders/(?<nxtPid>[^/]+?)/invoice(?:/)?$"
     }
   ],
   "staticRoutes": [
