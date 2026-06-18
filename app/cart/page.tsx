@@ -4,14 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Minus, Plus, ShieldCheck, ShoppingBag, Trash2 } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
-import AuthActionButton from "@/components/AuthActionButton";
 import {
   cartItemGstRate,
   cartItemGstTotal,
   cartItemPayableTotal,
   cartItemSubtotal,
   getCart,
-  getCustomerToken,
   removeCartItem,
   updateCartItem,
   CartItem,
@@ -21,24 +19,16 @@ import { currency, productImage } from "@/lib/products";
 export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [loginRequired, setLoginRequired] = useState(false);
   const [pendingItemId, setPendingItemId] = useState<number | null>(null);
   const [cartError, setCartError] = useState("");
 
   const loadCart = async () => {
-    if (!getCustomerToken()) {
-      setLoginRequired(true);
-      setLoading(false);
-      return;
-    }
-
     try {
       setLoading(true);
       const data = await getCart();
       setItems(data.items || []);
-      setLoginRequired(false);
     } catch {
-      setLoginRequired(true);
+      setCartError("Could not load your cart. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -109,14 +99,6 @@ export default function CartPage() {
           {loading ? (
             <div className="eg-review__box ig-empty-state text-center">
               <h3>Loading cart...</h3>
-            </div>
-          ) : loginRequired ? (
-            <div className="eg-review__box ig-empty-state text-center">
-              <h3>Login to view your cart</h3>
-              <p>Add products after signing in to keep them saved.</p>
-              <AuthActionButton className="eg-btn mt-25">
-                <span>Login</span>
-              </AuthActionButton>
             </div>
           ) : items.length === 0 ? (
             <div className="eg-review__box ig-empty-state text-center">

@@ -52,11 +52,6 @@ export default function Header() {
 
   const fetchCounts = useCallback(async (isInitial = false) => {
     const token = getCustomerToken();
-    if (!token) {
-      setCartCount(0);
-      setWishlistCount(0);
-      return;
-    }
 
     try {
       // Get Cart counts
@@ -70,16 +65,20 @@ export default function Header() {
         return newCartCount;
       });
 
-      // Get Wishlist counts
-      const wishlist = await getWishlist();
-      const newWishlistCount = wishlist?.length || 0;
-      setWishlistCount((prev) => {
-        if (!isInitial && prev !== newWishlistCount) {
-          setAnimateWishlist(true);
-          setTimeout(() => setAnimateWishlist(false), 550);
-        }
-        return newWishlistCount;
-      });
+      if (!token) {
+        setWishlistCount(0);
+      } else {
+        // Get Wishlist counts
+        const wishlist = await getWishlist();
+        const newWishlistCount = wishlist?.length || 0;
+        setWishlistCount((prev) => {
+          if (!isInitial && prev !== newWishlistCount) {
+            setAnimateWishlist(true);
+            setTimeout(() => setAnimateWishlist(false), 550);
+          }
+          return newWishlistCount;
+        });
+      }
     } catch (e) {
       console.error("Failed to load header counts:", e);
     }

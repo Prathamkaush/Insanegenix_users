@@ -295,16 +295,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shopping-cart.js [app-ssr] (ecmascript) <export default as ShoppingCart>");
-(()=>{
-    const e = new Error("Cannot find module '@/lib/cart'");
-    e.code = 'MODULE_NOT_FOUND';
-    throw e;
-})();
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$modal$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/auth-modal.ts [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wishlist$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wishlist.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$cart$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/lib/cart.ts [app-ssr] (ecmascript) <locals>");
 "use client";
-;
-;
 ;
 ;
 ;
@@ -316,14 +308,10 @@ function AddToCartButton({ product, className = "ig-add-cart-btn", label, quanti
     const [isAnimating, setIsAnimating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const defaultVariant = product.variants?.find((variant)=>variant.isDefault) || product.variants?.[0];
     const onClick = async ()=>{
-        if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wishlist$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getCustomerToken"])()) {
-            (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$modal$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["openAuthModal"])("login");
-            return;
-        }
         try {
             setLoading(true);
             setMessage("");
-            await addToCart(product.id, variantId ?? defaultVariant?.id, sizeId, quantity);
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$cart$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["addToCart"])(product.id, variantId ?? defaultVariant?.id, sizeId, quantity, product);
             setMessage("Added to cart");
             setIsAnimating(true);
             window.dispatchEvent(new CustomEvent("cart:updated", {
@@ -334,10 +322,6 @@ function AddToCartButton({ product, className = "ig-add-cart-btn", label, quanti
             setTimeout(()=>setIsAnimating(false), 600);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "";
-            if (errorMessage === "LOGIN_REQUIRED") {
-                (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$modal$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["openAuthModal"])("login");
-                return;
-            }
             if (/select|flavour|size/i.test(errorMessage)) {
                 window.location.href = `/product/${product.slug}`;
                 return;
@@ -359,26 +343,26 @@ function AddToCartButton({ product, className = "ig-add-cart-btn", label, quanti
             children: loading ? "Adding..." : message || label
         }, void 0, false, {
             fileName: "[project]/components/AddToCartButton.tsx",
-            lineNumber: 74,
+            lineNumber: 62,
             columnNumber: 9
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
             children: message === "Added to cart" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                 size: 18
             }, void 0, false, {
                 fileName: "[project]/components/AddToCartButton.tsx",
-                lineNumber: 78,
+                lineNumber: 66,
                 columnNumber: 13
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__["ShoppingCart"], {
                 size: 18
             }, void 0, false, {
                 fileName: "[project]/components/AddToCartButton.tsx",
-                lineNumber: 80,
+                lineNumber: 68,
                 columnNumber: 13
             }, this)
         }, void 0, false)
     }, void 0, false, {
         fileName: "[project]/components/AddToCartButton.tsx",
-        lineNumber: 65,
+        lineNumber: 53,
         columnNumber: 5
     }, this);
 }
@@ -463,127 +447,6 @@ function WishlistButton({ productId, variantId, label = false, onWishedChange })
         lineNumber: 56,
         columnNumber: 5
     }, this);
-}
-}),
-"[project]/lib/products.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "currency",
-    ()=>currency,
-    "getProduct",
-    ()=>getProduct,
-    "getProductCatalog",
-    ()=>getProductCatalog,
-    "getProductCategories",
-    ()=>getProductCategories,
-    "getProductPricing",
-    ()=>getProductPricing,
-    "getProducts",
-    ()=>getProducts,
-    "productImage",
-    ()=>productImage
-]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
-const bundledProductImages = new Set([
-    "Creatine.png",
-    "D3-K2.png",
-    "Dart.png",
-    "EAA.png",
-    "ISO.png",
-    "Mass-Gainer.png",
-    "Whey.png"
-]);
-async function getProducts(params) {
-    const data = await getProductCatalog(params);
-    return data.products;
-}
-async function getProductCatalog(params) {
-    const searchParams = new URLSearchParams();
-    Object.entries(params || {}).forEach(([key, value])=>{
-        if (value !== undefined && value !== null && String(value) !== "") {
-            searchParams.set(key, String(value));
-        }
-    });
-    if (!searchParams.has("limit")) searchParams.set("limit", "9");
-    const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
-        cache: "no-store"
-    });
-    if (!res.ok) {
-        throw new Error(`Products API returned ${res.status}`);
-    }
-    const data = await res.json();
-    const products = Array.isArray(data) ? data : data.products || data.data?.products || data.data;
-    return {
-        products: Array.isArray(products) ? products : [],
-        total: Number(data.total ?? products?.length ?? 0),
-        page: Number(data.page || 1),
-        pages: Number(data.pages || 1),
-        availableTags: Array.isArray(data.availableTags) ? data.availableTags : []
-    };
-}
-async function getProductCategories() {
-    try {
-        const res = await fetch(`${API_URL}/categories`, {
-            next: {
-                revalidate: 60
-            }
-        });
-        if (!res.ok) return [];
-        const data = await res.json();
-        return Array.isArray(data) ? data : [];
-    } catch  {
-        return [];
-    }
-}
-async function getProduct(slug) {
-    try {
-        const res = await fetch(`${API_URL}/products/${encodeURIComponent(slug)}`, {
-            next: {
-                revalidate: 30
-            }
-        });
-        if (res.ok) {
-            const data = await res.json();
-            return data.product || data;
-        }
-    } catch (error) {
-        console.error(`Unable to fetch product "${slug}" from the API`, error);
-    }
-    return null;
-}
-function productImage(product, imageKey = "img1") {
-    const image = product[imageKey] || product.img1;
-    if (!image) return "/assets/img/product/Whey.png";
-    if (String(image).startsWith("http")) return String(image);
-    if (String(image).startsWith("/")) return String(image);
-    if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
-    return `${API_URL}/uploads/products/${image}`;
-}
-function getProductPricing(product, variant) {
-    const basePrice = Number(variant?.price ?? product.price ?? 0);
-    const discountType = variant?.discountType ?? product.discountType;
-    const discountValue = Number(variant?.discountValue ?? product.discountValue ?? 0);
-    let currentPrice = basePrice;
-    if (discountType === "PERCENT" && discountValue > 0) {
-        currentPrice = Math.max(0, Math.round(basePrice - basePrice * discountValue / 100));
-    } else if (discountType === "FLAT" && discountValue > 0) {
-        currentPrice = Math.max(0, Math.round(basePrice - discountValue));
-    }
-    const configuredMrp = Number(variant?.mrp ?? product.originalPrice ?? 0);
-    const originalPrice = currentPrice < basePrice ? basePrice : configuredMrp > currentPrice ? configuredMrp : null;
-    const discountPercent = originalPrice ? Math.round((originalPrice - currentPrice) / originalPrice * 100) : null;
-    return {
-        currentPrice,
-        originalPrice,
-        discountPercent
-    };
-}
-function currency(value) {
-    return `₹${Number(value || 0).toLocaleString("en-IN", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    })}`;
 }
 }),
 "[project]/components/ProductCard.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
@@ -1171,4 +1034,4 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 }),
 ];
 
-//# sourceMappingURL=_8ebaea55._.js.map
+//# sourceMappingURL=_076cc3cb._.js.map

@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { Check, ShoppingCart } from "lucide-react";
 import { addToCart } from "@/lib/cart";
-import { openAuthModal } from "@/lib/auth-modal";
 import { Product } from "@/lib/products";
-import { getCustomerToken } from "@/lib/wishlist";
 import "./AddToCartButton.css";
 
 export default function AddToCartButton({
@@ -29,26 +27,16 @@ export default function AddToCartButton({
   const defaultVariant = product.variants?.find((variant) => variant.isDefault) || product.variants?.[0];
 
   const onClick = async () => {
-    if (!getCustomerToken()) {
-      openAuthModal("login");
-      return;
-    }
-
     try {
       setLoading(true);
       setMessage("");
-      await addToCart(product.id, variantId ?? defaultVariant?.id, sizeId, quantity);
+      await addToCart(product.id, variantId ?? defaultVariant?.id, sizeId, quantity, product);
       setMessage("Added to cart");
       setIsAnimating(true);
       window.dispatchEvent(new CustomEvent("cart:updated", { detail: { delta: quantity } }));
       setTimeout(() => setIsAnimating(false), 600);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "";
-      if (errorMessage === "LOGIN_REQUIRED") {
-        openAuthModal("login");
-        return;
-      }
-
       if (/select|flavour|size/i.test(errorMessage)) {
         window.location.href = `/product/${product.slug}`;
         return;
