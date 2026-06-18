@@ -7,12 +7,12 @@ export default function Breadcrumb({ title }: { title: string }) {
         <div className="row">
           <div className="col-lg-12">
             <div className="simple-breadcrumb__content">
-              <Link className="text-white " href="/">
+              <Link href="/" className="text-white">
                 Home
               </Link>
               <span className="divider mr-5 ml-5 font-normal text-white">
-                        <i className="fas fa-angle-right"></i>
-                     </span>
+                <i className="fas fa-angle-right"></i>
+              </span>
               <span className="active text-white"> {title}</span>
             </div>
           </div>

@@ -21,6 +21,14 @@
   },
   "dynamicRoutes": [
     {
+      "page": "/blogs/[slug]",
+      "regex": "^/blogs/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/blogs/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/product/[slug]",
       "regex": "^/product/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -81,6 +89,12 @@
       "regex": "^/authenticity(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/authenticity(?:/)?$"
+    },
+    {
+      "page": "/blogs",
+      "regex": "^/blogs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blogs(?:/)?$"
     },
     {
       "page": "/cart",

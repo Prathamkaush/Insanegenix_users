@@ -238,6 +238,9 @@ export default function Header() {
                           <li>
                             <Link href="/authenticity">Authenticity</Link>
                           </li>
+                          <li>
+                            <Link href="/blogs">Blogs</Link>
+                          </li>
                           <li className="eg-menu__header-btn">
                             <Link href="/contact">Contact Us</Link>
                           </li>
@@ -379,6 +382,9 @@ export default function Header() {
                       </li>
                       <li>
                         <Link href="/authenticity">Authenticity</Link>
+                      </li>
+                      <li>
+                        <Link href="/blogs">Blogs</Link>
                       </li>
                       <li>
                         <Link href="/contact">Contact Us</Link>
