@@ -12,6 +12,7 @@ import {
   getProduct,
   getProducts,
   productImage,
+  productVideo,
 } from "@/lib/products";
 
 type ProductDetailParams = {
@@ -25,6 +26,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
   if (!product) notFound();
 
   const images = productImages(product);
+  const video = productVideo(product);
   const defaultVariant = product.variants?.find((variant) => variant.isDefault) || product.variants?.[0];
   const inStock = Number(defaultVariant?.stock ?? product.stock ?? 0) > 0;
   const category = product.category?.name || product.type?.name || "Sports Nutrition";
@@ -43,7 +45,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
         <div className="container mt-50">
           <div className="row align-items-start">
             <div className="col-lg-6">
-              <ProductGallery images={images} title={product.title} />
+              <ProductGallery images={images} video={video} title={product.title} />
             </div>
 
             <div className="col-lg-6">
@@ -187,7 +189,14 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
 }
 
 function productImages(product: Product) {
-  const keys: Array<"img1" | "img2" | "img3" | "img4"> = ["img1", "img2", "img3", "img4"];
+  const keys: Array<"img1" | "img2" | "img3" | "img4" | "img5" | "img6"> = [
+    "img1",
+    "img2",
+    "img3",
+    "img4",
+    "img5",
+    "img6",
+  ];
   const images = keys
     .filter((key) => product[key])
     .map((key) => productImage(product, key));

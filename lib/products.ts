@@ -67,6 +67,9 @@ export type Product = {
   img2?: string | null;
   img3?: string | null;
   img4?: string | null;
+  img5?: string | null;
+  img6?: string | null;
+  video?: string | null;
   category?: { id?: number; name?: string };
   type?: { name?: string };
   variants?: ProductVariant[];
@@ -175,8 +178,8 @@ export async function getProduct(slug: string): Promise<Product | null> {
 }
 
 export function productImage(
-  product: Pick<Product, "img1" | "img2" | "img3" | "img4">,
-  imageKey: "img1" | "img2" | "img3" | "img4" = "img1"
+  product: Pick<Product, "img1" | "img2" | "img3" | "img4" | "img5" | "img6">,
+  imageKey: "img1" | "img2" | "img3" | "img4" | "img5" | "img6" = "img1"
 ) {
   const image = product[imageKey] || product.img1;
   if (!image) return "/assets/img/product/Whey.png";
@@ -184,6 +187,14 @@ export function productImage(
   if (String(image).startsWith("/")) return String(image);
   if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
   return `${API_URL}/uploads/products/${image}`;
+}
+
+export function productVideo(product: Pick<Product, "video">) {
+  const video = product.video;
+  if (!video) return "";
+  if (String(video).startsWith("http")) return String(video);
+  if (String(video).startsWith("/")) return String(video);
+  return `${API_URL}/uploads/products/${video}`;
 }
 
 export function getProductPricing(product: Product, variant?: ProductVariant) {

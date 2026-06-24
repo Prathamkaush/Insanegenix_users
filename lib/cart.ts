@@ -175,7 +175,11 @@ export async function syncGuestCartToServer() {
     if (!guestItems.length) return;
 
     for (const item of guestItems) {
-      await addToServerCart(item.productId, item.variantId, item.sizeId, item.quantity);
+      try {
+        await addToServerCart(item.productId, item.variantId, item.sizeId, item.quantity);
+      } catch (error) {
+        console.warn("Skipping guest cart item during sync:", error);
+      }
     }
 
     clearGuestCart();

@@ -2,27 +2,44 @@
 
 import { useEffect, useState } from "react";
 
-export default function ProductGallery({ images, title }: { images: string[]; title: string }) {
+type GalleryMedia = {
+  type: "image" | "video";
+  src: string;
+};
+
+export default function ProductGallery({
+  images,
+  video,
+  title,
+}: {
+  images: string[];
+  video?: string;
+  title: string;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const activeImage = images[activeIndex] || images[0];
+  const media: GalleryMedia[] = [
+    ...images.map((src) => ({ type: "image" as const, src })),
+    ...(video ? [{ type: "video" as const, src: video }] : []),
+  ];
+  const activeMedia = media[activeIndex] || media[0];
 
   useEffect(() => {
-    if (images.length < 2 || isPaused) return;
+    if (media.length < 2 || isPaused) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
     const timer = window.setTimeout(() => {
-      setActiveIndex((current) => (current + 1) % images.length);
+      setActiveIndex((current) => (current + 1) % media.length);
     }, 4000);
 
     return () => window.clearTimeout(timer);
-  }, [activeIndex, images.length, isPaused]);
+  }, [activeIndex, media.length, isPaused]);
 
   useEffect(() => {
-    if (activeIndex >= images.length) setActiveIndex(0);
-  }, [activeIndex, images.length]);
+    if (activeIndex >= media.length) setActiveIndex(0);
+  }, [activeIndex, media.length]);
 
   return (
     <div
@@ -35,21 +52,29 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
       }}
     >
       <div className="eg-product-details__thumb-content w-img ig-product-gallery__main">
-        <img key={activeImage} src={activeImage} alt={`${title} view ${activeIndex + 1}`} />
+        {activeMedia?.type === "video" ? (
+          <video key={activeMedia.src} src={activeMedia.src} controls playsInline />
+        ) : (
+          <img key={activeMedia?.src} src={activeMedia?.src} alt={`${title} view ${activeIndex + 1}`} />
+        )}
       </div>
-      {images.length > 1 ? (
+      {media.length > 1 ? (
         <div className="eg-product-details__thumb-nav tp-tab mt-30">
           <div className="nav nav-tabs d-flex justify-content-between" role="tablist">
-            {images.slice(0, 4).map((image, index) => (
+            {media.map((item, index) => (
               <button
-                key={image}
+                key={`${item.type}-${item.src}`}
                 className={`nav-link ${index === activeIndex ? "active" : ""}`}
                 type="button"
                 onClick={() => setActiveIndex(index)}
-                aria-label={`Show ${title} image ${index + 1}`}
+                aria-label={`Show ${title} ${item.type} ${index + 1}`}
                 aria-selected={index === activeIndex}
               >
-                <img src={image} alt={`${title} view ${index + 1}`} />
+                {item.type === "video" ? (
+                  <video src={item.src} muted playsInline />
+                ) : (
+                  <img src={item.src} alt={`${title} view ${index + 1}`} />
+                )}
               </button>
             ))}
           </div>
