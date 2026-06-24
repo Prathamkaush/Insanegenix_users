@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { getGoogleAuthUrl, loginCustomer, registerCustomer, storeCustomerSession } from "@/lib/auth";
 import { AuthMode } from "@/lib/auth-modal";
+import { syncGuestCartToServer } from "@/lib/cart";
 
 export default function AuthModal() {
   const [open, setOpen] = useState(false);
@@ -75,6 +76,7 @@ export default function AuthModal() {
       setMessage("");
       const data = await loginCustomer(trimmedEmail, trimmedPassword);
       storeCustomerSession(data);
+      await syncGuestCartToServer();
       resetForm();
       close();
     } catch (error) {
@@ -106,6 +108,7 @@ export default function AuthModal() {
       setMessage("");
       const data = await registerCustomer(cleanName, cleanEmail, cleanPassword);
       storeCustomerSession(data);
+      await syncGuestCartToServer();
       resetForm();
       close();
     } catch (error) {

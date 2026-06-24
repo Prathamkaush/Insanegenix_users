@@ -43,7 +43,11 @@ export default function CartPage() {
     };
 
     window.addEventListener("cart:updated", handleCartUpdated);
-    return () => window.removeEventListener("cart:updated", handleCartUpdated);
+    window.addEventListener("auth:changed", loadCart);
+    return () => {
+      window.removeEventListener("cart:updated", handleCartUpdated);
+      window.removeEventListener("auth:changed", loadCart);
+    };
   }, []);
 
   const subtotal = useMemo(() => items.reduce((sum, item) => sum + cartItemSubtotal(item), 0), [items]);

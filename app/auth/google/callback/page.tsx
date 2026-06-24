@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { storeCustomerSession } from "@/lib/auth";
+import { syncGuestCartToServer } from "@/lib/cart";
 
 type StoredGoogleUser = {
   token: string;
@@ -44,8 +45,17 @@ function GoogleAuthCallbackContent() {
       user: decodeGoogleUser(searchParams.get("user")),
     };
 
-    storeCustomerSession(session);
-    router.replace("/");
+    const completeSignIn = async () => {
+      try {
+        storeCustomerSession(session);
+        setMessage("Syncing your cart...");
+        await syncGuestCartToServer();
+      } finally {
+        router.replace("/");
+      }
+    };
+
+    completeSignIn();
   }, [router, searchParams]);
 
   return (
