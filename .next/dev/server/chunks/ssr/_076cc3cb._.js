@@ -8,7 +8,7 @@ __turbopack_context__.s([
     "homepageMediaUrl",
     ()=>homepageMediaUrl
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 function homepageMediaUrl(media) {
     if (!media?.url) return "";
     if (media.url.startsWith("http")) return media.url;
