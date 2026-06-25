@@ -1529,51 +1529,6 @@ a {
   animation: .42s ig-product-gallery-fade;
 }
 
-.ig-product-gallery__arrow {
-  z-index: 2;
-  color: #fff;
-  background: #000000b8;
-  border: 1px solid #ffffff29;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  width: 44px;
-  height: 44px;
-  transition: background .2s, border-color .2s, color .2s;
-  display: inline-flex;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.ig-product-gallery__arrow:hover {
-  border-color: var(--eg-theme-primary);
-  background: var(--eg-theme-primary);
-  color: #fff;
-}
-
-.ig-product-gallery__arrow--prev {
-  left: 18px;
-}
-
-.ig-product-gallery__arrow--next {
-  right: 18px;
-}
-
-.ig-product-gallery__counter {
-  z-index: 2;
-  color: #fff;
-  background: #000000b8;
-  border-radius: 999px;
-  padding: 7px 12px;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1;
-  position: absolute;
-  bottom: 18px;
-  right: 18px;
-}
-
 .ig-product-gallery__thumbs-wrap {
   align-items: center;
   gap: 12px;
@@ -2820,6 +2775,37 @@ a {
   color: #ffffff8f;
 }
 
+.ig-auth-password-field {
+  position: relative;
+}
+
+.ig-auth-password-field input {
+  padding-right: 48px;
+}
+
+.ig-auth-password-field button {
+  color: #1f2328;
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  transition: color .2s, background .2s;
+  display: inline-flex;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.ig-auth-password-field button:hover {
+  color: #000;
+  background: #00000014;
+}
+
 .ig-auth-form p {
   color: var(--eg-text-body);
   margin: 0;
@@ -3522,19 +3508,6 @@ a {
   .ig-product-gallery__thumb-arrow {
     width: 34px;
     height: 34px;
-  }
-
-  .ig-product-gallery__arrow {
-    width: 38px;
-    height: 38px;
-  }
-
-  .ig-product-gallery__arrow--prev {
-    left: 12px;
-  }
-
-  .ig-product-gallery__arrow--next {
-    right: 12px;
   }
 
   .ig-product-highlights, .ig-check-list, .ig-wishlist-card {

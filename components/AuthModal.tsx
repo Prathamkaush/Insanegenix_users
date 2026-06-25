@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
 import { getGoogleAuthUrl, loginCustomer, registerCustomer, storeCustomerSession } from "@/lib/auth";
 import { AuthMode } from "@/lib/auth-modal";
 import { syncGuestCartToServer } from "@/lib/cart";
@@ -14,6 +14,8 @@ export default function AuthModal() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [password, setPassword] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -46,11 +48,15 @@ export default function AuthModal() {
     setRegisterEmail("");
     setPassword("");
     setRegisterPassword("");
+    setShowPassword(false);
+    setShowRegisterPassword(false);
     setMessage("");
   };
 
   const handleModeChange = (newMode: AuthMode) => {
     setMode(newMode);
+    setShowPassword(false);
+    setShowRegisterPassword(false);
     setMessage(""); // Clear messages when switching modes
   };
 
@@ -141,7 +147,22 @@ export default function AuthModal() {
           <form className="ig-auth-form" onSubmit={submitLogin}>
             <h3>Customer Login</h3>
             <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" required />
-            <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Password" required />
+            <div className="ig-auth-password-field">
+              <input
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((value) => !value)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
             {message ? <p className="ig-auth-message">{message}</p> : null}
             <button className="eg-btn" type="submit" disabled={loading}>
               <span>{loading ? "Logging in..." : "Login"}</span>
@@ -162,7 +183,23 @@ export default function AuthModal() {
             <h3>Create Account</h3>
             <input value={name} onChange={(event) => setName(event.target.value)} type="text" placeholder="Full name" required />
             <input value={registerEmail} onChange={(event) => setRegisterEmail(event.target.value)} type="email" placeholder="Email address" required />
-            <input value={registerPassword} onChange={(event) => setRegisterPassword(event.target.value)} type="password" placeholder="Password" required minLength={6} />
+            <div className="ig-auth-password-field">
+              <input
+                value={registerPassword}
+                onChange={(event) => setRegisterPassword(event.target.value)}
+                type={showRegisterPassword ? "text" : "password"}
+                placeholder="Password"
+                required
+                minLength={6}
+              />
+              <button
+                type="button"
+                onClick={() => setShowRegisterPassword((value) => !value)}
+                aria-label={showRegisterPassword ? "Hide password" : "Show password"}
+              >
+                {showRegisterPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
             {message ? <p className="ig-auth-message">{message}</p> : null}
             <button className="eg-btn" type="submit" disabled={loading}>
               <span>{loading ? "Creating..." : "Register"}</span>

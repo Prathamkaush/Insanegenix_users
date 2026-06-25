@@ -265,77 +265,23 @@ function ProductGallery({ images, video, title }) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "eg-product-details__thumb-content w-img ig-product-gallery__main",
-                children: [
-                    activeMedia?.type === "video" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
-                        src: activeMedia.src,
-                        controls: true,
-                        playsInline: true
-                    }, activeMedia.src, false, {
-                        fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 65,
-                        columnNumber: 11
-                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                        src: activeMedia?.src,
-                        alt: `${title} view ${activeIndex + 1}`
-                    }, activeMedia?.src, false, {
-                        fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 67,
-                        columnNumber: 11
-                    }, this),
-                    hasMultipleItems ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                className: "ig-product-gallery__arrow ig-product-gallery__arrow--prev",
-                                type: "button",
-                                onClick: showPrevious,
-                                "aria-label": "Show previous product image",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("i", {
-                                    className: "fas fa-chevron-left",
-                                    "aria-hidden": "true"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 78,
-                                    columnNumber: 15
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/components/ProductGallery.tsx",
-                                lineNumber: 72,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                className: "ig-product-gallery__arrow ig-product-gallery__arrow--next",
-                                type: "button",
-                                onClick: showNext,
-                                "aria-label": "Show next product image",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("i", {
-                                    className: "fas fa-chevron-right",
-                                    "aria-hidden": "true"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 86,
-                                    columnNumber: 15
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/components/ProductGallery.tsx",
-                                lineNumber: 80,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "ig-product-gallery__counter",
-                                children: [
-                                    activeIndex + 1,
-                                    " / ",
-                                    media.length
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/components/ProductGallery.tsx",
-                                lineNumber: 88,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true) : null
-                ]
-            }, void 0, true, {
+                children: activeMedia?.type === "video" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                    src: activeMedia.src,
+                    controls: true,
+                    playsInline: true
+                }, activeMedia.src, false, {
+                    fileName: "[project]/components/ProductGallery.tsx",
+                    lineNumber: 65,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                    src: activeMedia?.src,
+                    alt: `${title} view ${activeIndex + 1}`
+                }, activeMedia?.src, false, {
+                    fileName: "[project]/components/ProductGallery.tsx",
+                    lineNumber: 67,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/components/ProductGallery.tsx",
                 lineNumber: 63,
                 columnNumber: 7
@@ -353,12 +299,12 @@ function ProductGallery({ images, video, title }) {
                             "aria-hidden": "true"
                         }, void 0, false, {
                             fileName: "[project]/components/ProductGallery.tsx",
-                            lineNumber: 103,
+                            lineNumber: 79,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 97,
+                        lineNumber: 73,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -378,24 +324,24 @@ function ProductGallery({ images, video, title }) {
                                     playsInline: true
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 93,
                                     columnNumber: 19
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                     src: item.src,
                                     alt: `${title} thumbnail ${index + 1}`
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 95,
                                     columnNumber: 19
                                 }, this)
                             }, `${item.type}-${item.src}`, false, {
                                 fileName: "[project]/components/ProductGallery.tsx",
-                                lineNumber: 107,
+                                lineNumber: 83,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 105,
+                        lineNumber: 81,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -408,18 +354,18 @@ function ProductGallery({ images, video, title }) {
                             "aria-hidden": "true"
                         }, void 0, false, {
                             fileName: "[project]/components/ProductGallery.tsx",
-                            lineNumber: 130,
+                            lineNumber: 106,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 124,
+                        lineNumber: 100,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductGallery.tsx",
-                lineNumber: 96,
+                lineNumber: 72,
                 columnNumber: 9
             }, this) : null
         ]

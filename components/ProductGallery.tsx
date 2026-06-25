@@ -66,30 +66,6 @@ export default function ProductGallery({
         ) : (
           <img key={activeMedia?.src} src={activeMedia?.src} alt={`${title} view ${activeIndex + 1}`} />
         )}
-
-        {hasMultipleItems ? (
-          <>
-            <button
-              className="ig-product-gallery__arrow ig-product-gallery__arrow--prev"
-              type="button"
-              onClick={showPrevious}
-              aria-label="Show previous product image"
-            >
-              <i className="fas fa-chevron-left" aria-hidden="true" />
-            </button>
-            <button
-              className="ig-product-gallery__arrow ig-product-gallery__arrow--next"
-              type="button"
-              onClick={showNext}
-              aria-label="Show next product image"
-            >
-              <i className="fas fa-chevron-right" aria-hidden="true" />
-            </button>
-            <div className="ig-product-gallery__counter">
-              {activeIndex + 1} / {media.length}
-            </div>
-          </>
-        ) : null}
       </div>
 
       {hasMultipleItems ? (
