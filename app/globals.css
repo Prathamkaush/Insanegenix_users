@@ -1356,31 +1356,18 @@ a {
 .ig-product-gallery__main {
   position: relative;
   min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
   overflow: hidden;
   background: #151918;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.ig-product-gallery__track {
-  display: flex;
-  min-height: inherit;
-  transition: transform 0.42s ease;
-  will-change: transform;
-}
-
-.ig-product-gallery__slide {
-  flex: 0 0 100%;
-  min-height: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px;
-}
-
-.ig-product-gallery__slide img,
-.ig-product-gallery__slide video {
+.ig-product-gallery__main img,
+.ig-product-gallery__main video {
   width: 100%;
-  height: 100%;
   max-height: 520px;
   object-fit: contain;
   transition: opacity 0.22s ease, transform 0.22s ease;
@@ -1432,27 +1419,82 @@ a {
   line-height: 1;
 }
 
-.ig-product-gallery__dots {
+.ig-product-gallery__thumbs-wrap {
   display: flex;
-  justify-content: center;
-  gap: 9px;
+  align-items: center;
+  gap: 12px;
   margin-top: 18px;
 }
 
-.ig-product-gallery__dots button {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.32);
-  transition: transform 0.2s ease, background 0.2s ease;
+.ig-product-gallery__thumbs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(72px, 86px);
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 2px 2px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--eg-theme-primary) rgba(255, 255, 255, 0.12);
 }
 
-.ig-product-gallery__dots button.active,
-.ig-product-gallery__dots button:hover {
+.ig-product-gallery__thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ig-product-gallery__thumbs::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ig-product-gallery__thumbs::-webkit-scrollbar-thumb {
   background: var(--eg-theme-primary);
-  transform: scale(1.25);
+  border-radius: 999px;
+}
+
+.ig-product-gallery__thumbs button {
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: #151918;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ig-product-gallery__thumbs button.active,
+.ig-product-gallery__thumbs button:hover {
+  border-color: var(--eg-theme-primary);
+  box-shadow: 0 0 0 2px rgba(255, 59, 59, 0.2);
+  transform: translateY(-2px);
+}
+
+.ig-product-gallery__thumbs img,
+.ig-product-gallery__thumbs video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ig-product-gallery__thumb-arrow {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  background: #151918;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.ig-product-gallery__thumb-arrow:hover {
+  border-color: var(--eg-theme-primary);
+  background: var(--eg-theme-primary);
 }
 
 @keyframes ig-product-gallery-fade {
@@ -1468,12 +1510,8 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ig-product-gallery__track {
-    transition: none;
-  }
-
-  .ig-product-gallery__slide img,
-  .ig-product-gallery__slide video {
+  .ig-product-gallery__main img,
+  .ig-product-gallery__main video {
     animation: none;
   }
 }
@@ -3395,13 +3433,26 @@ a {
     min-height: 360px;
   }
 
-  .ig-product-gallery__slide {
+  .ig-product-gallery__main {
     padding: 18px;
   }
 
-  .ig-product-gallery__slide img,
-  .ig-product-gallery__slide video {
+  .ig-product-gallery__main img,
+  .ig-product-gallery__main video {
     max-height: 330px;
+  }
+
+  .ig-product-gallery__thumbs-wrap {
+    gap: 8px;
+  }
+
+  .ig-product-gallery__thumbs {
+    grid-auto-columns: 64px;
+  }
+
+  .ig-product-gallery__thumb-arrow {
+    width: 34px;
+    height: 34px;
   }
 
   .ig-product-gallery__arrow {

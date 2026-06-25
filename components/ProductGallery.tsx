@@ -22,6 +22,7 @@ export default function ProductGallery({
     ...images.map((src) => ({ type: "image" as const, src })),
     ...(video ? [{ type: "video" as const, src: video }] : []),
   ];
+  const activeMedia = media[activeIndex] || media[0];
   const hasMultipleItems = media.length > 1;
 
   const showPrevious = () => {
@@ -60,27 +61,11 @@ export default function ProductGallery({
       }}
     >
       <div className="eg-product-details__thumb-content w-img ig-product-gallery__main">
-        <div
-          className="ig-product-gallery__track"
-          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-        >
-          {media.map((item, index) => (
-            <div className="ig-product-gallery__slide" key={`${item.type}-${item.src}`}>
-              {item.type === "video" ? (
-                <video
-                  src={item.src}
-                  controls={index === activeIndex}
-                  playsInline
-                  muted={index !== activeIndex}
-                  tabIndex={index === activeIndex ? 0 : -1}
-                  aria-label={`${title} video ${index + 1}`}
-                />
-              ) : (
-                <img src={item.src} alt={`${title} view ${index + 1}`} />
-              )}
-            </div>
-          ))}
-        </div>
+        {activeMedia?.type === "video" ? (
+          <video key={activeMedia.src} src={activeMedia.src} controls playsInline />
+        ) : (
+          <img key={activeMedia?.src} src={activeMedia?.src} alt={`${title} view ${activeIndex + 1}`} />
+        )}
 
         {hasMultipleItems ? (
           <>
@@ -108,18 +93,42 @@ export default function ProductGallery({
       </div>
 
       {hasMultipleItems ? (
-        <div className="ig-product-gallery__dots" role="tablist" aria-label={`${title} gallery`}>
-          {media.map((item, index) => (
-            <button
-              key={`${item.type}-dot-${item.src}`}
-              className={index === activeIndex ? "active" : ""}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              aria-label={`Show ${title} ${item.type} ${index + 1}`}
-              aria-selected={index === activeIndex}
-              role="tab"
-            />
-          ))}
+        <div className="ig-product-gallery__thumbs-wrap">
+          <button
+            className="ig-product-gallery__thumb-arrow"
+            type="button"
+            onClick={showPrevious}
+            aria-label="Show previous product thumbnail"
+          >
+            <i className="fas fa-chevron-left" aria-hidden="true" />
+          </button>
+          <div className="ig-product-gallery__thumbs" role="tablist" aria-label={`${title} gallery thumbnails`}>
+            {media.map((item, index) => (
+              <button
+                key={`${item.type}-${item.src}`}
+                className={index === activeIndex ? "active" : ""}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Show ${title} ${item.type} ${index + 1}`}
+                aria-selected={index === activeIndex}
+                role="tab"
+              >
+                {item.type === "video" ? (
+                  <video src={item.src} muted playsInline />
+                ) : (
+                  <img src={item.src} alt={`${title} thumbnail ${index + 1}`} />
+                )}
+              </button>
+            ))}
+          </div>
+          <button
+            className="ig-product-gallery__thumb-arrow"
+            type="button"
+            onClick={showNext}
+            aria-label="Show next product thumbnail"
+          >
+            <i className="fas fa-chevron-right" aria-hidden="true" />
+          </button>
         </div>
       ) : null}
     </div>

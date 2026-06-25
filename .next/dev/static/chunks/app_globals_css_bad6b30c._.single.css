@@ -1316,31 +1316,18 @@ a {
 .ig-product-gallery__main {
   background: #151918;
   border: 1px solid #ffffff14;
+  justify-content: center;
+  align-items: center;
   min-height: 560px;
+  padding: 28px;
+  display: flex;
   position: relative;
   overflow: hidden;
 }
 
-.ig-product-gallery__track {
-  min-height: inherit;
-  will-change: transform;
-  transition: transform .42s;
-  display: flex;
-}
-
-.ig-product-gallery__slide {
-  min-height: inherit;
-  flex: 0 0 100%;
-  justify-content: center;
-  align-items: center;
-  padding: 28px;
-  display: flex;
-}
-
-.ig-product-gallery__slide img, .ig-product-gallery__slide video {
+.ig-product-gallery__main img, .ig-product-gallery__main video {
   object-fit: contain;
   width: 100%;
-  height: 100%;
   max-height: 520px;
   transition: opacity .22s, transform .22s;
   animation: .42s ig-product-gallery-fade;
@@ -1391,26 +1378,80 @@ a {
   right: 18px;
 }
 
-.ig-product-gallery__dots {
-  justify-content: center;
-  gap: 9px;
+.ig-product-gallery__thumbs-wrap {
+  align-items: center;
+  gap: 12px;
   margin-top: 18px;
   display: flex;
 }
 
-.ig-product-gallery__dots button {
-  background: #ffffff52;
-  border: 0;
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  transition: transform .2s, background .2s;
+.ig-product-gallery__thumbs {
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--eg-theme-primary) #ffffff1f;
+  flex: 1;
+  grid-auto-columns: minmax(72px, 86px);
+  grid-auto-flow: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 2px 2px 8px;
+  display: grid;
+  overflow-x: auto;
 }
 
-.ig-product-gallery__dots button.active, .ig-product-gallery__dots button:hover {
+.ig-product-gallery__thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ig-product-gallery__thumbs::-webkit-scrollbar-track {
+  background: #ffffff1f;
+}
+
+.ig-product-gallery__thumbs::-webkit-scrollbar-thumb {
   background: var(--eg-theme-primary);
-  transform: scale(1.25);
+  border-radius: 999px;
+}
+
+.ig-product-gallery__thumbs button {
+  aspect-ratio: 1;
+  background: #151918;
+  border: 1px solid #ffffff2e;
+  border-radius: 8px;
+  width: 100%;
+  padding: 0;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+  overflow: hidden;
+}
+
+.ig-product-gallery__thumbs button.active, .ig-product-gallery__thumbs button:hover {
+  border-color: var(--eg-theme-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px #ff3b3b33;
+}
+
+.ig-product-gallery__thumbs img, .ig-product-gallery__thumbs video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.ig-product-gallery__thumb-arrow {
+  color: #fff;
+  background: #151918;
+  border: 1px solid #ffffff29;
+  border-radius: 50%;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  transition: background .2s, border-color .2s;
+  display: inline-flex;
+}
+
+.ig-product-gallery__thumb-arrow:hover {
+  border-color: var(--eg-theme-primary);
+  background: var(--eg-theme-primary);
 }
 
 @keyframes ig-product-gallery-fade {
@@ -1426,11 +1467,7 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ig-product-gallery__track {
-    transition: none;
-  }
-
-  .ig-product-gallery__slide img, .ig-product-gallery__slide video {
+  .ig-product-gallery__main img, .ig-product-gallery__main video {
     animation: none;
   }
 }
@@ -3271,14 +3308,24 @@ a {
 
   .ig-product-gallery__main {
     min-height: 360px;
-  }
-
-  .ig-product-gallery__slide {
     padding: 18px;
   }
 
-  .ig-product-gallery__slide img, .ig-product-gallery__slide video {
+  .ig-product-gallery__main img, .ig-product-gallery__main video {
     max-height: 330px;
+  }
+
+  .ig-product-gallery__thumbs-wrap {
+    gap: 8px;
+  }
+
+  .ig-product-gallery__thumbs {
+    grid-auto-columns: 64px;
+  }
+
+  .ig-product-gallery__thumb-arrow {
+    width: 34px;
+    height: 34px;
   }
 
   .ig-product-gallery__arrow {
