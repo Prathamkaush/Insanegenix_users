@@ -2806,6 +2806,25 @@ a {
   background: #00000014;
 }
 
+.ig-auth-forgot-link {
+  color: var(--eg-theme-primary);
+  background: none;
+  border: 0;
+  justify-self: end;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ig-auth-forgot-link:hover {
+  color: #fff;
+}
+
+.ig-auth-help {
+  color: #ffffffad;
+  line-height: 1.55;
+}
+
 .ig-auth-form p {
   color: var(--eg-text-body);
   margin: 0;

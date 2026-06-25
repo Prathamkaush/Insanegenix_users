@@ -23,8 +23,8 @@ function Breadcrumb({ title }) {
                         className: "simple-breadcrumb__content",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                className: "text-white ",
                                 href: "/",
+                                className: "text-white",
                                 children: "Home"
                             }, void 0, false, {
                                 fileName: "[project]/components/Breadcrumb.tsx",
@@ -38,7 +38,7 @@ function Breadcrumb({ title }) {
                                 }, void 0, false, {
                                     fileName: "[project]/components/Breadcrumb.tsx",
                                     lineNumber: 14,
-                                    columnNumber: 25
+                                    columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/Breadcrumb.tsx",
@@ -218,6 +218,7 @@ function toNumber(value) {
 function normalizeOrder(order) {
     return {
         ...order,
+        paymentMethod: order?.paymentMethod ?? order?.payment?.method ?? null,
         totalAmount: toNumber(order?.totalAmount),
         totalGst: toNumber(order?.totalGst),
         shippingCharge: toNumber(order?.shippingCharge),
@@ -235,6 +236,8 @@ function normalizeOrder(order) {
                 ...item,
                 productId: toNumber(item?.productId ?? item?.product?.id),
                 productName: item?.productName || item?.product?.title,
+                flavour: item?.flavour ?? item?.flavor ?? item?.variant?.flavour ?? item?.variant?.flavor ?? null,
+                weightLabel: item?.weightLabel ?? item?.variant?.weightLabel ?? item?.variant?.weight ?? null,
                 quantity: toNumber(item?.quantity),
                 price: toNumber(item?.price),
                 gstRate: toNumber(item?.gstRate),

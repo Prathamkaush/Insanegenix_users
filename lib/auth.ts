@@ -31,6 +31,25 @@ export function registerCustomer(name: string, email: string, password: string) 
   });
 }
 
+export function requestPasswordReset(email: string) {
+  return authRequest("/auth/forgot-password", { email: email.trim() });
+}
+
+export function verifyPasswordResetCode(email: string, code: string) {
+  return authRequest("/auth/verify-reset-code", {
+    email: email.trim(),
+    code: code.trim(),
+  });
+}
+
+export function resetCustomerPassword(email: string, code: string, password: string) {
+  return authRequest("/auth/reset-password", {
+    email: email.trim(),
+    code: code.trim(),
+    password,
+  });
+}
+
 export function getGoogleAuthUrl() {
   return `${API_URL}/auth/google`;
 }

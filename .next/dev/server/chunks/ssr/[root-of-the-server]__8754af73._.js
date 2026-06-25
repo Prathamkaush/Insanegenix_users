@@ -2389,8 +2389,14 @@ __turbopack_context__.s([
     ()=>loginCustomer,
     "registerCustomer",
     ()=>registerCustomer,
+    "requestPasswordReset",
+    ()=>requestPasswordReset,
+    "resetCustomerPassword",
+    ()=>resetCustomerPassword,
     "storeCustomerSession",
-    ()=>storeCustomerSession
+    ()=>storeCustomerSession,
+    "verifyPasswordResetCode",
+    ()=>verifyPasswordResetCode
 ]);
 const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
 async function authRequest(path, body) {
@@ -2415,6 +2421,24 @@ function registerCustomer(name, email, password) {
     return authRequest("/auth/register", {
         name: name.trim(),
         email: email.trim(),
+        password
+    });
+}
+function requestPasswordReset(email) {
+    return authRequest("/auth/forgot-password", {
+        email: email.trim()
+    });
+}
+function verifyPasswordResetCode(email, code) {
+    return authRequest("/auth/verify-reset-code", {
+        email: email.trim(),
+        code: code.trim()
+    });
+}
+function resetCustomerPassword(email, code, password) {
+    return authRequest("/auth/reset-password", {
+        email: email.trim(),
+        code: code.trim(),
         password
     });
 }
@@ -2458,8 +2482,14 @@ function AuthModal() {
     const [registerEmail, setRegisterEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [password, setPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [registerPassword, setRegisterPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [forgotEmail, setForgotEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [resetCode, setResetCode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [newPassword, setNewPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [confirmPassword, setConfirmPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [showPassword, setShowPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [showRegisterPassword, setShowRegisterPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [showNewPassword, setShowNewPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [showConfirmPassword, setShowConfirmPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -2489,14 +2519,22 @@ function AuthModal() {
         setRegisterEmail("");
         setPassword("");
         setRegisterPassword("");
+        setForgotEmail("");
+        setResetCode("");
+        setNewPassword("");
+        setConfirmPassword("");
         setShowPassword(false);
         setShowRegisterPassword(false);
+        setShowNewPassword(false);
+        setShowConfirmPassword(false);
         setMessage("");
     };
     const handleModeChange = (newMode)=>{
         setMode(newMode);
         setShowPassword(false);
         setShowRegisterPassword(false);
+        setShowNewPassword(false);
+        setShowConfirmPassword(false);
         setMessage(""); // Clear messages when switching modes
     };
     const continueWithGoogle = ()=>{
@@ -2554,6 +2592,71 @@ function AuthModal() {
             setLoading(false);
         }
     };
+    const submitForgotEmail = async (event)=>{
+        event.preventDefault();
+        await sendResetCode();
+    };
+    const sendResetCode = async ()=>{
+        const cleanEmail = forgotEmail.trim();
+        if (!cleanEmail) {
+            setMessage("Email is required");
+            return;
+        }
+        try {
+            setLoading(true);
+            setMessage("");
+            const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["requestPasswordReset"])(cleanEmail);
+            setMode("forgot-code");
+            setMessage(data.message || "If this email is registered, we sent a password reset code.");
+        } catch (error) {
+            setMessage(error instanceof Error ? error.message : "Unable to send reset code");
+        } finally{
+            setLoading(false);
+        }
+    };
+    const submitResetCode = async (event)=>{
+        event.preventDefault();
+        const cleanCode = resetCode.trim();
+        if (!/^\d{6}$/.test(cleanCode)) {
+            setMessage("Enter the 6 digit reset code");
+            return;
+        }
+        try {
+            setLoading(true);
+            setMessage("");
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["verifyPasswordResetCode"])(forgotEmail, cleanCode);
+            setMode("forgot-reset");
+            setMessage("");
+        } catch (error) {
+            setMessage(error instanceof Error ? error.message : "Invalid reset code");
+        } finally{
+            setLoading(false);
+        }
+    };
+    const submitNewPassword = async (event)=>{
+        event.preventDefault();
+        if (newPassword.length < 6) {
+            setMessage("Password must be at least 6 characters");
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            setMessage("Passwords do not match");
+            return;
+        }
+        try {
+            setLoading(true);
+            setMessage("");
+            const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["resetCustomerPassword"])(forgotEmail, resetCode, newPassword);
+            resetForm();
+            setMode("login");
+            setEmail(forgotEmail);
+            setMessage(data.message || "Password reset successfully. Please login with your new password.");
+        } catch (error) {
+            setMessage(error instanceof Error ? error.message : "Unable to reset password");
+        } finally{
+            setLoading(false);
+        }
+    };
     if (!open) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "ig-auth-modal",
@@ -2568,7 +2671,7 @@ function AuthModal() {
                 onClick: close
             }, void 0, false, {
                 fileName: "[project]/components/AuthModal.tsx",
-                lineNumber: 131,
+                lineNumber: 231,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2583,12 +2686,12 @@ function AuthModal() {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/components/AuthModal.tsx",
-                            lineNumber: 134,
+                            lineNumber: 234,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/AuthModal.tsx",
-                        lineNumber: 133,
+                        lineNumber: 233,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2602,7 +2705,7 @@ function AuthModal() {
                                 children: "Login"
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 138,
+                                lineNumber: 238,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2612,13 +2715,13 @@ function AuthModal() {
                                 children: "Register"
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 141,
+                                lineNumber: 241,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/AuthModal.tsx",
-                        lineNumber: 137,
+                        lineNumber: 237,
                         columnNumber: 9
                     }, this),
                     mode === "login" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2629,7 +2732,7 @@ function AuthModal() {
                                 children: "Customer Login"
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 148,
+                                lineNumber: 248,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2640,7 +2743,7 @@ function AuthModal() {
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 149,
+                                lineNumber: 249,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2654,7 +2757,7 @@ function AuthModal() {
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 251,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2665,24 +2768,24 @@ function AuthModal() {
                                             size: 18
                                         }, void 0, false, {
                                             fileName: "[project]/components/AuthModal.tsx",
-                                            lineNumber: 163,
+                                            lineNumber: 263,
                                             columnNumber: 33
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
                                             size: 18
                                         }, void 0, false, {
                                             fileName: "[project]/components/AuthModal.tsx",
-                                            lineNumber: 163,
+                                            lineNumber: 263,
                                             columnNumber: 56
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 158,
+                                        lineNumber: 258,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 150,
+                                lineNumber: 250,
                                 columnNumber: 13
                             }, this),
                             message ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2690,9 +2793,22 @@ function AuthModal() {
                                 children: message
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 166,
+                                lineNumber: 266,
                                 columnNumber: 24
                             }, this) : null,
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                className: "ig-auth-forgot-link",
+                                type: "button",
+                                onClick: ()=>{
+                                    setForgotEmail(email);
+                                    handleModeChange("forgot-email");
+                                },
+                                children: "Forgot password?"
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 267,
+                                columnNumber: 13
+                            }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 className: "eg-btn",
                                 type: "submit",
@@ -2701,12 +2817,12 @@ function AuthModal() {
                                     children: loading ? "Logging in..." : "Login"
                                 }, void 0, false, {
                                     fileName: "[project]/components/AuthModal.tsx",
-                                    lineNumber: 168,
+                                    lineNumber: 274,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 167,
+                                lineNumber: 273,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2715,12 +2831,12 @@ function AuthModal() {
                                     children: "or"
                                 }, void 0, false, {
                                     fileName: "[project]/components/AuthModal.tsx",
-                                    lineNumber: 171,
+                                    lineNumber: 277,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 170,
+                                lineNumber: 276,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2734,20 +2850,20 @@ function AuthModal() {
                                         alt: ""
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 174,
+                                        lineNumber: 280,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Continue with Google"
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 175,
+                                        lineNumber: 281,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 173,
+                                lineNumber: 279,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2759,21 +2875,21 @@ function AuthModal() {
                                         children: "Create an account"
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 178,
+                                        lineNumber: 284,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 177,
+                                lineNumber: 283,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/AuthModal.tsx",
-                        lineNumber: 147,
+                        lineNumber: 247,
                         columnNumber: 11
-                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                    }, this) : mode === "register" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                         className: "ig-auth-form",
                         onSubmit: submitRegister,
                         children: [
@@ -2781,7 +2897,7 @@ function AuthModal() {
                                 children: "Create Account"
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 183,
+                                lineNumber: 289,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2792,7 +2908,7 @@ function AuthModal() {
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 184,
+                                lineNumber: 290,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2803,7 +2919,7 @@ function AuthModal() {
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 185,
+                                lineNumber: 291,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2818,7 +2934,7 @@ function AuthModal() {
                                         minLength: 6
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 187,
+                                        lineNumber: 293,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2829,24 +2945,24 @@ function AuthModal() {
                                             size: 18
                                         }, void 0, false, {
                                             fileName: "[project]/components/AuthModal.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 306,
                                             columnNumber: 41
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
                                             size: 18
                                         }, void 0, false, {
                                             fileName: "[project]/components/AuthModal.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 306,
                                             columnNumber: 64
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 195,
+                                        lineNumber: 301,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 186,
+                                lineNumber: 292,
                                 columnNumber: 13
                             }, this),
                             message ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2854,7 +2970,7 @@ function AuthModal() {
                                 children: message
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 203,
+                                lineNumber: 309,
                                 columnNumber: 24
                             }, this) : null,
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2865,12 +2981,12 @@ function AuthModal() {
                                     children: loading ? "Creating..." : "Register"
                                 }, void 0, false, {
                                     fileName: "[project]/components/AuthModal.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 311,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 204,
+                                lineNumber: 310,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2879,12 +2995,12 @@ function AuthModal() {
                                     children: "or"
                                 }, void 0, false, {
                                     fileName: "[project]/components/AuthModal.tsx",
-                                    lineNumber: 208,
+                                    lineNumber: 314,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 207,
+                                lineNumber: 313,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2898,20 +3014,20 @@ function AuthModal() {
                                         alt: ""
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 211,
+                                        lineNumber: 317,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Continue with Google"
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 212,
+                                        lineNumber: 318,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 210,
+                                lineNumber: 316,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2923,31 +3039,334 @@ function AuthModal() {
                                         children: "Login"
                                     }, void 0, false, {
                                         fileName: "[project]/components/AuthModal.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 321,
                                         columnNumber: 35
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/AuthModal.tsx",
-                                lineNumber: 214,
+                                lineNumber: 320,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/AuthModal.tsx",
-                        lineNumber: 182,
+                        lineNumber: 288,
+                        columnNumber: 11
+                    }, this) : mode === "forgot-email" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                        className: "ig-auth-form",
+                        onSubmit: submitForgotEmail,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                children: "Reset Password"
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 326,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "ig-auth-help",
+                                children: "Enter your account email and we will send a 6 digit verification code."
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 327,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                value: forgotEmail,
+                                onChange: (event)=>setForgotEmail(event.target.value),
+                                type: "email",
+                                placeholder: "Email address",
+                                required: true
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 328,
+                                columnNumber: 13
+                            }, this),
+                            message ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "ig-auth-message",
+                                children: message
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 329,
+                                columnNumber: 24
+                            }, this) : null,
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                className: "eg-btn",
+                                type: "submit",
+                                disabled: loading,
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    children: loading ? "Sending..." : "Send Code"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/AuthModal.tsx",
+                                    lineNumber: 331,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 330,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    "Remembered it? ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>handleModeChange("login"),
+                                        children: "Login"
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/AuthModal.tsx",
+                                        lineNumber: 334,
+                                        columnNumber: 30
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 333,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/AuthModal.tsx",
+                        lineNumber: 325,
+                        columnNumber: 11
+                    }, this) : mode === "forgot-code" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                        className: "ig-auth-form",
+                        onSubmit: submitResetCode,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                children: "Verify Code"
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 339,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "ig-auth-help",
+                                children: [
+                                    "Enter the 6 digit code sent to ",
+                                    forgotEmail || "your email",
+                                    "."
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 340,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                value: resetCode,
+                                onChange: (event)=>setResetCode(event.target.value.replace(/\D/g, "").slice(0, 6)),
+                                type: "text",
+                                inputMode: "numeric",
+                                placeholder: "Verification code",
+                                required: true
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 341,
+                                columnNumber: 13
+                            }, this),
+                            message ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "ig-auth-message",
+                                children: message
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 349,
+                                columnNumber: 24
+                            }, this) : null,
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                className: "eg-btn",
+                                type: "submit",
+                                disabled: loading,
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    children: loading ? "Verifying..." : "Verify Code"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/AuthModal.tsx",
+                                    lineNumber: 351,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 350,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    "Did not get it? ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: sendResetCode,
+                                        children: "Resend code"
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/AuthModal.tsx",
+                                        lineNumber: 354,
+                                        columnNumber: 31
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 353,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/AuthModal.tsx",
+                        lineNumber: 338,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                        className: "ig-auth-form",
+                        onSubmit: submitNewPassword,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                children: "New Password"
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 359,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "ig-auth-password-field",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        value: newPassword,
+                                        onChange: (event)=>setNewPassword(event.target.value),
+                                        type: showNewPassword ? "text" : "password",
+                                        placeholder: "New password",
+                                        required: true,
+                                        minLength: 6
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/AuthModal.tsx",
+                                        lineNumber: 361,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>setShowNewPassword((value)=>!value),
+                                        "aria-label": showNewPassword ? "Hide password" : "Show password",
+                                        children: showNewPassword ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2d$off$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__EyeOff$3e$__["EyeOff"], {
+                                            size: 18
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/AuthModal.tsx",
+                                            lineNumber: 374,
+                                            columnNumber: 36
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
+                                            size: 18
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/AuthModal.tsx",
+                                            lineNumber: 374,
+                                            columnNumber: 59
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/AuthModal.tsx",
+                                        lineNumber: 369,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 360,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "ig-auth-password-field",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        value: confirmPassword,
+                                        onChange: (event)=>setConfirmPassword(event.target.value),
+                                        type: showConfirmPassword ? "text" : "password",
+                                        placeholder: "Confirm password",
+                                        required: true,
+                                        minLength: 6
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/AuthModal.tsx",
+                                        lineNumber: 378,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>setShowConfirmPassword((value)=>!value),
+                                        "aria-label": showConfirmPassword ? "Hide password" : "Show password",
+                                        children: showConfirmPassword ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2d$off$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__EyeOff$3e$__["EyeOff"], {
+                                            size: 18
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/AuthModal.tsx",
+                                            lineNumber: 391,
+                                            columnNumber: 40
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
+                                            size: 18
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/AuthModal.tsx",
+                                            lineNumber: 391,
+                                            columnNumber: 63
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/AuthModal.tsx",
+                                        lineNumber: 386,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 377,
+                                columnNumber: 13
+                            }, this),
+                            message ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "ig-auth-message",
+                                children: message
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 394,
+                                columnNumber: 24
+                            }, this) : null,
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                className: "eg-btn",
+                                type: "submit",
+                                disabled: loading,
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    children: loading ? "Resetting..." : "Reset Password"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/AuthModal.tsx",
+                                    lineNumber: 396,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 395,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    "Back to ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>handleModeChange("login"),
+                                        children: "Login"
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/AuthModal.tsx",
+                                        lineNumber: 399,
+                                        columnNumber: 23
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/AuthModal.tsx",
+                                lineNumber: 398,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/AuthModal.tsx",
+                        lineNumber: 358,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/AuthModal.tsx",
-                lineNumber: 132,
+                lineNumber: 232,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/AuthModal.tsx",
-        lineNumber: 130,
+        lineNumber: 230,
         columnNumber: 5
     }, this);
 }

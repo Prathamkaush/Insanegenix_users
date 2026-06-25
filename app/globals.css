@@ -2713,6 +2713,25 @@ a {
   color: #000;
 }
 
+.ig-auth-forgot-link {
+  justify-self: end;
+  border: 0;
+  background: transparent;
+  color: var(--eg-theme-primary);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 0;
+}
+
+.ig-auth-forgot-link:hover {
+  color: #fff;
+}
+
+.ig-auth-help {
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.55;
+}
+
 .ig-auth-form p {
   margin: 0;
   color: var(--eg-text-body);
