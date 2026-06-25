@@ -37,8 +37,8 @@ function Breadcrumb({ title }) {
                         className: "simple-breadcrumb__content",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
-                                className: "text-white transition-all duration-200 hover:text-yellow-400 hover:underline hover:underline-offset-4",
                                 href: "/",
+                                className: "text-white",
                                 children: "Home"
                             }, void 0, false, {
                                 fileName: "[project]/components/Breadcrumb.tsx",
@@ -51,12 +51,12 @@ function Breadcrumb({ title }) {
                                     className: "fas fa-angle-right"
                                 }, void 0, false, {
                                     fileName: "[project]/components/Breadcrumb.tsx",
-                                    lineNumber: 17,
+                                    lineNumber: 14,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/Breadcrumb.tsx",
-                                lineNumber: 16,
+                                lineNumber: 13,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -67,7 +67,7 @@ function Breadcrumb({ title }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/Breadcrumb.tsx",
-                                lineNumber: 19,
+                                lineNumber: 16,
                                 columnNumber: 15
                             }, this)
                         ]
@@ -187,7 +187,9 @@ __turbopack_context__.s([
     "getProducts",
     ()=>getProducts,
     "productImage",
-    ()=>productImage
+    ()=>productImage,
+    "productVideo",
+    ()=>productVideo
 ]);
 const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
 const bundledProductImages = new Set([
@@ -264,6 +266,13 @@ function productImage(product, imageKey = "img1") {
     if (String(image).startsWith("/")) return String(image);
     if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
     return `${API_URL}/uploads/products/${image}`;
+}
+function productVideo(product) {
+    const video = product.video;
+    if (!video) return "";
+    if (String(video).startsWith("http")) return String(video);
+    if (String(video).startsWith("/")) return String(video);
+    return `${API_URL}/uploads/products/${video}`;
 }
 function getProductPricing(product, variant) {
     const basePrice = Number(variant?.price ?? product.price ?? 0);

@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 
 export default function AboutPage() {
   return (
-    <main className="fix">
+    <main className="fix ig-about-page">
       <Breadcrumb title="About Us" />
       <section className="eg-about-2__area pt-120 pb-120 black-bg">
         <div className="container">

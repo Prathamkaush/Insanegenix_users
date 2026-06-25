@@ -343,7 +343,7 @@ export default async function HomePage() {
                   <div className="swiper-slide col-lg-2" key={brand}>
                     <div className="eg-brand-2__item">
                       <a href="#" aria-label={`Featured brand ${brand}`}>
-                        <img src="/assets/img/brnad/brand-2-01.png" alt="useberry" />
+
                       </a>
                     </div>
                   </div>

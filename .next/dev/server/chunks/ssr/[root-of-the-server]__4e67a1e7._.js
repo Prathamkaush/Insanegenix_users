@@ -94,7 +94,7 @@ __turbopack_context__.s([
     "homepageMediaUrl",
     ()=>homepageMediaUrl
 ]);
-const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
 function homepageMediaUrl(media) {
     if (!media?.url) return "";
     if (media.url.startsWith("http")) return media.url;
@@ -175,9 +175,11 @@ __turbopack_context__.s([
     "getProducts",
     ()=>getProducts,
     "productImage",
-    ()=>productImage
+    ()=>productImage,
+    "productVideo",
+    ()=>productVideo
 ]);
-const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
 const bundledProductImages = new Set([
     "Creatine.png",
     "D3-K2.png",
@@ -253,6 +255,13 @@ function productImage(product, imageKey = "img1") {
     if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
     return `${API_URL}/uploads/products/${image}`;
 }
+function productVideo(product) {
+    const video = product.video;
+    if (!video) return "";
+    if (String(video).startsWith("http")) return String(video);
+    if (String(video).startsWith("/")) return String(video);
+    return `${API_URL}/uploads/products/${video}`;
+}
 function getProductPricing(product, variant) {
     const basePrice = Number(variant?.price ?? product.price ?? 0);
     const discountType = variant?.discountType ?? product.discountType;
@@ -292,7 +301,7 @@ __turbopack_context__.s([
     "toggleWishlist",
     ()=>toggleWishlist
 ]);
-const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
 function getCustomerToken() {
     if ("TURBOPACK compile-time truthy", 1) return "";
     //TURBOPACK unreachable
@@ -347,7 +356,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wishlist$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wishlist.ts [app-rsc] (ecmascript)");
 ;
-const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
 async function getProductReviews(productId) {
     const res = await fetch(`${API_URL}/reviews/product/${productId}`, {
         cache: "no-store"
@@ -1624,15 +1633,7 @@ async function HomePage() {
                                                     className: "eg-brand-2__item",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                         href: "#",
-                                                        "aria-label": `Featured brand ${brand}`,
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                            src: "/assets/img/brnad/brand-2-01.png",
-                                                            alt: "useberry"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/page.tsx",
-                                                            lineNumber: 346,
-                                                            columnNumber: 25
-                                                        }, this)
+                                                        "aria-label": `Featured brand ${brand}`
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/page.tsx",
                                                         lineNumber: 345,
