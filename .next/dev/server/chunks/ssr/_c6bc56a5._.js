@@ -914,6 +914,71 @@ function arrowIcon(direction) {
     }, this);
 }
 }),
+"[project]/components/HomeReviewCarouselInit.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>HomeReviewCarouselInit
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+"use client";
+;
+function HomeReviewCarouselInit({ count }) {
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (count < 2) return;
+        const carousel = document.querySelector(".eg-testimonial-2__active");
+        if (!carousel) return;
+        let swiper;
+        let retryTimer;
+        let cancelled = false;
+        const initialize = ()=>{
+            if (cancelled) return;
+            const Swiper = window.Swiper;
+            if (!Swiper) {
+                retryTimer = setTimeout(initialize, 100);
+                return;
+            }
+            if (carousel.swiper) {
+                carousel.swiper.destroy(true, true);
+            }
+            swiper = new Swiper(carousel, {
+                slidesPerView: 1,
+                spaceBetween: 18,
+                speed: 500,
+                loop: false,
+                allowTouchMove: true,
+                simulateTouch: true,
+                navigation: {
+                    nextEl: ".eg-testimonial-2__next",
+                    prevEl: ".eg-testimonial-2__prev"
+                },
+                observer: true,
+                observeParents: true,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 24
+                    },
+                    1200: {
+                        slidesPerView: 2,
+                        spaceBetween: 28
+                    }
+                }
+            });
+        };
+        initialize();
+        return ()=>{
+            cancelled = true;
+            if (retryTimer) clearTimeout(retryTimer);
+            if (swiper) swiper.destroy(true, true);
+        };
+    }, [
+        count
+    ]);
+    return null;
+}
+}),
 "[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -1048,4 +1113,4 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 }),
 ];
 
-//# sourceMappingURL=_076cc3cb._.js.map
+//# sourceMappingURL=_c6bc56a5._.js.map

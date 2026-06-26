@@ -2,6 +2,7 @@ import Link from "next/link";
 import Script from "next/script";
 import HomeHeroSlider from "@/components/HomeHeroSlider";
 import HomeProductSection from "@/components/HomeProductSection";
+import HomeReviewCarouselInit from "@/components/HomeReviewCarouselInit";
 import { getHomepageSections, homepageMediaUrl, HomepageMedia } from "@/lib/homepage";
 import { getProducts, productImage } from "@/lib/products";
 import { getLatestReviews } from "@/lib/reviews";
@@ -299,6 +300,7 @@ export default async function HomePage() {
                   );
                 })}
               </div>
+              <HomeReviewCarouselInit count={latestReviews.length} />
             </div>
           ) : (
             <div className="container">

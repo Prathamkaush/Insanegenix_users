@@ -59,7 +59,16 @@ export default function HomeProductSection({
         observeParents: true,
         breakpoints: {
           576: {
-            slidesPerView: "auto",
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          992: {
+            slidesPerView: 3,
+            spaceBetween: 24,
+          },
+          1400: {
+            slidesPerView: 4,
+            spaceBetween: 28,
           },
         },
       });

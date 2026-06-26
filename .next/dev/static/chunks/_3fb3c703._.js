@@ -978,6 +978,86 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
 }),
+"[project]/components/HomeReviewCarouselInit.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>HomeReviewCarouselInit
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var _s = __turbopack_context__.k.signature();
+"use client";
+;
+function HomeReviewCarouselInit({ count }) {
+    _s();
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "HomeReviewCarouselInit.useEffect": ()=>{
+            if (count < 2) return;
+            const carousel = document.querySelector(".eg-testimonial-2__active");
+            if (!carousel) return;
+            let swiper;
+            let retryTimer;
+            let cancelled = false;
+            const initialize = {
+                "HomeReviewCarouselInit.useEffect.initialize": ()=>{
+                    if (cancelled) return;
+                    const Swiper = window.Swiper;
+                    if (!Swiper) {
+                        retryTimer = setTimeout(initialize, 100);
+                        return;
+                    }
+                    if (carousel.swiper) {
+                        carousel.swiper.destroy(true, true);
+                    }
+                    swiper = new Swiper(carousel, {
+                        slidesPerView: 1,
+                        spaceBetween: 18,
+                        speed: 500,
+                        loop: false,
+                        allowTouchMove: true,
+                        simulateTouch: true,
+                        navigation: {
+                            nextEl: ".eg-testimonial-2__next",
+                            prevEl: ".eg-testimonial-2__prev"
+                        },
+                        observer: true,
+                        observeParents: true,
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 24
+                            },
+                            1200: {
+                                slidesPerView: 2,
+                                spaceBetween: 28
+                            }
+                        }
+                    });
+                }
+            }["HomeReviewCarouselInit.useEffect.initialize"];
+            initialize();
+            return ({
+                "HomeReviewCarouselInit.useEffect": ()=>{
+                    cancelled = true;
+                    if (retryTimer) clearTimeout(retryTimer);
+                    if (swiper) swiper.destroy(true, true);
+                }
+            })["HomeReviewCarouselInit.useEffect"];
+        }
+    }["HomeReviewCarouselInit.useEffect"], [
+        count
+    ]);
+    return null;
+}
+_s(HomeReviewCarouselInit, "OD7bBpZva5O2jO+Puf00hKivP7c=");
+_c = HomeReviewCarouselInit;
+var _c;
+__turbopack_context__.k.register(_c, "HomeReviewCarouselInit");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
 "[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -1112,4 +1192,4 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 }),
 ]);
 
-//# sourceMappingURL=_1b207683._.js.map
+//# sourceMappingURL=_3fb3c703._.js.map

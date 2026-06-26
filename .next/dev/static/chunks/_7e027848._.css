@@ -1890,14 +1890,18 @@ a {
 .eg-product-2__active .ig-home-product-slide {
   justify-content: center;
   align-items: stretch;
-  width: min(100%, 392px);
-  padding: 0 12px;
+  width: auto;
+  padding: 0;
   display: flex;
 }
 
 .ig-home-product-slide .product-card {
+  width: 100%;
+  max-width: none;
   margin-bottom: 0;
   padding-bottom: 42px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .ig-home-product-slide .product-card__actions {
