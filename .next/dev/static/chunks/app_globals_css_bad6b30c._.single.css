@@ -1023,6 +1023,7 @@ a {
 .ig-nutrition-card {
   background: #fff;
   border: 1px solid #efefef;
+  border-radius: 14px;
   padding: 18px;
 }
 
@@ -1310,10 +1311,13 @@ a {
 }
 
 .ig-product-detail-page {
+  --ig-product-detail-radius: 16px;
+  --ig-product-detail-radius-sm: 10px;
   background: #000;
 }
 
 .ig-product-gallery__main {
+  border-radius: var(--ig-product-detail-radius);
   background: #151918;
   border: 1px solid #ffffff14;
   justify-content: center;
@@ -1369,9 +1373,9 @@ a {
 
 .ig-product-gallery__thumbs button {
   aspect-ratio: 1;
+  border-radius: var(--ig-product-detail-radius-sm);
   background: #151918;
   border: 1px solid #ffffff2e;
-  border-radius: 8px;
   width: 100%;
   padding: 0;
   transition: border-color .2s, box-shadow .2s, transform .2s;
@@ -1459,6 +1463,7 @@ a {
 }
 
 .ig-product-panel, .ig-product-info-card {
+  border-radius: var(--ig-product-detail-radius);
   background: #ffffff09;
   border: 1px solid #ffffff1a;
   padding: 24px;
@@ -1508,6 +1513,7 @@ a {
 }
 
 .ig-info-pill {
+  border-radius: var(--ig-product-detail-radius-sm);
   background: #111514;
   border: 1px solid #ffffff1f;
   padding: 16px;
@@ -1596,6 +1602,7 @@ a {
   color: #fff;
   text-transform: uppercase;
   border: 1px solid #ffffff1f;
+  border-radius: 999px;
   padding: 8px 10px;
   font-size: 12px;
   font-weight: 800;
@@ -1606,6 +1613,7 @@ a {
 }
 
 .ig-product-detail-page .ig-product-grid .eg-product__item {
+  border-radius: var(--ig-product-detail-radius);
   background: #111514;
   padding-top: 24px;
 }
@@ -1983,6 +1991,10 @@ a {
 .ig-product-detail-page .eg-product-details__quantity {
   flex-wrap: wrap;
   gap: 14px;
+}
+
+.ig-product-detail-page .eg-product-details__quantity-box, .ig-product-detail-page .eg-product-details__quantity-btn, .ig-product-detail-page .ig-variant-btn, .ig-product-detail-page .stock, .ig-product-detail-page .eg-product-details__bottom, .ig-product-detail-page .eg-product-details__socials a {
+  border-radius: var(--ig-product-detail-radius-sm);
 }
 
 .ig-product-detail-page .eg-product-details__button {
@@ -5225,7 +5237,7 @@ body.ig-search-overlay-lock {
 .ig-review-login {
   background: #ffffff0d;
   border: 1px solid #ffffff1a;
-  border-radius: 12px;
+  border-radius: 16px;
   gap: 14px;
   padding: 22px;
   display: grid;
@@ -5279,7 +5291,7 @@ body.ig-search-overlay-lock {
 .ig-review-item {
   background: #ffffff0d;
   border: 1px solid #ffffff1a;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 18px;
 }
 

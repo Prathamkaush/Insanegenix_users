@@ -1051,6 +1051,7 @@ a {
 
 .ig-nutrition-card {
   border: 1px solid #efefef;
+  border-radius: 14px;
   padding: 18px;
   background: #fff;
 }
@@ -1351,6 +1352,8 @@ a {
 
 .ig-product-detail-page {
   background: #000;
+  --ig-product-detail-radius: 16px;
+  --ig-product-detail-radius-sm: 10px;
 }
 
 .ig-product-gallery__main {
@@ -1363,6 +1366,7 @@ a {
   overflow: hidden;
   background: #151918;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--ig-product-detail-radius);
 }
 
 .ig-product-gallery__main img,
@@ -1414,7 +1418,7 @@ a {
   padding: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
+  border-radius: var(--ig-product-detail-radius-sm);
   background: #151918;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -1507,6 +1511,7 @@ a {
 .ig-product-panel,
 .ig-product-info-card {
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--ig-product-detail-radius);
   background: rgba(255, 255, 255, 0.035);
   padding: 24px;
   transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
@@ -1558,6 +1563,7 @@ a {
 
 .ig-info-pill {
   border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--ig-product-detail-radius-sm);
   padding: 16px;
   background: #111514;
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
@@ -1645,6 +1651,7 @@ a {
 
 .ig-cert-list span {
   border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
   color: #fff;
   font-size: 12px;
   font-weight: 800;
@@ -1658,6 +1665,7 @@ a {
 
 .ig-product-detail-page .ig-product-grid .eg-product__item {
   background: #111514;
+  border-radius: var(--ig-product-detail-radius);
   padding-top: 24px;
 }
 
@@ -2055,6 +2063,15 @@ a {
 .ig-product-detail-page .eg-product-details__quantity {
   flex-wrap: wrap;
   gap: 14px;
+}
+
+.ig-product-detail-page .eg-product-details__quantity-box,
+.ig-product-detail-page .eg-product-details__quantity-btn,
+.ig-product-detail-page .ig-variant-btn,
+.ig-product-detail-page .stock,
+.ig-product-detail-page .eg-product-details__bottom,
+.ig-product-detail-page .eg-product-details__socials a {
+  border-radius: var(--ig-product-detail-radius-sm);
 }
 
 .ig-product-detail-page .eg-product-details__button {
@@ -5410,7 +5427,7 @@ body.ig-search-overlay-lock {
   gap: 14px;
   padding: 22px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.05);
 }
 
@@ -5461,7 +5478,7 @@ body.ig-search-overlay-lock {
 
 .ig-review-item {
   padding: 18px;
-  border-radius: 12px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
 }
