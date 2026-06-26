@@ -10,7 +10,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/auth.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$cart$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/lib/cart.ts [app-ssr] (ecmascript) <locals>");
 "use client";
+;
 ;
 ;
 ;
@@ -41,8 +43,16 @@ function GoogleAuthCallbackContent() {
             token,
             user: decodeGoogleUser(searchParams.get("user"))
         };
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["storeCustomerSession"])(session);
-        router.replace("/");
+        const completeSignIn = async ()=>{
+            try {
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["storeCustomerSession"])(session);
+                setMessage("Syncing your cart...");
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$cart$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["syncGuestCartToServer"])();
+            } finally{
+                router.replace("/");
+            }
+        };
+        completeSignIn();
     }, [
         router,
         searchParams
@@ -56,25 +66,25 @@ function GoogleAuthCallbackContent() {
                     className: "eg-loader-spin"
                 }, void 0, false, {
                     fileName: "[project]/app/auth/google/callback/page.tsx",
-                    lineNumber: 54,
+                    lineNumber: 64,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     children: message
                 }, void 0, false, {
                     fileName: "[project]/app/auth/google/callback/page.tsx",
-                    lineNumber: 55,
+                    lineNumber: 65,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/auth/google/callback/page.tsx",
-            lineNumber: 53,
+            lineNumber: 63,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/auth/google/callback/page.tsx",
-        lineNumber: 52,
+        lineNumber: 62,
         columnNumber: 5
     }, this);
 }
@@ -89,35 +99,35 @@ function GoogleAuthCallbackPage() {
                         className: "eg-loader-spin"
                     }, void 0, false, {
                         fileName: "[project]/app/auth/google/callback/page.tsx",
-                        lineNumber: 67,
+                        lineNumber: 77,
                         columnNumber: 13
                     }, void 0),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         children: "Signing you in with Google..."
                     }, void 0, false, {
                         fileName: "[project]/app/auth/google/callback/page.tsx",
-                        lineNumber: 68,
+                        lineNumber: 78,
                         columnNumber: 13
                     }, void 0)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/auth/google/callback/page.tsx",
-                lineNumber: 66,
+                lineNumber: 76,
                 columnNumber: 11
             }, void 0)
         }, void 0, false, {
             fileName: "[project]/app/auth/google/callback/page.tsx",
-            lineNumber: 65,
+            lineNumber: 75,
             columnNumber: 9
         }, void 0),
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(GoogleAuthCallbackContent, {}, void 0, false, {
             fileName: "[project]/app/auth/google/callback/page.tsx",
-            lineNumber: 73,
+            lineNumber: 83,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/auth/google/callback/page.tsx",
-        lineNumber: 63,
+        lineNumber: 73,
         columnNumber: 5
     }, this);
 }
