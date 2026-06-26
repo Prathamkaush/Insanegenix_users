@@ -11,16 +11,24 @@ export default function ProductGallery({
   images,
   video,
   title,
+  productId,
+  variantMedia,
 }: {
   images: string[];
   video?: string;
   title: string;
+  productId?: number;
+  variantMedia?: Record<number, { images: string[]; video?: string }>;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [selectedVariantId, setSelectedVariantId] = useState<number | undefined>();
+  const selectedMedia = selectedVariantId ? variantMedia?.[selectedVariantId] : undefined;
+  const visibleImages = selectedMedia?.images?.length ? selectedMedia.images : images;
+  const visibleVideo = selectedMedia?.video || video;
   const media: GalleryMedia[] = [
-    ...images.map((src) => ({ type: "image" as const, src })),
-    ...(video ? [{ type: "video" as const, src: video }] : []),
+    ...visibleImages.map((src) => ({ type: "image" as const, src })),
+    ...(visibleVideo ? [{ type: "video" as const, src: visibleVideo }] : []),
   ];
   const activeMedia = media[activeIndex] || media[0];
   const hasMultipleItems = media.length > 1;
@@ -49,6 +57,18 @@ export default function ProductGallery({
   useEffect(() => {
     if (activeIndex >= media.length) setActiveIndex(0);
   }, [activeIndex, media.length]);
+
+  useEffect(() => {
+    const handleVariantChange = (event: Event) => {
+      const detail = (event as CustomEvent<{ productId?: number; variantId?: number }>).detail;
+      if (productId && detail?.productId !== productId) return;
+      setSelectedVariantId(detail?.variantId);
+      setActiveIndex(0);
+    };
+
+    window.addEventListener("product:variant-change", handleVariantChange);
+    return () => window.removeEventListener("product:variant-change", handleVariantChange);
+  }, [productId]);
 
   return (
     <div

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ProductPurchaseControls from "@/components/ProductPurchaseControls";
 import {
   Product,
@@ -34,6 +34,14 @@ export default function ProductVariantPurchase({
     product,
     selectedVariant || undefined,
   );
+
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("product:variant-change", {
+        detail: { productId: product.id, variantId: selectedVariant?.id },
+      }),
+    );
+  }, [product.id, selectedVariant?.id]);
 
   return (
     <>

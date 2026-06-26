@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -19,6 +20,31 @@ type ProductDetailParams = {
   params: Promise<{ slug: string }>;
 };
 
+export async function generateMetadata({ params }: ProductDetailParams): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
+  if (!product) return {};
+
+  const title = product.metaTitle || `${product.title} - InsaneGenix`;
+  const description =
+    product.metaDescription ||
+    product.shortDescription ||
+    product.description ||
+    "Premium InsaneGenix performance supplement.";
+
+  return {
+    title,
+    description,
+    keywords: product.metaKeywords || undefined,
+    openGraph: {
+      title,
+      description,
+      images: productImages(product),
+    },
+  };
+}
+
 export default async function ProductDetailPage({ params }: ProductDetailParams) {
   const { slug } = await params;
   const [product, allProducts] = await Promise.all([getProduct(slug), getProducts()]);
@@ -27,6 +53,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
 
   const images = productImages(product);
   const video = productVideo(product);
+  const variantMedia = productVariantMedia(product);
   const defaultVariant = product.variants?.find((variant) => variant.isDefault) || product.variants?.[0];
   const inStock = Number(defaultVariant?.stock ?? product.stock ?? 0) > 0;
   const category = product.category?.name || product.type?.name || "Sports Nutrition";
@@ -45,7 +72,13 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
         <div className="container mt-50">
           <div className="row align-items-start">
             <div className="col-lg-6">
-              <ProductGallery images={images} video={video} title={product.title} />
+              <ProductGallery
+                images={images}
+                video={video}
+                title={product.title}
+                productId={product.id}
+                variantMedia={variantMedia}
+              />
             </div>
 
             <div className="col-lg-6">
@@ -202,6 +235,41 @@ function productImages(product: Product) {
     .map((key) => productImage(product, key));
 
   return Array.from(new Set(images.length ? images : [productImage(product)]));
+}
+
+function productVariantMedia(product: Product) {
+  return (product.variants || []).reduce<Record<number, { images: string[]; video?: string }>>((acc, variant) => {
+    if (!variant.id) return acc;
+    const hasVariantImages = [
+      variant.image1,
+      variant.image2,
+      variant.image3,
+      variant.image4,
+      variant.image5,
+      variant.image6,
+    ].some(Boolean);
+    const hasVariantVideo = Boolean(variant.video);
+    if (!hasVariantImages && !hasVariantVideo) return acc;
+
+    const images = hasVariantImages
+      ? productImages({
+          ...product,
+          img1: variant.image1 || null,
+          img2: variant.image2 || null,
+          img3: variant.image3 || null,
+          img4: variant.image4 || null,
+          img5: variant.image5 || null,
+          img6: variant.image6 || null,
+        })
+      : productImages(product);
+    const video = productVideo({ video: variant.video || null });
+
+    if (images.length || video) {
+      acc[variant.id] = { images, video: video || undefined };
+    }
+
+    return acc;
+  }, {});
 }
 
 function normalizeList(value?: string[] | null) {

@@ -13,6 +13,12 @@ export type ProductVariant = {
   isDefault?: boolean;
   status?: string | null;
   image1?: string | null;
+  image2?: string | null;
+  image3?: string | null;
+  image4?: string | null;
+  image5?: string | null;
+  image6?: string | null;
+  video?: string | null;
 };
 
 export type Product = {
@@ -21,6 +27,9 @@ export type Product = {
   slug: string;
   description?: string | null;
   shortDescription?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  metaKeywords?: string | null;
   originalPrice?: string | number | null;
   price?: string | number | null;
   discountType?: string | null;
