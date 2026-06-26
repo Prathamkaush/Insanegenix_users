@@ -40,7 +40,7 @@ export default function HomeProductSection({
       }
 
       swiper = new window.Swiper(carousel, {
-        slidesPerView: "auto",
+        slidesPerView: 1,
         spaceBetween: 16,
         speed: 500,
         loop: false,
@@ -57,6 +57,11 @@ export default function HomeProductSection({
         },
         observer: true,
         observeParents: true,
+        breakpoints: {
+          576: {
+            slidesPerView: "auto",
+          },
+        },
       });
     };
 

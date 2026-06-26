@@ -748,7 +748,7 @@ function HomeProductSection({ id, title, products }) {
                         carousel.swiper.destroy(true, true);
                     }
                     swiper = new window.Swiper(carousel, {
-                        slidesPerView: "auto",
+                        slidesPerView: 1,
                         spaceBetween: 16,
                         speed: 500,
                         loop: false,
@@ -764,7 +764,12 @@ function HomeProductSection({ id, title, products }) {
                             prevEl: prevRef.current
                         },
                         observer: true,
-                        observeParents: true
+                        observeParents: true,
+                        breakpoints: {
+                            576: {
+                                slidesPerView: "auto"
+                            }
+                        }
                     });
                 }
             }["HomeProductSection.useEffect.initialize"];
@@ -800,7 +805,7 @@ function HomeProductSection({ id, title, products }) {
                                             children: "Shop InsaneGenix"
                                         }, void 0, false, {
                                             fileName: "[project]/components/HomeProductSection.tsx",
-                                            lineNumber: 79,
+                                            lineNumber: 84,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -808,18 +813,18 @@ function HomeProductSection({ id, title, products }) {
                                             children: title
                                         }, void 0, false, {
                                             fileName: "[project]/components/HomeProductSection.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 85,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/HomeProductSection.tsx",
-                                    lineNumber: 78,
+                                    lineNumber: 83,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/HomeProductSection.tsx",
-                                lineNumber: 77,
+                                lineNumber: 82,
                                 columnNumber: 13
                             }, this),
                             products.length > 1 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -836,12 +841,12 @@ function HomeProductSection({ id, title, products }) {
                                                 children: arrowIcon("previous")
                                             }, void 0, false, {
                                                 fileName: "[project]/components/HomeProductSection.tsx",
-                                                lineNumber: 93,
+                                                lineNumber: 98,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/HomeProductSection.tsx",
-                                            lineNumber: 87,
+                                            lineNumber: 92,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -853,29 +858,29 @@ function HomeProductSection({ id, title, products }) {
                                                 children: arrowIcon("next")
                                             }, void 0, false, {
                                                 fileName: "[project]/components/HomeProductSection.tsx",
-                                                lineNumber: 101,
+                                                lineNumber: 106,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/HomeProductSection.tsx",
-                                            lineNumber: 95,
+                                            lineNumber: 100,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/HomeProductSection.tsx",
-                                    lineNumber: 86,
+                                    lineNumber: 91,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/HomeProductSection.tsx",
-                                lineNumber: 85,
+                                lineNumber: 90,
                                 columnNumber: 15
                             }, this) : null
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/HomeProductSection.tsx",
-                        lineNumber: 76,
+                        lineNumber: 81,
                         columnNumber: 11
                     }, this),
                     products.length ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -889,22 +894,22 @@ function HomeProductSection({ id, title, products }) {
                                         product: product
                                     }, void 0, false, {
                                         fileName: "[project]/components/HomeProductSection.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 117,
                                         columnNumber: 21
                                     }, this)
                                 }, product.id, false, {
                                     fileName: "[project]/components/HomeProductSection.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 116,
                                     columnNumber: 19
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/components/HomeProductSection.tsx",
-                            lineNumber: 109,
+                            lineNumber: 114,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/HomeProductSection.tsx",
-                        lineNumber: 108,
+                        lineNumber: 113,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "ig-home-product-section__empty",
@@ -915,23 +920,23 @@ function HomeProductSection({ id, title, products }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/HomeProductSection.tsx",
-                        lineNumber: 118,
+                        lineNumber: 123,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/HomeProductSection.tsx",
-                lineNumber: 75,
+                lineNumber: 80,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/HomeProductSection.tsx",
-            lineNumber: 74,
+            lineNumber: 79,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/HomeProductSection.tsx",
-        lineNumber: 73,
+        lineNumber: 78,
         columnNumber: 5
     }, this);
 }
@@ -949,12 +954,12 @@ function arrowIcon(direction) {
             d: isPrevious ? "M0.292893 8.70711C-0.0976311 8.31659 -0.0976311 7.68342 0.292893 7.2929L6.65685 0.928936C7.04738 0.538411 7.68054 0.538411 8.07107 0.928936C8.46159 1.31946 8.46159 1.95262 8.07107 2.34315L2.41421 8L8.07107 13.6569C8.46159 14.0474 8.46159 14.6805 8.07107 15.0711C7.68054 15.4616 7.04738 15.4616 6.65685 15.0711L0.292893 8.70711ZM39 9L1 9L1 7L39 7L39 9Z" : "M38.7071 8.70711C39.0976 8.31659 39.0976 7.68342 38.7071 7.2929L32.3431 0.928935C31.9526 0.538411 31.3195 0.538411 30.9289 0.928935C30.5384 1.31946 30.5384 1.95263 30.9289 2.34315L36.5858 8L30.9289 13.6569C30.5384 14.0474 30.5384 14.6805 30.9289 15.0711C31.3195 15.4616 31.9526 15.4616 32.3431 15.0711L38.7071 8.70711ZM0 9L38 9L38 7L0 7L0 9Z"
         }, void 0, false, {
             fileName: "[project]/components/HomeProductSection.tsx",
-            lineNumber: 133,
+            lineNumber: 138,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/HomeProductSection.tsx",
-        lineNumber: 132,
+        lineNumber: 137,
         columnNumber: 5
     }, this);
 }
