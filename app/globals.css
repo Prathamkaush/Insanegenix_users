@@ -259,6 +259,48 @@ html {
 @media (max-width: 767px) {
   .ig-footer-payments {
     justify-content: center;
+    flex-wrap: nowrap;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .ig-footer-payments__brand {
+    width: clamp(66px, 21vw, 76px);
+    height: 34px;
+    flex: 0 1 auto;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  }
+
+  .ig-footer-payments__brand.is-paypal > span::before,
+  .ig-footer-payments__brand.is-paypal > span::after {
+    font-size: 18px;
+  }
+
+  .ig-footer-payments__brand.is-visa > span {
+    font-size: 20px;
+  }
+
+  .ig-footer-payments__brand.is-stripe > span {
+    font-size: 21px;
+  }
+
+  .ig-footer-payments__mastercard-mark {
+    width: 42px;
+    height: 24px;
+  }
+
+  .ig-footer-payments__mastercard-mark span {
+    top: 2px;
+    width: 21px;
+    height: 21px;
+  }
+
+  .ig-footer-payments__mastercard-mark span:first-child {
+    left: 5px;
+  }
+
+  .ig-footer-payments__mastercard-mark span:last-child {
+    right: 5px;
   }
 }
 
