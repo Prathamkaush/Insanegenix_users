@@ -1318,6 +1318,7 @@ a {
 
 .main-slider img {
   width: 100%;
+  margin-top: 2px;
   display: block;
 }
 
@@ -1404,30 +1405,29 @@ a {
 
 .myMainSlider, .ig-home-hero-slider, .myMainSlider .swiper-slide, .ig-home-hero-slider .swiper-slide {
   background: #000;
+  height: auto !important;
 }
 
 .ig-hero-slide {
-  justify-content: center;
-  align-items: center;
-  height: calc(100svh - 96px);
-  min-height: 420px;
-  display: flex;
   position: relative;
   overflow: hidden;
+  height: auto !important;
+  min-height: 0 !important;
 }
 
 .myMainSlider picture, .ig-home-hero-slider picture {
   width: 100%;
-  height: 100%;
   display: block;
+  height: auto !important;
 }
 
 .myMainSlider picture img, .ig-home-hero-slider picture img {
-  object-fit: contain;
-  object-position: center;
   background: #000;
-  width: 100%;
-  height: 100%;
+  object-fit: contain !important;
+  object-position: center !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .ig-home-hero-slider .swiper-button-next, .ig-home-hero-slider .swiper-button-prev {
@@ -1444,12 +1444,13 @@ a {
 }
 
 .ig-hero-slide__media {
-  object-fit: contain;
   object-position: center;
   background: #000;
   width: 100%;
-  height: 100%;
   display: block;
+  object-fit: contain !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .ig-hero-slide__content {
@@ -1640,6 +1641,10 @@ a {
   .eg-footer-2__widget-wrapper .ig-footer-widget-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 24px;
+  }
+
+  .main-slider img {
+    margin-top: 1px;
   }
 
   .eg-footer-2__widget-wrapper .ig-footer-widget-grid__about, .eg-footer-2__widget-wrapper .ig-footer-widget-grid__help {
@@ -3956,16 +3961,16 @@ a {
   }
 
   .myMainSlider picture img, .ig-home-hero-slider picture img {
-    height: 100%;
+    height: auto;
   }
 
   .ig-hero-slide {
-    height: calc(100svh - 78px);
-    min-height: 520px;
+    height: auto;
+    min-height: 0;
   }
 
   .ig-hero-slide__media {
-    height: 100%;
+    height: auto;
   }
 
   .ig-hero-slide__content {

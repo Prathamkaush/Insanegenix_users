@@ -49,6 +49,7 @@ export default function HomeHeroSlider({ slides }: { slides: HeroSlide[] }) {
     }
 
     const swiper = new window.Swiper(sliderEl, {
+      autoHeight: true,
       loop: visibleSlides.length > 1,
       speed: 1000,
       autoplay:
@@ -74,7 +75,7 @@ export default function HomeHeroSlider({ slides }: { slides: HeroSlide[] }) {
   }, [visibleSlides.length]);
 
   return (
-    <div ref={sliderRef} className="main-slider swiper ig-home-hero-slider">
+    <div ref={sliderRef} className="main-slider swiper mt-50  ig-home-hero-slider">
       <div className="swiper-wrapper">
         {visibleSlides.map((slide, index) => (
           <div className="swiper-slide ig-hero-slide" key={`${slide.media?.url || "fallback"}-${index}`}>
@@ -126,16 +127,28 @@ function HeroMedia({
         loop
         playsInline
         preload="metadata"
+        style={{ width: "100%", height: "auto", objectFit: "contain" }}
       />
     );
   }
 
   return (
-    <picture>
+    <picture style={{ display: "block", width: "100%", height: "auto" }}>
       {mobileMedia?.type === "IMAGE" && mobileSrc ? (
         <source srcSet={mobileSrc} media="(max-width: 768px)" />
       ) : null}
-      <img src={src || "/assets/img/slider/slider-1.png"} alt={alt} />
+      <img
+        src={src || "/assets/img/slider/slider-1.png"}
+        alt={alt}
+        style={{
+          width: "100%",
+          height: "auto",
+          display: "block",
+          objectFit: "contain",
+          objectPosition: "center",
+          maxHeight: "none",
+        }}
+      />
     </picture>
   );
 }

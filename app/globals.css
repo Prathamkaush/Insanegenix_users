@@ -1353,6 +1353,7 @@ a {
 .main-slider img {
   width: 100%;
   display: block;
+  margin-top: 2px;
 }
 
 .eg-loader-spin {
@@ -1442,36 +1443,36 @@ a {
 .myMainSlider,
 .ig-home-hero-slider {
   background: #000;
+  height: auto !important;
 }
 
 .myMainSlider .swiper-slide,
 .ig-home-hero-slider .swiper-slide {
   background: #000;
+  height: auto !important;
 }
 
 .ig-hero-slide {
   position: relative;
-  height: calc(100svh - 96px);
-  min-height: 420px;
+  height: auto !important;
+  min-height: 0 !important;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .myMainSlider picture,
 .ig-home-hero-slider picture {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto !important;
 }
 
 .myMainSlider picture img,
 .ig-home-hero-slider picture img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
+  width: 100%  !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
   background: #000;
 }
 
@@ -1491,8 +1492,9 @@ a {
 
 .ig-hero-slide__media {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
   object-position: center;
   background: #000;
   display: block;
@@ -1688,6 +1690,10 @@ a {
   .eg-footer-2__widget-wrapper .ig-footer-widget-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 24px;
+  }
+
+  .main-slider img{
+    margin-top:1px;
   }
 
   .eg-footer-2__widget-wrapper .ig-footer-widget-grid__about,
@@ -4100,16 +4106,16 @@ a {
 
   .myMainSlider picture img,
   .ig-home-hero-slider picture img {
-    height: 100%;
+    height: auto;
   }
 
   .ig-hero-slide {
-    height: calc(100svh - 78px);
-    min-height: 520px;
+    height: auto;
+    min-height: 0;
   }
 
   .ig-hero-slide__media {
-    height: 100%;
+    height: auto;
   }
 
   .ig-hero-slide__content {

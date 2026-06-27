@@ -134,6 +134,7 @@ function HomeHeroSlider({ slides }) {
                 sliderEl.swiper.destroy(true, true);
             }
             const swiper = new window.Swiper(sliderEl, {
+                autoHeight: true,
                 loop: visibleSlides.length > 1,
                 speed: 1000,
                 autoplay: visibleSlides.length > 1 ? {
@@ -160,7 +161,7 @@ function HomeHeroSlider({ slides }) {
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         ref: sliderRef,
-        className: "main-slider swiper ig-home-hero-slider",
+        className: "main-slider swiper mt-50  ig-home-hero-slider",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "swiper-wrapper",
@@ -173,7 +174,7 @@ function HomeHeroSlider({ slides }) {
                                 alt: slide.title || "InsaneGenix performance supplements hero"
                             }, void 0, false, {
                                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                                lineNumber: 81,
+                                lineNumber: 82,
                                 columnNumber: 13
                             }, this),
                             slide.title || slide.subtitle || slide.ctaText ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -183,14 +184,14 @@ function HomeHeroSlider({ slides }) {
                                         children: slide.subtitle
                                     }, void 0, false, {
                                         fileName: "[project]/components/HomeHeroSlider.tsx",
-                                        lineNumber: 88,
+                                        lineNumber: 89,
                                         columnNumber: 35
                                     }, this) : null,
                                     slide.title ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                         children: slide.title
                                     }, void 0, false, {
                                         fileName: "[project]/components/HomeHeroSlider.tsx",
-                                        lineNumber: 89,
+                                        lineNumber: 90,
                                         columnNumber: 32
                                     }, this) : null,
                                     slide.ctaText ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -199,24 +200,24 @@ function HomeHeroSlider({ slides }) {
                                         children: slide.ctaText
                                     }, void 0, false, {
                                         fileName: "[project]/components/HomeHeroSlider.tsx",
-                                        lineNumber: 91,
+                                        lineNumber: 92,
                                         columnNumber: 19
                                     }, this) : null
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                                lineNumber: 87,
+                                lineNumber: 88,
                                 columnNumber: 15
                             }, this) : null
                         ]
                     }, `${slide.media?.url || "fallback"}-${index}`, true, {
                         fileName: "[project]/components/HomeHeroSlider.tsx",
-                        lineNumber: 80,
+                        lineNumber: 81,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                lineNumber: 78,
+                lineNumber: 79,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -224,7 +225,7 @@ function HomeHeroSlider({ slides }) {
                 className: "swiper-pagination"
             }, void 0, false, {
                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                lineNumber: 100,
+                lineNumber: 101,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -232,7 +233,7 @@ function HomeHeroSlider({ slides }) {
                 className: "swiper-button-next"
             }, void 0, false, {
                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                lineNumber: 101,
+                lineNumber: 102,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -240,13 +241,13 @@ function HomeHeroSlider({ slides }) {
                 className: "swiper-button-prev"
             }, void 0, false, {
                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                lineNumber: 102,
+                lineNumber: 103,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/HomeHeroSlider.tsx",
-        lineNumber: 77,
+        lineNumber: 78,
         columnNumber: 5
     }, this);
 }
@@ -263,35 +264,53 @@ function HeroMedia({ media, mobileMedia, alt }) {
             muted: true,
             loop: true,
             playsInline: true,
-            preload: "metadata"
+            preload: "metadata",
+            style: {
+                width: "100%",
+                height: "auto",
+                objectFit: "contain"
+            }
         }, void 0, false, {
             fileName: "[project]/components/HomeHeroSlider.tsx",
-            lineNumber: 121,
+            lineNumber: 122,
             columnNumber: 7
         }, this);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("picture", {
+        style: {
+            display: "block",
+            width: "100%",
+            height: "auto"
+        },
         children: [
             mobileMedia?.type === "IMAGE" && mobileSrc ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
                 srcSet: mobileSrc,
                 media: "(max-width: 768px)"
             }, void 0, false, {
                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                lineNumber: 136,
+                lineNumber: 138,
                 columnNumber: 9
             }, this) : null,
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                 src: src || "/assets/img/slider/slider-1.png",
-                alt: alt
+                alt: alt,
+                style: {
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                    objectFit: "contain",
+                    objectPosition: "center",
+                    maxHeight: "none"
+                }
             }, void 0, false, {
                 fileName: "[project]/components/HomeHeroSlider.tsx",
-                lineNumber: 138,
+                lineNumber: 140,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/HomeHeroSlider.tsx",
-        lineNumber: 134,
+        lineNumber: 136,
         columnNumber: 5
     }, this);
 }
