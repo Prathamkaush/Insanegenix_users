@@ -4,11 +4,11 @@ import { defaultStorefrontSettings, phoneHref, type StorefrontSettings } from "@
 const productLinks = ["Creatine", "Dart", "EAA", "ISO", "Mass Gainer"];
 
 const policyLinks = [
-  "Privacy Policy",
-  "Payment Option",
-  "Terms & Conditions",
-  "Shipping & Delivery",
-  "Cancellation & Refund",
+  ["Privacy Policy", "/privacy-policy"],
+  ["Payment Option", "/payment-option"],
+  ["Terms & Conditions", "/terms-and-conditions"],
+  ["Shipping & Delivery", "/shipping-and-delivery"],
+  ["Cancellation & Refund", "/cancellation-and-refund"],
 ];
 
 const pageLinks = [
@@ -16,6 +16,13 @@ const pageLinks = [
   ["About Us", "/about"],
   ["Our Products", "/shop"],
   ["Contact Us", "/contact"],
+];
+
+const paymentBrands = [
+  { label: "PayPal", className: "is-paypal" },
+  { label: "VISA", className: "is-visa" },
+  { label: "Mastercard", className: "is-mastercard" },
+  { label: "stripe", className: "is-stripe" },
 ];
 
 export default function Footer({
@@ -66,8 +73,8 @@ export default function Footer({
                 <div className="eg-footer-2__widget widget-3">
                   <h4 className="fw-title">Policy Info</h4>
                   <ul>
-                    {policyLinks.map((label) => (
-                      <li key={label}><Link href="/">{label}</Link></li>
+                    {policyLinks.map(([label, href]) => (
+                      <li key={label}><Link href={href}>{label}</Link></li>
                     ))}
                   </ul>
                 </div>
@@ -114,8 +121,19 @@ export default function Footer({
                 </div>
               </div>
               <div className="col-md-5 mb-40">
-                <div className="eg-footer-2__shape-1 text-center text-md-end">
-                  <img src="/assets/img/icon/payment-option.png" alt="Payment options" />
+                <div className="ig-footer-payments" aria-label="Payment options">
+                  {paymentBrands.map(({ label, className }) => (
+                    <span key={label} className={`ig-footer-payments__brand ${className}`} aria-label={label}>
+                      {className === "is-mastercard" ? (
+                        <span className="ig-footer-payments__mastercard-mark" aria-hidden="true">
+                          <span />
+                          <span />
+                        </span>
+                      ) : (
+                        <span>{label}</span>
+                      )}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>

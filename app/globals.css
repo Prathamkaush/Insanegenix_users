@@ -25,6 +25,172 @@ html {
   }
 }
 
+.ig-policy-page__area {
+  padding: 92px 0 110px;
+}
+
+.ig-policy-page__header {
+  max-width: 860px;
+  margin-bottom: 34px;
+}
+
+.ig-policy-page__header span {
+  display: inline-block;
+  color: #ef2d4f;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.ig-policy-page__header h1 {
+  color: #fff;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  margin: 0 0 16px;
+}
+
+.ig-policy-page__header p {
+  color: #c7c7c7;
+  font-size: 16px;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.ig-policy-page__content {
+  display: grid;
+  gap: 18px;
+  max-width: 960px;
+}
+
+.ig-policy-page__section {
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.ig-policy-page__section h2 {
+  color: #fff;
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 14px;
+}
+
+.ig-policy-page__section p {
+  color: #bcbcbc;
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.ig-policy-page__section p + p {
+  margin-top: 11px;
+}
+
+@media (max-width: 575px) {
+  .ig-policy-page__area {
+    padding: 64px 0 82px;
+  }
+
+  .ig-policy-page__section {
+    padding: 22px 18px;
+  }
+}
+
+.ig-footer-payments {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.ig-footer-payments__brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+.ig-footer-payments__brand > span {
+  display: inline-block;
+  line-height: 1;
+}
+
+.ig-footer-payments__brand.is-paypal > span {
+  font-size: 0;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.04em;
+}
+
+.ig-footer-payments__brand.is-paypal > span::before {
+  content: "Pay";
+  color: #183a75;
+  font-size: 22px;
+}
+
+.ig-footer-payments__brand.is-paypal > span::after {
+  content: "Pal";
+  color: #159bd7;
+  font-size: 22px;
+}
+
+.ig-footer-payments__brand.is-visa > span {
+  color: #172b85;
+  font-size: 24px;
+  font-weight: 950;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.ig-footer-payments__brand.is-stripe > span {
+  color: #635bff;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+
+.ig-footer-payments__mastercard-mark {
+  position: relative;
+  width: 52px;
+  height: 30px;
+}
+
+.ig-footer-payments__mastercard-mark span {
+  position: absolute;
+  top: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  opacity: 0.96;
+}
+
+.ig-footer-payments__mastercard-mark span:first-child {
+  left: 6px;
+  background: #eb001b;
+}
+
+.ig-footer-payments__mastercard-mark span:last-child {
+  right: 6px;
+  background: #f79e1b;
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 767px) {
+  .ig-footer-payments {
+    justify-content: center;
+  }
+}
+
 .ig-blogs-page,
 .ig-blog-detail {
   background: #050505;

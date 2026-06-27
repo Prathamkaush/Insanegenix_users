@@ -30,7 +30,8 @@ export default async function ShopPage({
 }: {
   searchParams?: Promise<ShopSearchParams>;
 }) {
-  const filters = (await searchParams) || {};
+  const filters = { ...((await searchParams) || {}) };
+  delete filters.dietaryType;
   const page = Number(filters.page || 1);
   const [catalog, categories] = await Promise.all([
     getProductCatalog({ ...filters, page, limit: 9 }),
@@ -83,26 +84,6 @@ export default async function ShopPage({
                         defaultChecked={String(filters.categoryId) === String(category.id)}
                       />
                       <span>{category.name}</span>
-                    </label>
-                  ))}
-                </fieldset>
-
-                <fieldset>
-                  <legend>Dietary type</legend>
-                  {[
-                    ["", "All diets"],
-                    ["VEGETARIAN", "Vegetarian"],
-                    ["NON_VEGETARIAN", "Non-vegetarian"],
-                    ["VEGAN", "Vegan"],
-                  ].map(([value, label]) => (
-                    <label key={label} className={String(filters.dietaryType || "") === value ? "active" : ""}>
-                      <input
-                        type="radio"
-                        name="dietaryType"
-                        value={value}
-                        defaultChecked={String(filters.dietaryType || "") === value}
-                      />
-                      <span>{label}</span>
                     </label>
                   ))}
                 </fieldset>

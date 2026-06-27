@@ -45,7 +45,6 @@ export default function Header() {
   const [animateCart, setAnimateCart] = useState(false);
   const [animateWishlist, setAnimateWishlist] = useState(false);
   const [categorySheetOpen, setCategorySheetOpen] = useState(false);
-  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [productTags, setProductTags] = useState<string[]>([]);
@@ -216,24 +215,8 @@ export default function Header() {
                           <li>
                             <Link href="/about">About Us</Link>
                           </li>
-                          <li className="eg-menu__has-children">
-                            <Link href="/shop">
-                              All Products
-                              <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                  <path fill="currentColor" d="m12 15.4l-6-6L7.4 8l4.6 4.6L16.6 8L18 9.4z" />
-                                </svg>
-                              </span>
-                            </Link>
-                            <ul className="sub-menu">
-                              {categories.map((category) => (
-                                <li key={category.id}>
-                                  <Link href={`/shop?categoryId=${category.id}`}>
-                                    <img src={categoryImageUrl(category.image)} alt="" width="22" /> {category.name}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
+                          <li>
+                            <Link href="/shop">All Products</Link>
                           </li>
                           <li>
                             <Link href="/authenticity">Authenticity</Link>
@@ -347,38 +330,8 @@ export default function Header() {
                       <li>
                         <Link href="/about">About Us</Link>
                       </li>
-                      <li className="eg-menu__has-children">
+                      <li>
                         <Link href="/shop">All Products</Link>
-                        <ul
-                          id="mobile-products-submenu"
-                          className="sub-menu"
-                          style={{ display: mobileProductsOpen ? "block" : "none" }}
-                        >
-                          {categories.map((category) => (
-                            <li key={category.id}>
-                              <Link href={`/shop?categoryId=${category.id}`}>
-                                <img
-                                  src={categoryImageUrl(category.image)}
-                                  alt=""
-                                  width="22"
-                                  height="22"
-                                />
-                                {category.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                        <button
-                          type="button"
-                          className={`dropdown-btn ${mobileProductsOpen ? "open" : ""}`}
-                          data-react-dropdown
-                          aria-label={mobileProductsOpen ? "Hide product categories" : "Show product categories"}
-                          aria-expanded={mobileProductsOpen}
-                          aria-controls="mobile-products-submenu"
-                          onClick={() => setMobileProductsOpen((open) => !open)}
-                        >
-                          <span className="fal fa-plus plus-line"></span>
-                        </button>
                       </li>
                       <li>
                         <Link href="/authenticity">Authenticity</Link>
