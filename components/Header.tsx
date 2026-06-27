@@ -2,9 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import AuthActionButton from "@/components/AuthActionButton";
+import { openAuthModal } from "@/lib/auth-modal";
 import { getCart, getCustomerToken } from "@/lib/cart";
+import { INSTAGRAM_URL } from "@/lib/social-links";
 import { getWishlist } from "@/lib/wishlist";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3030";
@@ -39,6 +41,7 @@ function categoryImageUrl(image?: string | null) {
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [categories, setCategories] = useState<HeaderCategory[]>(fallbackCategories);
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
@@ -183,6 +186,15 @@ export default function Header() {
   const isActiveMobileNav = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  const handleMobileAccountClick = () => {
+    if (getCustomerToken()) {
+      router.push("/profile");
+      return;
+    }
+
+    openAuthModal("login");
   };
 
   return (
@@ -363,7 +375,7 @@ export default function Header() {
                   <div className="eg-header__offCanvas-social">
                     <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
                     <a href="#" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+                    <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
                     <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
                   </div>
                 </div>
@@ -399,12 +411,17 @@ export default function Header() {
           </svg>
           <span>Categories</span>
         </button>
-        <Link href="/profile" className={isActiveMobileNav("/profile") ? "is-active" : ""}>
+        <button
+          type="button"
+          className={isActiveMobileNav("/profile") ? "is-active" : ""}
+          onClick={handleMobileAccountClick}
+          aria-label="Open customer account"
+        >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-8 9a8 8 0 0 1 16 0z" />
           </svg>
           <span>Account</span>
-        </Link>
+        </button>
         <Link href="/cart" className={isActiveMobileNav("/cart") ? "is-active" : ""}>
           <span className="ig-mobile-bottom-nav__icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">

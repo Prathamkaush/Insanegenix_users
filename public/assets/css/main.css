@@ -9698,6 +9698,7 @@ a.ui-button:active {
     margin-top: 80px;   
     position: relative;
     z-index: 1;
+    overflow: visible;
 }
 
 .simple-breadcrumb-wrap{
@@ -9705,6 +9706,8 @@ a.ui-button:active {
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+    min-height: 24px;
+    line-height: 1.35;
 }
 
 .simple-breadcrumb-wrap a{
@@ -9731,10 +9734,18 @@ a.ui-button:active {
 }
 
 /* Mobile Responsive */
+@media only screen and (min-width: 769px) and (max-width: 1199px){
+
+    .simple-breadcrumb{
+        margin-top: 104px;
+        padding: 18px 0;
+    }
+}
+
 @media(max-width:768px){
 
     .simple-breadcrumb{
-        margin-top: 93px;
+        margin-top: 118px;
         padding: 16px 0;
     }
 
@@ -9745,6 +9756,34 @@ a.ui-button:active {
     .simple-breadcrumb-wrap a,
     .simple-breadcrumb-wrap .active{
         font-size: 14px;
+    }
+}
+
+@media(max-width:575px){
+
+    .simple-breadcrumb{
+        margin-top: 110px;
+        padding: 8px 0;
+    }
+
+    .simple-breadcrumb .container{
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .simple-breadcrumb-wrap{
+        gap: 6px;
+        min-height: 22px;
+    }
+
+    .simple-breadcrumb-wrap a,
+    .simple-breadcrumb-wrap .active{
+        font-size: 13px;
+        line-height: 1.35;
+    }
+
+    .simple-breadcrumb-wrap .divider{
+        font-size: 12px;
     }
 }
 /* breadcrumb end page  */

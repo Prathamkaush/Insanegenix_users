@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import ProductGallery from "@/components/ProductGallery";
 import ProductReviewSection from "@/components/ProductReviewSection";
 import ProductVariantPurchase from "@/components/ProductVariantPurchase";
+import { INSTAGRAM_URL } from "@/lib/social-links";
 import {
   Product,
   ProductVariant,
@@ -128,7 +129,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
                   <h4 className="eg-product-details__socials-title">Share with friends</h4>
                   <a href="https://twitter.com/" aria-label="Share on Twitter"><i className="fab fa-twitter" /></a>
                   <a href="https://facebook.com/" aria-label="Share on Facebook"><i className="fab fa-facebook" /></a>
-                  <a href="https://instagram.com/" aria-label="Share on Instagram"><i className="fab fa-instagram" /></a>
+                  <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Share on Instagram"><i className="fab fa-instagram" /></a>
                 </div>
               </div>
             </div>

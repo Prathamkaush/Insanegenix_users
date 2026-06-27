@@ -6,7 +6,7 @@ export default function Breadcrumb({ title }: { title: string }) {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div className="simple-breadcrumb__content">
+            <div className="simple-breadcrumb__content simple-breadcrumb-wrap">
               <Link href="/" className="text-white">
                 Home
               </Link>

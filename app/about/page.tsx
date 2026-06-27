@@ -1,6 +1,15 @@
 import Breadcrumb from "@/components/Breadcrumb";
 
 export default function AboutPage() {
+  const aboutParagraphs = [
+    "At InsaneGenix, we are more than a sports nutrition brand - we are a movement driven by the pursuit of excellence. Built on the foundation of innovation, quality, and performance, InsaneGenix is dedicated to empowering individuals who refuse to settle for average and strive to become the best version of themselves.",
+    "In today's fast-paced world, achieving peak physical performance requires more than hard work alone. It demands the right nutrition, scientifically developed formulations, and products you can trust. That's why every InsaneGenix supplement is crafted with carefully selected ingredients, advanced research, and rigorous quality standards to deliver exceptional results without compromise.",
+    "We understand that every fitness journey is unique. Whether your goal is building lean muscle, improving endurance, accelerating recovery, enhancing strength, or maintaining overall wellness, our products are designed to support your ambitions at every stage. From beginners taking their first step into fitness to professional athletes pushing their limits, InsaneGenix stands as a trusted partner in achieving sustainable performance and long-term success.",
+    "Our commitment extends beyond supplements. We aim to inspire a lifestyle built on discipline, determination, and continuous growth. By combining premium nutrition with a passion for fitness, we help individuals transform not only their bodies but also their confidence, mindset, and daily performance.",
+    "At InsaneGenix, quality is never an option - it's our promise. Every product undergoes strict testing and quality assurance processes to ensure purity, effectiveness, and consistency. We believe that our customers deserve nothing less than excellence, and that belief drives everything we do.",
+    "As we continue to grow, our vision remains clear: to become a globally trusted name in sports nutrition, recognized for delivering innovative products that fuel extraordinary results.",
+  ];
+
   return (
     <main className="fix ig-about-page">
       <Breadcrumb title="About Us" />
@@ -16,10 +25,13 @@ export default function AboutPage() {
               <div className="eg-section mb-30">
                 <h2 className="eg-section__title title-white">Built For Serious Performance</h2>
               </div>
-              <p className="text-white text-justify">
-                InsaneGenix exists for athletes, lifters, and everyday performers who want reliable supplements with
-                strong formulation, quality checks, and transparent product information.
-              </p>
+              <div className="ig-about-page__copy">
+                {aboutParagraphs.map((paragraph) => (
+                  <p key={paragraph} className="text-white text-justify">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>

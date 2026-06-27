@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { defaultStorefrontSettings, phoneHref, type StorefrontSettings } from "@/lib/settings";
+import { INSTAGRAM_URL } from "@/lib/social-links";
 
 const productLinks = ["Creatine", "Dart", "EAA", "ISO", "Mass Gainer"];
 
@@ -51,7 +52,7 @@ export default function Footer({
                     <div className="eg-footer-2__social mt-30">
                       <a href="#" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
                       <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-                      <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+                      <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
                       <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                   </div>

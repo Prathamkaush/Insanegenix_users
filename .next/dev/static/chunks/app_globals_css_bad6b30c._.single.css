@@ -18,20 +18,52 @@ html {
   display: block;
 }
 
+.ig-about-page__copy {
+  gap: 14px;
+  display: grid;
+}
+
+.ig-about-page__copy p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #ffffffd1 !important;
+}
+
 @media (max-width: 991px) {
   .ig-about-page .eg-about-2__thumb img {
     width: min(100%, 420px);
     max-height: 460px;
   }
+
+  .ig-about-page__copy {
+    gap: 12px;
+  }
 }
 
 .ig-policy-page__area {
-  padding: 92px 0 110px;
+  padding: 96px 0 118px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ig-policy-page__area:before {
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 0, #ef2d4f29, #0000 34%), linear-gradient(#ffffff09, #0000 42%);
+  position: absolute;
+  inset: 0;
+}
+
+.ig-policy-page__area .container {
+  z-index: 1;
+  position: relative;
 }
 
 .ig-policy-page__header {
-  max-width: 860px;
-  margin-bottom: 34px;
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 38px;
 }
 
 .ig-policy-page__header span {
@@ -61,16 +93,30 @@ html {
 }
 
 .ig-policy-page__content {
-  gap: 18px;
-  max-width: 960px;
+  gap: 20px;
+  width: min(100%, 900px);
+  margin: 0 auto;
   display: grid;
 }
 
 .ig-policy-page__section {
-  background: #ffffff0b;
+  background: linear-gradient(135deg, #ffffff13, #ffffff08), #0b0d0d;
   border: 1px solid #ffffff1a;
-  border-radius: 8px;
-  padding: 28px;
+  border-radius: 10px;
+  padding: 30px 34px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 55px #00000047;
+}
+
+.ig-policy-page__section:before {
+  content: "";
+  background: linear-gradient(#ff2d3d, #ff2d3d2e);
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .ig-policy-page__section h2 {
@@ -93,11 +139,32 @@ html {
 
 @media (max-width: 575px) {
   .ig-policy-page__area {
-    padding: 64px 0 82px;
+    padding: 68px 0 90px;
+  }
+
+  .ig-policy-page__header {
+    margin-bottom: 28px;
+  }
+
+  .ig-policy-page__header h1 {
+    font-size: 32px;
+  }
+
+  .ig-policy-page__header p {
+    font-size: 14px;
+    line-height: 1.7;
   }
 
   .ig-policy-page__section {
-    padding: 22px 18px;
+    padding: 24px 20px 24px 24px;
+  }
+
+  .ig-policy-page__section h2 {
+    font-size: 20px;
+  }
+
+  .ig-policy-page__section p {
+    font-size: 14px;
   }
 }
 
@@ -2770,6 +2837,7 @@ a {
   z-index: 99999;
   justify-content: center;
   align-items: center;
+  margin-bottom: 50px;
   padding: 20px;
   display: flex;
   position: fixed;
@@ -2785,13 +2853,15 @@ a {
 
 .ig-auth-modal__panel {
   color: #fff;
+  overscroll-behavior: contain;
   background: #111514;
   border: 1px solid #ffffff1f;
   border-radius: 18px;
   width: min(100%, 460px);
+  max-height: calc(100dvh - 40px);
   padding: 62px 30px 30px;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
   box-shadow: 0 24px 70px #00000073;
 }
 
@@ -2853,16 +2923,18 @@ a {
 }
 
 .ig-auth-form input {
-  color: #fff;
-  background: #0b0f0e;
+  color: #141414;
+  background: #fff;
   border: 1px solid #ffffff1f;
+  border-radius: 0;
   width: 100%;
   height: 52px;
   padding: 0 15px;
+  font-size: 15px;
 }
 
 .ig-auth-form input::placeholder {
-  color: #ffffff8f;
+  color: #1414146b;
 }
 
 .ig-auth-password-field {
@@ -2929,14 +3001,102 @@ a {
 }
 
 @media (max-width: 575px) {
+  .ig-auth-modal {
+    align-items: flex-end;
+    padding: 10px;
+  }
+
   .ig-auth-modal__panel {
-    border-radius: 14px;
-    padding: 58px 20px 24px;
+    width: 100%;
+    max-height: calc(100dvh - 20px);
+    padding: 54px 18px max(18px, env(safe-area-inset-bottom));
+    border-radius: 18px 18px 0 0;
   }
 
   .ig-auth-modal__close {
-    top: 14px;
-    right: 14px;
+    width: 38px;
+    height: 38px;
+    top: 10px;
+    right: 12px;
+  }
+
+  .ig-auth-tabs {
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .ig-auth-tabs button {
+    border-radius: 10px;
+    height: 48px;
+    font-size: 13px;
+  }
+
+  .ig-auth-form {
+    gap: 12px;
+  }
+
+  .ig-auth-form h3 {
+    letter-spacing: 0;
+    margin-bottom: 4px;
+    font-size: 26px;
+    line-height: 1.16;
+  }
+
+  .ig-auth-form input, .ig-google-auth-btn {
+    height: 50px;
+    min-height: 50px;
+  }
+
+  .ig-auth-form .eg-btn {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 4px;
+  }
+
+  .ig-auth-forgot-link {
+    min-height: 30px;
+    font-size: 13px;
+  }
+
+  .ig-auth-divider {
+    margin: 4px 0;
+  }
+
+  .ig-auth-form p {
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ig-auth-modal {
+    padding: 0;
+  }
+
+  .ig-auth-modal__panel {
+    max-height: 100dvh;
+    padding: 50px 16px max(16px, env(safe-area-inset-bottom));
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .ig-auth-tabs {
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .ig-auth-tabs button {
+    height: 44px;
+  }
+
+  .ig-auth-form h3 {
+    font-size: 24px;
+  }
+
+  .ig-auth-form input, .ig-google-auth-btn, .ig-auth-form .eg-btn {
+    height: 46px;
+    min-height: 46px;
   }
 }
 

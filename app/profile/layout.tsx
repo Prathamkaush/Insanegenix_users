@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { LogOut, User, MapPin, ShoppingBag } from "lucide-react";
+import { openAuthModal } from "@/lib/auth-modal";
 import { getUserProfile, profileImageUrl } from "@/lib/profile";
 import "./profile.css";
 
@@ -22,21 +22,9 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
   const isInvoicePath = /^\/profile\/orders\/[^/]+\/invoice/.test(pathname);
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
+  const skipLoginModalRef = useRef(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-      return;
-    }
-
-    fetchUserProfile();
-
-    window.addEventListener("profile:updated", fetchUserProfile);
-    return () => window.removeEventListener("profile:updated", fetchUserProfile);
-  }, [router]);
-
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     try {
       setLoading(true);
       const data = await getUserProfile();
@@ -44,13 +32,40 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     } catch (error) {
       console.error("Failed to load profile:", error);
       localStorage.removeItem("token");
-      router.push("/login");
+      setUser(null);
+      openAuthModal("login");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const loadProfile = () => {
+      if (!localStorage.getItem("token")) {
+        setUser(null);
+        setLoading(false);
+        if (!skipLoginModalRef.current) {
+          openAuthModal("login");
+        }
+        return;
+      }
+
+      skipLoginModalRef.current = false;
+      fetchUserProfile();
+    };
+
+    loadProfile();
+
+    window.addEventListener("auth:changed", loadProfile);
+    window.addEventListener("profile:updated", fetchUserProfile);
+    return () => {
+      window.removeEventListener("auth:changed", loadProfile);
+      window.removeEventListener("profile:updated", fetchUserProfile);
+    };
+  }, [fetchUserProfile]);
 
   const handleLogout = () => {
+    skipLoginModalRef.current = true;
     localStorage.removeItem("token");
     localStorage.removeItem("user_token");
     localStorage.removeItem("user");
@@ -64,7 +79,14 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
   }
 
   if (!user) {
-    return <div className="profile-error">Failed to load profile</div>;
+    return (
+      <div className="profile-error">
+        Please login to view your profile.
+        <button type="button" className="eg-btn" onClick={() => openAuthModal("login")}>
+          <span>Login</span>
+        </button>
+      </div>
+    );
   }
 
   if (isInvoicePath) {
