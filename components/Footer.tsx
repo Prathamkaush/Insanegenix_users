@@ -36,8 +36,8 @@ export default function Footer({
       <div className="eg-footer-2 p-relative z-index-1">
         <div className="container">
           <div className="eg-footer-2__widget-wrapper">
-            <div className="row">
-              <div className="col-xl-3 col-md-4 col-sm-6 mb-40">
+            <div className="row ig-footer-widget-grid">
+              <div className="ig-footer-widget-grid__item ig-footer-widget-grid__about mb-40">
                 <div className="eg-footer-2__widget widget-1">
                   <div className="eg-footer-2__about">
                     <div className="eg-footer-2__logo logo mb-20">
@@ -45,7 +45,7 @@ export default function Footer({
                         <img src="/assets/img/logo/footer-logo.png" alt="InsaneGenix" />
                       </Link>
                     </div>
-                    <p className="text-justify">
+                    <p>
                       Insanegenix engineers high-performance gym gear, empowering fitness enthusiasts to crush limits
                       with ultimate strength and comfort.
                     </p>
@@ -59,7 +59,7 @@ export default function Footer({
                 </div>
               </div>
 
-              <div className="col-xl-2 col-md-4 col-sm-6 mb-40">
+              <div className="ig-footer-widget-grid__item mb-40">
                 <div className="eg-footer-2__widget widget-2">
                   <h4 className="fw-title">Products</h4>
                   <ul>
@@ -70,7 +70,7 @@ export default function Footer({
                 </div>
               </div>
 
-              <div className="col-xl-3 col-md-4 col-sm-6 mb-40">
+              <div className="ig-footer-widget-grid__item mb-40">
                 <div className="eg-footer-2__widget widget-3">
                   <h4 className="fw-title">Policy Info</h4>
                   <ul>
@@ -81,7 +81,7 @@ export default function Footer({
                 </div>
               </div>
 
-              <div className="col-xl-2 col-md-4 col-sm-6 mb-40">
+              <div className="ig-footer-widget-grid__item mb-40">
                 <div className="eg-footer-2__widget widget-4">
                   <h4 className="fw-title">Page Links</h4>
                   <ul>
@@ -92,8 +92,8 @@ export default function Footer({
                 </div>
               </div>
 
-              <div className="col-xl-2 col-md-4 col-sm-6 mb-40">
-                <div className="d-lg-flex justify-content-xl-end">
+              <div className="ig-footer-widget-grid__item ig-footer-widget-grid__help mb-40">
+                <div>
                   <div className="eg-footer-2__widget widget-5">
                     <h4 className="fw-title">Need Help?</h4>
                     <div className="eg-footer-2__contact">
