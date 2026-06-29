@@ -9839,6 +9839,27 @@ a.ui-button:active {
 /* main slider css end*/
 
 /* reels css  */
+.reels-carousel{
+    overflow:hidden;
+    width:100%;
+}
+
+.reels-carousel__track{
+    display:flex;
+    gap:30px;
+    width:max-content;
+    animation:reels-scroll 32s linear infinite;
+    will-change:transform;
+}
+
+.reels-carousel:hover .reels-carousel__track{
+    animation-play-state:paused;
+}
+
+.reels-carousel__slide{
+    flex:0 0 clamp(260px, 23vw, 380px);
+}
+
 .reel-card{
     border-radius:20px;
     overflow:hidden;
@@ -9854,5 +9875,29 @@ a.ui-button:active {
 
 .reelsSwiper{
     padding-bottom:50px;
+}
+
+@keyframes reels-scroll{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(calc(-50% - 15px));
+    }
+}
+
+@media (max-width: 767px){
+    .reels-carousel__track{
+        gap:18px;
+        animation-duration:24s;
+    }
+
+    .reels-carousel__slide{
+        flex-basis:72vw;
+    }
+
+    .reel-card video{
+        height:420px;
+    }
 }
 /* reels css end  */

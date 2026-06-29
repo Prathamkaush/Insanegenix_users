@@ -41,6 +41,7 @@ export default async function HomePage() {
       products: products.filter((product) => product.isBestSeller),
     },
   ];
+  const reelVideos = [1, 2, 3, 4, 5];
 
   return (
     <main className="fix bg-black">
@@ -322,60 +323,26 @@ export default async function HomePage() {
   <div className="container">
 
     <div className="text-center mb-5">
-      <h2 className="text-white">Latest Video Reels</h2>
-      <p className="text-light">Watch our latest fitness videos</p>
+      <h2 className="text-white">Glimpse of Our Event</h2>
+      <p className="text-light">Highlights from our special day</p>
     </div>
 
-    <div className="row g-4">
-
-      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
-        <div className="reel-card">
-          <video
-            src="/assets/img/video/video-1.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        </div>
+    <div className="reels-carousel" aria-label="Glimpse of our event videos">
+      <div className="reels-carousel__track">
+        {[...reelVideos, ...reelVideos].map((videoNumber, index) => (
+          <div className="reels-carousel__slide" key={`${videoNumber}-${index}`}>
+            <div className="reel-card">
+              <video
+                src={`/assets/img/video/video-${videoNumber}.mp4`}
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            </div>
+          </div>
+        ))}
       </div>
-
-      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
-        <div className="reel-card">
-          <video
-            src="/assets/img/video/video-2.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        </div>
-      </div>
-
-      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
-        <div className="reel-card">
-          <video
-            src="/assets/img/video/video-3.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        </div>
-      </div>
-
-      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
-        <div className="reel-card">
-          <video
-            src="/assets/img/video/video-4.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        </div>
-      </div>
-
     </div>
 
   </div>
