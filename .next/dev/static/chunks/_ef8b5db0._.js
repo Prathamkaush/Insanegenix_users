@@ -201,19 +201,23 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var _s = __turbopack_context__.k.signature();
 "use client";
 ;
-function ProductGallery({ images, video, title }) {
+function ProductGallery({ images, video, title, productId, variantMedia }) {
     _s();
     const [activeIndex, setActiveIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [isPaused, setIsPaused] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [selectedVariantId, setSelectedVariantId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])();
+    const selectedMedia = selectedVariantId ? variantMedia?.[selectedVariantId] : undefined;
+    const visibleImages = selectedMedia?.images?.length ? selectedMedia.images : images;
+    const visibleVideo = selectedMedia?.video || video;
     const media = [
-        ...images.map((src)=>({
+        ...visibleImages.map((src)=>({
                 type: "image",
                 src
             })),
-        ...video ? [
+        ...visibleVideo ? [
             {
                 type: "video",
-                src: video
+                src: visibleVideo
             }
         ] : []
     ];
@@ -254,6 +258,24 @@ function ProductGallery({ images, video, title }) {
         activeIndex,
         media.length
     ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ProductGallery.useEffect": ()=>{
+            const handleVariantChange = {
+                "ProductGallery.useEffect.handleVariantChange": (event)=>{
+                    const detail = event.detail;
+                    if (productId && detail?.productId !== productId) return;
+                    setSelectedVariantId(detail?.variantId);
+                    setActiveIndex(0);
+                }
+            }["ProductGallery.useEffect.handleVariantChange"];
+            window.addEventListener("product:variant-change", handleVariantChange);
+            return ({
+                "ProductGallery.useEffect": ()=>window.removeEventListener("product:variant-change", handleVariantChange)
+            })["ProductGallery.useEffect"];
+        }
+    }["ProductGallery.useEffect"], [
+        productId
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "eg-product-details__thumb-tab mb-85 ig-product-gallery",
         onMouseEnter: ()=>setIsPaused(true),
@@ -271,19 +293,19 @@ function ProductGallery({ images, video, title }) {
                     playsInline: true
                 }, activeMedia.src, false, {
                     fileName: "[project]/components/ProductGallery.tsx",
-                    lineNumber: 65,
+                    lineNumber: 85,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                     src: activeMedia?.src,
                     alt: `${title} view ${activeIndex + 1}`
                 }, activeMedia?.src, false, {
                     fileName: "[project]/components/ProductGallery.tsx",
-                    lineNumber: 67,
+                    lineNumber: 87,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/ProductGallery.tsx",
-                lineNumber: 63,
+                lineNumber: 83,
                 columnNumber: 7
             }, this),
             hasMultipleItems ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -299,12 +321,12 @@ function ProductGallery({ images, video, title }) {
                             "aria-hidden": "true"
                         }, void 0, false, {
                             fileName: "[project]/components/ProductGallery.tsx",
-                            lineNumber: 79,
+                            lineNumber: 99,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 73,
+                        lineNumber: 93,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -324,24 +346,24 @@ function ProductGallery({ images, video, title }) {
                                     playsInline: true
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 93,
+                                    lineNumber: 113,
                                     columnNumber: 19
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                     src: item.src,
                                     alt: `${title} thumbnail ${index + 1}`
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 95,
+                                    lineNumber: 115,
                                     columnNumber: 19
                                 }, this)
                             }, `${item.type}-${item.src}`, false, {
                                 fileName: "[project]/components/ProductGallery.tsx",
-                                lineNumber: 83,
+                                lineNumber: 103,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 81,
+                        lineNumber: 101,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -354,28 +376,28 @@ function ProductGallery({ images, video, title }) {
                             "aria-hidden": "true"
                         }, void 0, false, {
                             fileName: "[project]/components/ProductGallery.tsx",
-                            lineNumber: 106,
+                            lineNumber: 126,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 100,
+                        lineNumber: 120,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductGallery.tsx",
-                lineNumber: 72,
+                lineNumber: 92,
                 columnNumber: 9
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/components/ProductGallery.tsx",
-        lineNumber: 54,
+        lineNumber: 74,
         columnNumber: 5
     }, this);
 }
-_s(ProductGallery, "a5/aUyrCx3rtkUJMnsNavrYZPQE=");
+_s(ProductGallery, "rTq3vVUE/jN75vNhlVoK8YfpTnU=");
 _c = ProductGallery;
 var _c;
 __turbopack_context__.k.register(_c, "ProductGallery");
@@ -1371,6 +1393,19 @@ function ProductVariantPurchase({ product, defaultVariantId }) {
     const maxQuantity = Number(selectedVariant?.stock ?? product.stock ?? 0);
     const inStock = maxQuantity > 0;
     const { currentPrice, originalPrice, discountPercent } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getProductPricing"])(product, selectedVariant || undefined);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ProductVariantPurchase.useEffect": ()=>{
+            window.dispatchEvent(new CustomEvent("product:variant-change", {
+                detail: {
+                    productId: product.id,
+                    variantId: selectedVariant?.id
+                }
+            }));
+        }
+    }["ProductVariantPurchase.useEffect"], [
+        product.id,
+        selectedVariant?.id
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1384,14 +1419,14 @@ function ProductVariantPurchase({ product, defaultVariantId }) {
                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["currency"])(originalPrice)
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductVariantPurchase.tsx",
-                                lineNumber: 43,
+                                lineNumber: 51,
                                 columnNumber: 13
                             }, this) : null,
                             (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["currency"])(currentPrice)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductVariantPurchase.tsx",
-                        lineNumber: 41,
+                        lineNumber: 49,
                         columnNumber: 9
                     }, this),
                     discountPercent && discountPercent > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1402,13 +1437,13 @@ function ProductVariantPurchase({ product, defaultVariantId }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductVariantPurchase.tsx",
-                        lineNumber: 48,
+                        lineNumber: 56,
                         columnNumber: 11
                     }, this) : null
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductVariantPurchase.tsx",
-                lineNumber: 40,
+                lineNumber: 48,
                 columnNumber: 7
             }, this),
             variants.length ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1419,7 +1454,7 @@ function ProductVariantPurchase({ product, defaultVariantId }) {
                         children: "Available Options"
                     }, void 0, false, {
                         fileName: "[project]/components/ProductVariantPurchase.tsx",
-                        lineNumber: 54,
+                        lineNumber: 62,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1436,32 +1471,32 @@ function ProductVariantPurchase({ product, defaultVariantId }) {
                                         children: variant.flavour || "Unflavoured"
                                     }, void 0, false, {
                                         fileName: "[project]/components/ProductVariantPurchase.tsx",
-                                        lineNumber: 67,
+                                        lineNumber: 75,
                                         columnNumber: 19
                                     }, this),
                                     variant.weightLabel ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("small", {
                                         children: variant.weightLabel
                                     }, void 0, false, {
                                         fileName: "[project]/components/ProductVariantPurchase.tsx",
-                                        lineNumber: 68,
+                                        lineNumber: 76,
                                         columnNumber: 42
                                     }, this) : null
                                 ]
                             }, variant.id || variant.sku, true, {
                                 fileName: "[project]/components/ProductVariantPurchase.tsx",
-                                lineNumber: 60,
+                                lineNumber: 68,
                                 columnNumber: 17
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/components/ProductVariantPurchase.tsx",
-                        lineNumber: 55,
+                        lineNumber: 63,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductVariantPurchase.tsx",
-                lineNumber: 53,
+                lineNumber: 61,
                 columnNumber: 9
             }, this) : null,
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ProductPurchaseControls$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1471,13 +1506,13 @@ function ProductVariantPurchase({ product, defaultVariantId }) {
                 inStock: inStock
             }, void 0, false, {
                 fileName: "[project]/components/ProductVariantPurchase.tsx",
-                lineNumber: 76,
+                lineNumber: 84,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true);
 }
-_s(ProductVariantPurchase, "38UN4SjrwF/xkimQh4lFJte6VWw=");
+_s(ProductVariantPurchase, "rXAawzuwAsJHJ+x3H9oIp15chbk=");
 _c = ProductVariantPurchase;
 var _c;
 __turbopack_context__.k.register(_c, "ProductVariantPurchase");

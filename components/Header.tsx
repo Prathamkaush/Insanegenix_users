@@ -17,12 +17,34 @@ type HeaderCategory = {
   image?: string | null;
 };
 
+type HeaderProduct = {
+  id: number | string;
+  title: string;
+  slug: string;
+  img1?: string | null;
+  img2?: string | null;
+  img3?: string | null;
+  img4?: string | null;
+  img5?: string | null;
+  img6?: string | null;
+};
+
 const fallbackCategories: HeaderCategory[] = [
   { id: "proteins", name: "Proteins", image: "/assets/img/category/Proteins.jpg" },
   { id: "gainers", name: "Gainers", image: "/assets/img/category/Gainers.jpg" },
   { id: "pre-post", name: "Pre/Post Workout", image: "/assets/img/category/Pre-Post.jpg" },
   { id: "fit-foods", name: "Fit Foods", image: "/assets/img/category/Fit-Foods.jpg" },
 ];
+
+const bundledProductImages = new Set([
+  "Creatine.png",
+  "D3-K2.png",
+  "Dart.png",
+  "EAA.png",
+  "ISO.png",
+  "Mass-Gainer.png",
+  "Whey.png",
+]);
 
 const defaultPopularSearches = [
   "Protein",
@@ -33,16 +55,19 @@ const defaultPopularSearches = [
   "Recovery",
 ];
 
-function categoryImageUrl(image?: string | null) {
-  if (!image) return "/assets/img/category/Proteins.jpg";
-  if (image.startsWith("http") || image.startsWith("/")) return image;
-  return `${API_URL}/uploads/categories/${image}`;
+function productImageUrl(product: HeaderProduct) {
+  const image = product.img1 || product.img2 || product.img3 || product.img4 || product.img5 || product.img6;
+  if (!image) return "/assets/img/product/Whey.png";
+  if (String(image).startsWith("http") || String(image).startsWith("/")) return String(image);
+  if (bundledProductImages.has(String(image))) return `/assets/img/product/${image}`;
+  return `${API_URL}/uploads/products/${image}`;
 }
 
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [categories, setCategories] = useState<HeaderCategory[]>(fallbackCategories);
+  const [sheetProducts, setSheetProducts] = useState<HeaderProduct[]>([]);
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
   const [animateCart, setAnimateCart] = useState(false);
@@ -142,14 +167,23 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    fetch(`${API_URL}/products?limit=1`, { cache: "no-store" })
+    fetch(`${API_URL}/products?limit=12`, { cache: "no-store" })
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => {
+        const products = Array.isArray(data)
+          ? data
+          : data?.products || data?.data?.products || data?.data;
+        if (Array.isArray(products)) {
+          setSheetProducts(products.slice(0, 12));
+        }
         if (Array.isArray(data?.availableTags)) {
           setProductTags(data.availableTags.filter((tag: unknown): tag is string => typeof tag === "string"));
         }
       })
-      .catch(() => setProductTags([]));
+      .catch(() => {
+        setSheetProducts([]);
+        setProductTags([]);
+      });
   }, []);
 
   useEffect(() => {
@@ -401,7 +435,7 @@ export default function Header() {
         <button
           type="button"
           className={`ig-mobile-bottom-nav__primary ${categorySheetOpen ? "is-active" : ""}`}
-          aria-label="Browse categories"
+          aria-label="Browse products"
           aria-expanded={categorySheetOpen}
           aria-controls="mobile-category-sheet"
           onClick={() => setCategorySheetOpen(true)}
@@ -409,7 +443,7 @@ export default function Header() {
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z" />
           </svg>
-          <span>Categories</span>
+          <span>Products</span>
         </button>
         <button
           type="button"
@@ -437,33 +471,39 @@ export default function Header() {
           type="button"
           className="ig-category-sheet__backdrop"
           onClick={() => setCategorySheetOpen(false)}
-          aria-label="Close categories"
+          aria-label="Close products"
         />
-        <div id="mobile-category-sheet" className="ig-category-sheet__panel" role="dialog" aria-modal="true" aria-label="Select category">
+        <div id="mobile-category-sheet" className="ig-category-sheet__panel" role="dialog" aria-modal="true" aria-label="Select product">
           <div className="ig-category-sheet__handle" />
           <div className="ig-category-sheet__header">
             <div>
               <span>Shop by</span>
-              <h3>Categories</h3>
+              <h3>Products</h3>
             </div>
-            <button type="button" onClick={() => setCategorySheetOpen(false)} aria-label="Close categories">
+            <button type="button" onClick={() => setCategorySheetOpen(false)} aria-label="Close products">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="m6.4 5 12.6 12.6-1.4 1.4L5 6.4zm12.6 1.4L6.4 19 5 17.6 17.6 5z" />
               </svg>
             </button>
           </div>
-          <div className="ig-category-sheet__grid">
-            {categories.map((category) => (
+          <div className="ig-category-sheet__grid ig-category-sheet__grid--products">
+            {sheetProducts.map((product) => (
               <Link
-                key={category.id}
-                href={`/shop?categoryId=${category.id}`}
+                key={product.id}
+                href={`/product/${product.slug}`}
                 className="ig-category-sheet__card"
                 onClick={() => setCategorySheetOpen(false)}
               >
-                <img src={categoryImageUrl(category.image)} alt="" />
-                <span>{category.name}</span>
+                <img src={productImageUrl(product)} alt="" />
+                <span>{product.title}</span>
               </Link>
             ))}
+            {!sheetProducts.length ? (
+              <Link href="/shop" className="ig-category-sheet__card" onClick={() => setCategorySheetOpen(false)}>
+                <img src="/assets/img/product/Whey.png" alt="" />
+                <span>View all products</span>
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>
