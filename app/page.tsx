@@ -323,8 +323,8 @@ export default async function HomePage() {
   <div className="container">
 
     <div className="text-center mb-5">
-      <h2 className="text-white">Glimpse of Our Event</h2>
-      <p className="text-light">Highlights from our special day</p>
+      <h2 className="text-white">Glimpse of Events</h2>
+      <p className="text-light mt-2">Take a look at the highlights of our successful events and cherished memories</p>
     </div>
 
     <div className="reels-carousel" aria-label="Glimpse of our event videos">
