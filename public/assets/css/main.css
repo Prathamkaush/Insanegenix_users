@@ -9815,3 +9815,44 @@ a.ui-button:active {
     color: #ddd;
 }
 /*  cart end  */
+
+
+/* main slider css start */
+.main-slider {
+  margin-top: 80px;
+}
+.payment-img {
+      width: 65%;
+}
+
+@media screen and (min-width: 300px) and (max-width: 960px) {
+.main-slider {
+  margin-top: 62px;
+}
+.payment-img {
+      width: 100%;
+}
+}
+
+
+
+/* main slider css end*/
+
+/* reels css  */
+.reel-card{
+    border-radius:20px;
+    overflow:hidden;
+    background:#111;
+}
+
+.reel-card video{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+    display:block;
+}
+
+.reelsSwiper{
+    padding-bottom:50px;
+}
+/* reels css end  */

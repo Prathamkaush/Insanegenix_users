@@ -181,7 +181,8 @@ export default async function HomePage() {
       </div>
 
       {/* ── VIDEO AREA ── */}
-      <HomepageVideoBanner banner={videoBanner} sectionTitle={videoSection?.title} />
+
+      {/* <HomepageVideoBanner banner={videoBanner} sectionTitle={videoSection?.title} /> */}
 
       {/* ── WHY CHOOSE INSANEGENIX ── */}
       <section className="eg-formula__area black-bg scene">
@@ -316,18 +317,69 @@ export default async function HomePage() {
       </section>
 
       {/* ── INSTAGRAM / BLOG AREA ── */}
-      <section className="eg-blog-2__area black-bg-2 pt-135 pb-120">
-        <div className="eg-blog-2">
-          <div className="container">
-            <div className="row">
-              <div className="col-xl-12 col-lg-7 mb-30">
-                <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
-                <div className="elfsight-app-7a3e1fea-fff4-4da8-8343-34962e293f3b" data-elfsight-app-lazy></div>
-              </div>
-            </div>
-          </div>
+          
+ <section className="eg-blog-2__area black-bg-2 pt-80 pb-120">
+  <div className="container">
+
+    <div className="text-center mb-5">
+      <h2 className="text-white">Latest Video Reels</h2>
+      <p className="text-light">Watch our latest fitness videos</p>
+    </div>
+
+    <div className="row g-4">
+
+      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
+        <div className="reel-card">
+          <video
+            src="/assets/img/video/video-1.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
         </div>
-      </section>
+      </div>
+
+      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
+        <div className="reel-card">
+          <video
+            src="/assets/img/video/video-2.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </div>
+      </div>
+
+      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
+        <div className="reel-card">
+          <video
+            src="/assets/img/video/video-3.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </div>
+      </div>
+
+      <div className="col-xl-3 col-lg-4 col-md-6 col-6">
+        <div className="reel-card">
+          <video
+            src="/assets/img/video/video-4.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section> 
 
       <section className="eg-brand-2__area black-bg pt-80 pb-80 scene ig-home-brand">
         <div className="eg-brand-2 p-relative z-index-1">
@@ -361,6 +413,8 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+ 
 
     </main>
   );

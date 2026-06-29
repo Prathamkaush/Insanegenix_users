@@ -60,15 +60,15 @@ export default function HomeProductSection({
         breakpoints: {
           576: {
             slidesPerView: 2,
-            spaceBetween: 20,
+            spaceBetween: 5,
           },
           992: {
             slidesPerView: 3,
-            spaceBetween: 24,
+            spaceBetween: 5,
           },
           1400: {
             slidesPerView: 4,
-            spaceBetween: 28,
+            spaceBetween: 5,
           },
         },
       });

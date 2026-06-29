@@ -213,7 +213,7 @@ __turbopack_context__.s([
     "productVideo",
     ()=>productVideo
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 const bundledProductImages = new Set([
     "Creatine.png",
     "D3-K2.png",
@@ -335,7 +335,7 @@ __turbopack_context__.s([
     "toggleWishlist",
     ()=>toggleWishlist
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 function getCustomerToken() {
     if ("TURBOPACK compile-time truthy", 1) return "";
     //TURBOPACK unreachable
@@ -408,7 +408,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$a
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wishlist$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wishlist.ts [app-ssr] (ecmascript)");
 ;
 ;
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 const GUEST_CART_KEY = "ig_guest_cart";
 ;
 let syncPromise = null;
@@ -650,7 +650,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$social$2d$links$2e$ts
 ;
 ;
 ;
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 const fallbackCategories = [
     {
         id: "proteins",
@@ -2300,7 +2300,7 @@ __turbopack_context__.s([
     "verifyPasswordResetCode",
     ()=>verifyPasswordResetCode
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 async function authRequest(path, body) {
     const res = await fetch(`${API_URL}${path}`, {
         method: "POST",

@@ -290,7 +290,6 @@ html {
 
 .ig-policy-page__content {
   gap: 20px;
-  width: min(100%, 900px);
   margin: 0 auto;
   display: grid;
 }
@@ -1789,12 +1788,6 @@ a {
   display: grid;
 }
 
-.eg-footer-2__widget-wrapper .ig-footer-widget-grid__item {
-  width: 100%;
-  max-width: none;
-  padding: 0;
-}
-
 .eg-footer-2__widget.widget-2, .eg-footer-2__widget.widget-3 {
   padding-left: 0;
 }
@@ -1803,7 +1796,6 @@ a {
   text-align: left;
   word-spacing: normal;
   letter-spacing: 0;
-  max-width: 320px;
 }
 
 .eg-footer-2__widget .fw-title {

@@ -15,7 +15,9 @@ const policyLinks = [
 const pageLinks = [
   ["Home", "/"],
   ["About Us", "/about"],
-  ["Our Products", "/shop"],
+  ["All Products", "/shop"],
+  ["Authenticity", "/authenticity"],
+  ["Blogs", "/blogs"],
   ["Contact Us", "/contact"],
 ];
 
@@ -36,8 +38,8 @@ export default function Footer({
       <div className="eg-footer-2 p-relative z-index-1">
         <div className="container">
           <div className="eg-footer-2__widget-wrapper">
-            <div className="row ig-footer-widget-grid">
-              <div className="ig-footer-widget-grid__item ig-footer-widget-grid__about mb-40">
+            <div className="row">
+              <div className="ig-footer-widget-grid__item ig-footer-widget-grid__about mb-40 col-md-4">
                 <div className="eg-footer-2__widget widget-1">
                   <div className="eg-footer-2__about">
                     <div className="eg-footer-2__logo logo mb-20">
@@ -46,8 +48,9 @@ export default function Footer({
                       </Link>
                     </div>
                     <p>
-                      Insanegenix engineers high-performance gym gear, empowering fitness enthusiasts to crush limits
-                      with ultimate strength and comfort.
+                      At InsaneGenix, we are more than a sports nutrition brand—we are a movement 
+                      driven by the pursuit of excellence. Built on the foundation of innovation, 
+                      quality, and performance.
                     </p>
                     <div className="eg-footer-2__social mt-30">
                       <a href="#" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
@@ -59,7 +62,7 @@ export default function Footer({
                 </div>
               </div>
 
-              <div className="ig-footer-widget-grid__item mb-40">
+              {/* <div className="ig-footer-widget-grid__item mb-40">
                 <div className="eg-footer-2__widget widget-2">
                   <h4 className="fw-title">Products</h4>
                   <ul>
@@ -68,9 +71,9 @@ export default function Footer({
                     ))}
                   </ul>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="ig-footer-widget-grid__item mb-40">
+              <div className="ig-footer-widget-grid__item mb-40 col-md-3">
                 <div className="eg-footer-2__widget widget-3">
                   <h4 className="fw-title">Policy Info</h4>
                   <ul>
@@ -81,7 +84,7 @@ export default function Footer({
                 </div>
               </div>
 
-              <div className="ig-footer-widget-grid__item mb-40">
+              <div className="ig-footer-widget-grid__item mb-40 col-md-2">
                 <div className="eg-footer-2__widget widget-4">
                   <h4 className="fw-title">Page Links</h4>
                   <ul>
@@ -92,7 +95,7 @@ export default function Footer({
                 </div>
               </div>
 
-              <div className="ig-footer-widget-grid__item ig-footer-widget-grid__help mb-40">
+              <div className="ig-footer-widget-grid__item ig-footer-widget-grid__help mb-40 col-md-3">
                 <div>
                   <div className="eg-footer-2__widget widget-5">
                     <h4 className="fw-title">Need Help?</h4>
@@ -116,14 +119,16 @@ export default function Footer({
 
           <div className="eg-footer-2__copyright mt-40">
             <div className="row align-items-center">
-              <div className="col-md-7 mb-40">
+              <div className="col-md-7 mb-20">
                 <div className="eg-footer-2__copyright-text">
                   <p>Copyright © 2026 <Link href="/">Insane Genix</Link> All Rights Reserved.</p>
                 </div>
               </div>
-              <div className="col-md-5 mb-40">
+              <div className="col-md-5 mb-20">
                 <div className="ig-footer-payments" aria-label="Payment options">
-                  {paymentBrands.map(({ label, className }) => (
+                   <img src="/assets/img/pay-image.png" alt="Payment Methods" className="payment-img " />
+
+                  {/* {paymentBrands.map(({ label, className }) => (
                     <span key={label} className={`ig-footer-payments__brand ${className}`} aria-label={label}>
                       {className === "is-mastercard" ? (
                         <span className="ig-footer-payments__mastercard-mark" aria-hidden="true">
@@ -134,7 +139,8 @@ export default function Footer({
                         <span>{label}</span>
                       )}
                     </span>
-                  ))}
+                  ))} */}
+
                 </div>
               </div>
             </div>

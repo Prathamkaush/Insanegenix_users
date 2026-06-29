@@ -97,7 +97,7 @@ html {
 .ig-policy-page__content {
   display: grid;
   gap: 20px;
-  width: min(100%, 900px);
+  /* width: min(100%, 900px); */
   margin: 0 auto;
 }
 
@@ -1641,11 +1641,11 @@ a {
   align-items: start;
 }
 
-.eg-footer-2__widget-wrapper .ig-footer-widget-grid__item {
+/* .eg-footer-2__widget-wrapper .ig-footer-widget-grid__item {
   width: 100%;
   max-width: none;
   padding: 0;
-}
+} */
 
 .eg-footer-2__widget.widget-2,
 .eg-footer-2__widget.widget-3 {
@@ -1653,7 +1653,7 @@ a {
 }
 
 .eg-footer-2__about p {
-  max-width: 320px;
+  /* max-width: 320px; */
   text-align: left;
   word-spacing: normal;
   letter-spacing: 0;
