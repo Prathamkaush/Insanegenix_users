@@ -369,7 +369,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wishlist$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wishlist.ts [app-ssr] (ecmascript)");
 ;
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 async function getProductReviews(productId) {
     const res = await fetch(`${API_URL}/reviews/product/${productId}`, {
         cache: "no-store"

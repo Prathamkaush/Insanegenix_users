@@ -34,7 +34,7 @@ function Breadcrumb({ title }) {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "col-lg-12",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "simple-breadcrumb__content",
+                        className: "simple-breadcrumb__content simple-breadcrumb-wrap",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                                 href: "/",
@@ -205,11 +205,189 @@ async function generateMetadata({ params }) {
         }
     };
 }
+function parseBlogContent(content) {
+    if (!content) return [];
+    const lines = content.split(/\r?\n/).map((line)=>line.trim());
+    const elements = [];
+    let currentListItems = [];
+    let paragraphText = [];
+    const flushList = (key)=>{
+        if (currentListItems.length > 0) {
+            elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                className: "ig-blog-list",
+                children: currentListItems.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                        children: renderTextWithFormatting(item)
+                    }, idx, false, {
+                        fileName: "[project]/app/blogs/[slug]/page.tsx",
+                        lineNumber: 48,
+                        columnNumber: 13
+                    }, this))
+            }, `list-${key}`, false, {
+                fileName: "[project]/app/blogs/[slug]/page.tsx",
+                lineNumber: 46,
+                columnNumber: 9
+            }, this));
+            currentListItems = [];
+        }
+    };
+    const flushParagraph = (key)=>{
+        if (paragraphText.length > 0) {
+            const text = paragraphText.join(" ");
+            elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                children: renderTextWithFormatting(text)
+            }, `p-${key}`, false, {
+                fileName: "[project]/app/blogs/[slug]/page.tsx",
+                lineNumber: 60,
+                columnNumber: 9
+            }, this));
+            paragraphText = [];
+        }
+    };
+    function isHeading(line) {
+        if (!line) return false;
+        if (line.startsWith("#")) return true;
+        const isShort = line.length < 75;
+        const endsWithPunctuation = /[.,:;!]/.test(line[line.length - 1]);
+        const startsWithCapital = /^[A-Z0-9]/.test(line);
+        const firstWord = line.split(" ")[0].toLowerCase();
+        const isCommonWord = [
+            "and",
+            "or",
+            "but",
+            "the",
+            "a",
+            "an",
+            "for",
+            "with",
+            "from"
+        ].includes(firstWord);
+        return isShort && !endsWithPunctuation && startsWithCapital && !isCommonWord;
+    }
+    function renderTextWithFormatting(text) {
+        const parts = text.split(/(\*\*.*?\*\*|__.*?__)/g);
+        return parts.map((part, index)=>{
+            if (part.startsWith("**") && part.endsWith("**")) {
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                    children: part.slice(2, -2)
+                }, index, false, {
+                    fileName: "[project]/app/blogs/[slug]/page.tsx",
+                    lineNumber: 83,
+                    columnNumber: 16
+                }, this);
+            }
+            if (part.startsWith("__") && part.endsWith("__")) {
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                    children: part.slice(2, -2)
+                }, index, false, {
+                    fileName: "[project]/app/blogs/[slug]/page.tsx",
+                    lineNumber: 86,
+                    columnNumber: 16
+                }, this);
+            }
+            return part;
+        });
+    }
+    for(let i = 0; i < lines.length; i++){
+        const line = lines[i];
+        if (!line) {
+            flushParagraph(i);
+            flushList(i);
+            continue;
+        }
+        const bulletMatch = line.match(/^([●•*\-▪o]|\d+\.)\s*(.*)/);
+        if (bulletMatch) {
+            flushParagraph(i);
+            currentListItems.push(bulletMatch[2].trim());
+            continue;
+        }
+        if (isHeading(line)) {
+            flushParagraph(i);
+            flushList(i);
+            const isMdHeading = line.startsWith("#");
+            if (isMdHeading) {
+                const mdLevel = (line.match(/^#+/) || [
+                    "##"
+                ])[0].length;
+                const cleanText = line.replace(/^#+\s+/, "");
+                if (mdLevel === 1) {
+                    elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                        children: renderTextWithFormatting(cleanText)
+                    }, `h-${i}`, false, {
+                        fileName: "[project]/app/blogs/[slug]/page.tsx",
+                        lineNumber: 117,
+                        columnNumber: 25
+                    }, this));
+                } else if (mdLevel === 2) {
+                    elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        children: renderTextWithFormatting(cleanText)
+                    }, `h-${i}`, false, {
+                        fileName: "[project]/app/blogs/[slug]/page.tsx",
+                        lineNumber: 119,
+                        columnNumber: 25
+                    }, this));
+                } else if (mdLevel === 3) {
+                    elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        children: renderTextWithFormatting(cleanText)
+                    }, `h-${i}`, false, {
+                        fileName: "[project]/app/blogs/[slug]/page.tsx",
+                        lineNumber: 121,
+                        columnNumber: 25
+                    }, this));
+                } else {
+                    elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                        children: renderTextWithFormatting(cleanText)
+                    }, `h-${i}`, false, {
+                        fileName: "[project]/app/blogs/[slug]/page.tsx",
+                        lineNumber: 123,
+                        columnNumber: 25
+                    }, this));
+                }
+            } else {
+                const h2Keywords = [
+                    "introduction",
+                    "why",
+                    "how to",
+                    "what is",
+                    "common",
+                    "sample",
+                    "final thoughts",
+                    "seo elements",
+                    "can creatine",
+                    "who should"
+                ];
+                const isH2 = h2Keywords.some((kw)=>line.toLowerCase().includes(kw)) || line.length > 30;
+                if (isH2) {
+                    elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        children: renderTextWithFormatting(line)
+                    }, `h2-${i}`, false, {
+                        fileName: "[project]/app/blogs/[slug]/page.tsx",
+                        lineNumber: 141,
+                        columnNumber: 25
+                    }, this));
+                } else {
+                    elements.push(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        children: renderTextWithFormatting(line)
+                    }, `h3-${i}`, false, {
+                        fileName: "[project]/app/blogs/[slug]/page.tsx",
+                        lineNumber: 143,
+                        columnNumber: 25
+                    }, this));
+                }
+            }
+            continue;
+        }
+        flushList(i);
+        paragraphText.push(line);
+    }
+    flushParagraph(lines.length);
+    flushList(lines.length);
+    return elements;
+}
 async function BlogDetailPage({ params }) {
     const { slug } = await params;
     const blog = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$blogs$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getBlog"])(slug);
     if (!blog) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
-    const paragraphs = String(blog.content || "").split(/\n{2,}/).map((paragraph)=>paragraph.trim()).filter(Boolean);
+    const parsedContent = parseBlogContent(blog.content || "");
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "fix",
         children: [
@@ -217,7 +395,7 @@ async function BlogDetailPage({ params }) {
                 title: blog.title
             }, void 0, false, {
                 fileName: "[project]/app/blogs/[slug]/page.tsx",
-                lineNumber: 46,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
@@ -233,14 +411,14 @@ async function BlogDetailPage({ params }) {
                                     size: 16
                                 }, void 0, false, {
                                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                    lineNumber: 50,
+                                    lineNumber: 172,
                                     columnNumber: 13
                                 }, this),
                                 " Back to blogs"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                            lineNumber: 49,
+                            lineNumber: 171,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
@@ -255,7 +433,7 @@ async function BlogDetailPage({ params }) {
                                                     size: 14
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                                    lineNumber: 55,
+                                                    lineNumber: 177,
                                                     columnNumber: 21
                                                 }, this),
                                                 " ",
@@ -263,7 +441,7 @@ async function BlogDetailPage({ params }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                            lineNumber: 55,
+                                            lineNumber: 177,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -272,7 +450,7 @@ async function BlogDetailPage({ params }) {
                                                     size: 14
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                                    lineNumber: 56,
+                                                    lineNumber: 178,
                                                     columnNumber: 21
                                                 }, this),
                                                 " ",
@@ -281,7 +459,7 @@ async function BlogDetailPage({ params }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                            lineNumber: 56,
+                                            lineNumber: 178,
                                             columnNumber: 15
                                         }, this),
                                         blog.publishedAt ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -292,27 +470,27 @@ async function BlogDetailPage({ params }) {
                                             })
                                         }, void 0, false, {
                                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                            lineNumber: 58,
+                                            lineNumber: 180,
                                             columnNumber: 17
                                         }, this) : null
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                    lineNumber: 54,
+                                    lineNumber: 176,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                     children: blog.title
                                 }, void 0, false, {
                                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                    lineNumber: 67,
+                                    lineNumber: 189,
                                     columnNumber: 13
                                 }, this),
                                 blog.excerpt ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     children: blog.excerpt
                                 }, void 0, false, {
                                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                    lineNumber: 68,
+                                    lineNumber: 190,
                                     columnNumber: 29
                                 }, this) : null,
                                 Array.isArray(blog.tags) && blog.tags.length ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -321,18 +499,18 @@ async function BlogDetailPage({ params }) {
                                             children: tag
                                         }, tag, false, {
                                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                            lineNumber: 72,
+                                            lineNumber: 194,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                    lineNumber: 70,
+                                    lineNumber: 192,
                                     columnNumber: 15
                                 }, this) : null
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                            lineNumber: 53,
+                            lineNumber: 175,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -341,38 +519,32 @@ async function BlogDetailPage({ params }) {
                             alt: blog.title
                         }, void 0, false, {
                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                            lineNumber: 78,
+                            lineNumber: 200,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "ig-blog-content",
-                            children: paragraphs.map((paragraph, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    children: paragraph
-                                }, index, false, {
-                                    fileName: "[project]/app/blogs/[slug]/page.tsx",
-                                    lineNumber: 82,
-                                    columnNumber: 15
-                                }, this))
+                            children: parsedContent
                         }, void 0, false, {
                             fileName: "[project]/app/blogs/[slug]/page.tsx",
-                            lineNumber: 80,
+                            lineNumber: 202,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/blogs/[slug]/page.tsx",
-                    lineNumber: 48,
+                    lineNumber: 170,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/blogs/[slug]/page.tsx",
-                lineNumber: 47,
+                lineNumber: 169,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/blogs/[slug]/page.tsx",
-        lineNumber: 45,
+        lineNumber: 167,
         columnNumber: 5
     }, this);
 }

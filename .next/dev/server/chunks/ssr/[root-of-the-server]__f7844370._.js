@@ -130,7 +130,7 @@ __turbopack_context__.s([
     "homepageMediaUrl",
     ()=>homepageMediaUrl
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 function homepageMediaUrl(media) {
     if (!media?.url) return "";
     if (media.url.startsWith("http")) return media.url;
@@ -215,7 +215,7 @@ __turbopack_context__.s([
     "productVideo",
     ()=>productVideo
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 const bundledProductImages = new Set([
     "Creatine.png",
     "D3-K2.png",
@@ -337,7 +337,7 @@ __turbopack_context__.s([
     "toggleWishlist",
     ()=>toggleWishlist
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 function getCustomerToken() {
     if ("TURBOPACK compile-time truthy", 1) return "";
     //TURBOPACK unreachable
@@ -392,7 +392,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wishlist$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/wishlist.ts [app-rsc] (ecmascript)");
 ;
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 async function getProductReviews(productId) {
     const res = await fetch(`${API_URL}/reviews/product/${productId}`, {
         cache: "no-store"

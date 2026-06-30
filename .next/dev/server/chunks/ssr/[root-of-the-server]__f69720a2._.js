@@ -111,7 +111,7 @@ __turbopack_context__.s([
     "readingTime",
     ()=>readingTime
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 function blogImage(image) {
     if (!image) return "/assets/img/blog/blog-thumb-01.jpg";
     if (image.startsWith("http")) return image;

@@ -191,7 +191,7 @@ __turbopack_context__.s([
     "productVideo",
     ()=>productVideo
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 const bundledProductImages = new Set([
     "Creatine.png",
     "D3-K2.png",

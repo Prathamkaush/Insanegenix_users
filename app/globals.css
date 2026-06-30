@@ -552,6 +552,15 @@ html {
   object-fit: cover;
   margin: 0 auto 46px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.ig-blog-cover:hover {
+  transform: scale(1.005);
+  box-shadow: 0 20px 40px rgba(255, 23, 68, 0.15);
+  border-color: rgba(255, 23, 68, 0.3);
 }
 
 .ig-blog-content {
@@ -559,11 +568,80 @@ html {
   margin: 0 auto;
 }
 
+.ig-blog-content h1,
+.ig-blog-content h2 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 48px 0 20px;
+  line-height: 1.35;
+  border-left: 4px solid #ff1744;
+  padding-left: 18px;
+  letter-spacing: -0.01em;
+}
+
+.ig-blog-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 36px 0 16px;
+  line-height: 1.4;
+  position: relative;
+  letter-spacing: -0.005em;
+}
+
+.ig-blog-content h3::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #ff1744;
+  margin-top: 8px;
+}
+
+.ig-blog-content h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 28px 0 12px;
+  line-height: 1.4;
+}
+
 .ig-blog-content p {
   color: #d0d0d0;
   font-size: 18px;
   line-height: 1.85;
   margin: 0 0 24px;
+}
+
+.ig-blog-content strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.ig-blog-list {
+  margin: 0 0 28px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.ig-blog-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  color: #d0d0d0;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.ig-blog-list li::before {
+  content: "•";
+  position: absolute;
+  left: 10px;
+  color: #ff1744;
+  font-size: 22px;
+  line-height: 1;
+  top: -1px;
 }
 
 @media (max-width: 991px) {

@@ -46,7 +46,7 @@ __turbopack_context__.s([
     "phoneHref",
     ()=>phoneHref
 ]);
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:3030") || "http://localhost:3030";
+const API_URL = ("TURBOPACK compile-time value", "https://api.freeqr.live") || "http://localhost:3030";
 const defaultStorefrontSettings = {
     supportEmail: "info@insanegenix.com",
     supportPhone: "020 370 1425",
