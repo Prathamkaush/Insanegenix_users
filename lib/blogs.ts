@@ -26,10 +26,11 @@ export type BlogCatalog = {
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3030";
 
 export function blogImage(image?: string | null) {
-  if (!image) return "/assets/img/blog/blog-thumb-01.jpg";
-  if (image.startsWith("http")) return image;
-  if (image.startsWith("/")) return image;
-  return `${API_URL}/uploads/blogs/${image}`;
+  const imagePath = image?.trim();
+  if (!imagePath) return null;
+  if (imagePath.startsWith("http")) return imagePath;
+  if (imagePath.startsWith("/")) return imagePath;
+  return `${API_URL}/uploads/blogs/${imagePath}`;
 }
 
 export async function getBlogs(params?: { page?: string | number; search?: string }): Promise<BlogCatalog> {

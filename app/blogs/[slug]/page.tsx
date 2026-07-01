@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, User } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
-import { blogImage, getBlog, readingTime } from "@/lib/blogs";
+import { blogImage, getBlog, getBlogs, readingTime } from "@/lib/blogs";
 
 type BlogDetailParams = {
   slug: string;
@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<BlogDetailP
       title: "Blog Not Found - InsaneGenix",
     };
   }
+  const coverImage = blogImage(blog.coverImage);
 
   return {
     title: blog.metaTitle || `${blog.title} - InsaneGenix Blog`,
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<BlogDetailP
     openGraph: {
       title: blog.metaTitle || blog.title,
       description: blog.metaDescription || blog.excerpt || undefined,
-      images: blog.coverImage ? [blogImage(blog.coverImage)] : undefined,
+      images: coverImage ? [coverImage] : undefined,
       type: "article",
       publishedTime: blog.publishedAt || undefined,
     },
@@ -162,6 +163,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<BlogD
   if (!blog) notFound();
 
   const parsedContent = parseBlogContent(blog.content || "");
+  const coverImage = blogImage(blog.coverImage);
+  const relatedBlogs = await getBlogs({ page: 1 })
+    .then((catalog) => catalog.blogs.filter((item) => item.slug !== blog.slug).slice(0, 3))
+    .catch(() => []);
 
   return (
     <main className="fix">
@@ -197,11 +202,50 @@ export default async function BlogDetailPage({ params }: { params: Promise<BlogD
             ) : null}
           </header>
 
-          <img className="ig-blog-cover" src={blogImage(blog.coverImage)} alt={blog.title} />
+          {coverImage ? <img className="ig-blog-cover" src={coverImage} alt={blog.title} /> : null}
 
           <div className="ig-blog-content">
             {parsedContent}
           </div>
+
+          {relatedBlogs.length ? (
+            <section className="ig-more-blogs" aria-labelledby="more-blogs-title">
+              <div className="ig-more-blogs-head">
+                <div>
+                  <span>Keep reading</span>
+                  <h2 id="more-blogs-title">View more blogs</h2>
+                </div>
+                <Link href="/blogs">View all</Link>
+              </div>
+
+              <div className="ig-blog-grid">
+                {relatedBlogs.map((relatedBlog) => {
+                  const relatedCoverImage = blogImage(relatedBlog.coverImage);
+
+                  return (
+                    <Link key={relatedBlog.id} href={`/blogs/${relatedBlog.slug}`} className="ig-blog-card">
+                      {relatedCoverImage ? <img src={relatedCoverImage} alt={relatedBlog.title} /> : null}
+                      <div>
+                        <span className="ig-blog-meta">
+                          {relatedBlog.publishedAt
+                            ? new Date(relatedBlog.publishedAt).toLocaleDateString("en-IN", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })
+                            : "InsaneGenix"}{" "}
+                          / {readingTime(relatedBlog.content)} min read
+                        </span>
+                        <h2>{relatedBlog.title}</h2>
+                        <p>{relatedBlog.excerpt || "Read the full InsaneGenix guide."}</p>
+                        <strong>Read article</strong>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
         </div>
       </article>
     </main>

@@ -75,7 +75,7 @@ export default function HomeHeroSlider({ slides }: { slides: HeroSlide[] }) {
   }, [visibleSlides.length]);
 
   return (
-    <div ref={sliderRef} className="main-slider swiper mt-50  ig-home-hero-slider">
+    <div ref={sliderRef} className="main-slider swiper  ig-home-hero-slider">
       <div className="swiper-wrapper">
         {visibleSlides.map((slide, index) => (
           <div className="swiper-slide ig-hero-slide" key={`${slide.media?.url || "fallback"}-${index}`}>

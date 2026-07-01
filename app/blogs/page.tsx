@@ -52,26 +52,30 @@ export default async function BlogsPage({
 
           {catalog.blogs.length ? (
             <div className="ig-blog-grid">
-              {catalog.blogs.map((blog) => (
-                <Link key={blog.id} href={`/blogs/${blog.slug}`} className="ig-blog-card">
-                  <img src={blogImage(blog.coverImage)} alt={blog.title} />
-                  <div>
-                    <span className="ig-blog-meta">
-                      {blog.publishedAt
-                        ? new Date(blog.publishedAt).toLocaleDateString("en-IN", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                          })
-                        : "InsaneGenix"}{" "}
-                      / {readingTime(blog.content)} min read
-                    </span>
-                    <h2>{blog.title}</h2>
-                    <p>{blog.excerpt || "Read the full InsaneGenix guide."}</p>
-                    <strong>Read article</strong>
-                  </div>
-                </Link>
-              ))}
+              {catalog.blogs.map((blog) => {
+                const coverImage = blogImage(blog.coverImage);
+
+                return (
+                  <Link key={blog.id} href={`/blogs/${blog.slug}`} className="ig-blog-card">
+                    {coverImage ? <img src={coverImage} alt={blog.title} /> : null}
+                    <div>
+                      <span className="ig-blog-meta">
+                        {blog.publishedAt
+                          ? new Date(blog.publishedAt).toLocaleDateString("en-IN", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })
+                          : "InsaneGenix"}{" "}
+                        / {readingTime(blog.content)} min read
+                      </span>
+                      <h2>{blog.title}</h2>
+                      <p>{blog.excerpt || "Read the full InsaneGenix guide."}</p>
+                      <strong>Read article</strong>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           ) : (
             <div className="ig-blog-empty">
