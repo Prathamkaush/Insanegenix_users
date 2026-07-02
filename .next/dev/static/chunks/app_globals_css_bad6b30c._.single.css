@@ -1029,20 +1029,30 @@ a {
 
 .product-card__rating span {
   opacity: 1;
-  background: #08b978;
+  background: #ffffff1f;
+  border: 1px solid #ffffff38;
   width: 20px;
   height: 20px;
   padding: 2px;
   display: inline-flex;
 }
 
+.product-card__rating span.active {
+  background: #08b978;
+  border-color: #08b978;
+}
+
 .product-card__rating span:not(.active) {
-  background: #08b97842;
+  opacity: .62;
 }
 
 .product-card__rating img {
   width: 100%;
   height: 100%;
+}
+
+.product-card__rating span:not(.active) img {
+  opacity: .36;
 }
 
 .product-card__rating small {
@@ -1065,13 +1075,21 @@ a {
 
 .product-card__price {
   color: #fff;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 23px;
   font-weight: 800;
+  line-height: 1;
 }
 
 .product-card__original-price {
   color: #ffffff9e;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
+  line-height: 1;
   text-decoration: line-through;
 }
 
@@ -1240,7 +1258,9 @@ a {
 }
 
 .shop-product-card__rating span {
-  background: #08b97847;
+  opacity: .62;
+  background: #ffffff1f;
+  border: 1px solid #ffffff38;
   width: 17px;
   height: 17px;
   padding: 2px;
@@ -1248,12 +1268,18 @@ a {
 }
 
 .shop-product-card__rating span.active {
+  opacity: 1;
   background: #08b978;
+  border-color: #08b978;
 }
 
 .shop-product-card__rating img {
   width: 100%;
   height: 100%;
+}
+
+.shop-product-card__rating span:not(.active) img {
+  opacity: .36;
 }
 
 .shop-product-card__rating small {
@@ -1275,13 +1301,21 @@ a {
 
 .shop-product-card__price {
   color: #ffffffd1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 24px;
   font-weight: 800;
+  line-height: 1;
 }
 
 .shop-product-card__original-price {
   color: #ffffff9e;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
+  line-height: 1;
   text-decoration: line-through;
 }
 
@@ -5509,13 +5543,21 @@ body.ig-search-overlay-lock {
 
 .ig-shop-card__price strong {
   color: #fff;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   font-weight: 900;
+  line-height: 1;
 }
 
 .ig-shop-card__price del {
   color: #ffffff80;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
+  line-height: 1;
 }
 
 .ig-shop-card__price > span {

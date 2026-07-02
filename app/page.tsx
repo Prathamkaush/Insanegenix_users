@@ -30,11 +30,7 @@ export default async function HomePage() {
     : null;
   const productSections = [
     { id: "latest", title: "Latest Products", products: products.slice(0, 8) },
-    {
-      id: "featured",
-      title: "Featured Products",
-      products: products.filter((product) => product.isFeatured),
-    },
+    
     {
       id: "best-sellers",
       title: "Best Sellers",
@@ -53,7 +49,7 @@ export default async function HomePage() {
       <div className="ig-hero-trending">
         <HomeProductSection
           id="trending"
-          title="Trending Products"
+          title="All Products"
           products={trendingProducts}
         />
       </div>
