@@ -97,6 +97,18 @@
       "namedRegex": "^/blogs(?:/)?$"
     },
     {
+      "page": "/cancelation-and-refund",
+      "regex": "^/cancelation\\-and\\-refund(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cancelation\\-and\\-refund(?:/)?$"
+    },
+    {
+      "page": "/cancellation-and-refund",
+      "regex": "^/cancellation\\-and\\-refund(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cancellation\\-and\\-refund(?:/)?$"
+    },
+    {
       "page": "/cart",
       "regex": "^/cart(?:/)?$",
       "routeKeys": {},
@@ -121,6 +133,18 @@
       "namedRegex": "^/contact(?:/)?$"
     },
     {
+      "page": "/payment-option",
+      "regex": "^/payment\\-option(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/payment\\-option(?:/)?$"
+    },
+    {
+      "page": "/privacy-policy",
+      "regex": "^/privacy\\-policy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/privacy\\-policy(?:/)?$"
+    },
+    {
       "page": "/profile",
       "regex": "^/profile(?:/)?$",
       "routeKeys": {},
@@ -139,10 +163,22 @@
       "namedRegex": "^/profile/orders(?:/)?$"
     },
     {
+      "page": "/shipping-and-delivery",
+      "regex": "^/shipping\\-and\\-delivery(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/shipping\\-and\\-delivery(?:/)?$"
+    },
+    {
       "page": "/shop",
       "regex": "^/shop(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/shop(?:/)?$"
+    },
+    {
+      "page": "/terms-and-conditions",
+      "regex": "^/terms\\-and\\-conditions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms\\-and\\-conditions(?:/)?$"
     },
     {
       "page": "/wishlist",

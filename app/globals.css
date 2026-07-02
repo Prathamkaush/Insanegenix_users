@@ -6269,6 +6269,21 @@ body.ig-search-overlay-lock {
   box-shadow: 0 0 0 3px rgba(255, 23, 68, 0.16);
 }
 
+.ig-review-character-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: -8px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ig-review-character-count.is-invalid {
+  color: #ff9aa9;
+}
+
 .ig-review-message {
   margin: 14px 0 0;
   font-size: 14px;

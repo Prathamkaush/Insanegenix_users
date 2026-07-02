@@ -492,6 +492,8 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+const REVIEW_COMMENT_MIN_LENGTH = 10;
+const REVIEW_COMMENT_MAX_LENGTH = 191;
 function StarIcon({ filled }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
         viewBox: "0 0 24 24",
@@ -504,12 +506,12 @@ function StarIcon({ filled }) {
             strokeLinejoin: "round"
         }, void 0, false, {
             fileName: "[project]/components/ProductReviewSection.tsx",
-            lineNumber: 13,
+            lineNumber: 16,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/ProductReviewSection.tsx",
-        lineNumber: 12,
+        lineNumber: 15,
         columnNumber: 5
     }, this);
 }
@@ -540,12 +542,12 @@ function Stars({ rating, interactive = false, onSelect, onPreview, onLeave, larg
                         filled: active
                     }, void 0, false, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 60,
+                        lineNumber: 63,
                         columnNumber: 15
                     }, this)
                 }, star, false, {
                     fileName: "[project]/components/ProductReviewSection.tsx",
-                    lineNumber: 49,
+                    lineNumber: 52,
                     columnNumber: 13
                 }, this);
             }
@@ -555,18 +557,18 @@ function Stars({ rating, interactive = false, onSelect, onPreview, onLeave, larg
                     filled: active
                 }, void 0, false, {
                     fileName: "[project]/components/ProductReviewSection.tsx",
-                    lineNumber: 67,
+                    lineNumber: 70,
                     columnNumber: 13
                 }, this)
             }, star, false, {
                 fileName: "[project]/components/ProductReviewSection.tsx",
-                lineNumber: 66,
+                lineNumber: 69,
                 columnNumber: 11
             }, this);
         })
     }, void 0, false, {
         fileName: "[project]/components/ProductReviewSection.tsx",
-        lineNumber: 40,
+        lineNumber: 43,
         columnNumber: 5
     }, this);
 }
@@ -653,6 +655,11 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
         reviews,
         total
     ]);
+    const trimmedComment = comment.trim();
+    const commentLength = comment.length;
+    const isCommentTooShort = trimmedComment.length > 0 && trimmedComment.length < REVIEW_COMMENT_MIN_LENGTH;
+    const isCommentTooLong = commentLength > REVIEW_COMMENT_MAX_LENGTH;
+    const canSubmit = rating >= 1 && trimmedComment.length >= REVIEW_COMMENT_MIN_LENGTH && commentLength <= REVIEW_COMMENT_MAX_LENGTH && !submitting;
     const openReviewModal = ()=>{
         setError(null);
         setModalOpen(true);
@@ -672,9 +679,17 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
             setError("Please select a star rating before submitting.");
             return;
         }
+        if (trimmedComment.length < REVIEW_COMMENT_MIN_LENGTH) {
+            setError(`Please write at least ${REVIEW_COMMENT_MIN_LENGTH} characters for your review.`);
+            return;
+        }
+        if (comment.length > REVIEW_COMMENT_MAX_LENGTH) {
+            setError(`Please keep your review within ${REVIEW_COMMENT_MAX_LENGTH} characters.`);
+            return;
+        }
         try {
             setSubmitting(true);
-            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["submitProductReview"])(productId, rating, comment.trim());
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$reviews$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["submitProductReview"])(productId, rating, trimmedComment);
             setComment("");
             setRating(0);
             setHoverRating(0);
@@ -701,7 +716,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                 "aria-label": "Close review form"
             }, void 0, false, {
                 fileName: "[project]/components/ProductReviewSection.tsx",
-                lineNumber: 182,
+                lineNumber: 205,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -716,12 +731,12 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/components/ProductReviewSection.tsx",
-                            lineNumber: 195,
+                            lineNumber: 218,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 189,
+                        lineNumber: 212,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -731,7 +746,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Customer review"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 199,
+                                lineNumber: 222,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -739,20 +754,20 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Review this product"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 200,
+                                lineNumber: 223,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: "Share your thoughts with other customers."
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 201,
+                                lineNumber: 224,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 198,
+                        lineNumber: 221,
                         columnNumber: 9
                     }, this),
                     loggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -765,7 +780,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                         children: "Your overall rating"
                                     }, void 0, false, {
                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                        lineNumber: 207,
+                                        lineNumber: 230,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -783,26 +798,26 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                                 onLeave: ()=>setHoverRating(0)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 209,
+                                                lineNumber: 232,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: rating ? `${rating} out of 5` : "Select a rating"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 220,
+                                                lineNumber: 243,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                        lineNumber: 208,
+                                        lineNumber: 231,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 206,
+                                lineNumber: 229,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -810,19 +825,53 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Write your review"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 224,
+                                lineNumber: 247,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
                                 id: "ig-review-comment",
                                 value: comment,
-                                onChange: (event)=>setComment(event.target.value),
+                                onChange: (event)=>{
+                                    setComment(event.target.value);
+                                    setError(null);
+                                },
                                 placeholder: "What should other customers know about this product?",
                                 rows: 6,
+                                minLength: REVIEW_COMMENT_MIN_LENGTH,
+                                maxLength: REVIEW_COMMENT_MAX_LENGTH,
+                                "aria-describedby": "ig-review-comment-help",
                                 autoFocus: true
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 225,
+                                lineNumber: 248,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                id: "ig-review-comment-help",
+                                className: `ig-review-character-count${isCommentTooShort || isCommentTooLong ? " is-invalid" : ""}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        children: isCommentTooShort ? `Minimum ${REVIEW_COMMENT_MIN_LENGTH} characters required.` : `${REVIEW_COMMENT_MIN_LENGTH}-${REVIEW_COMMENT_MAX_LENGTH} characters`
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/ProductReviewSection.tsx",
+                                        lineNumber: 266,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        children: [
+                                            commentLength,
+                                            "/",
+                                            REVIEW_COMMENT_MAX_LENGTH
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/components/ProductReviewSection.tsx",
+                                        lineNumber: 271,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/ProductReviewSection.tsx",
+                                lineNumber: 262,
                                 columnNumber: 13
                             }, this),
                             error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -830,23 +879,23 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: error
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 234,
+                                lineNumber: 276,
                                 columnNumber: 22
                             }, this) : null,
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "submit",
                                 className: "eg-btn ig-review-submit",
-                                disabled: submitting,
+                                disabled: !canSubmit,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     children: submitting ? "Submitting..." : "Submit review"
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductReviewSection.tsx",
-                                    lineNumber: 237,
+                                    lineNumber: 279,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 236,
+                                lineNumber: 278,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -854,13 +903,13 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Reviews are published after approval by our team."
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 239,
+                                lineNumber: 281,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 205,
+                        lineNumber: 228,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "ig-review-login",
@@ -869,14 +918,14 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Sign in to write a review"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 245,
+                                lineNumber: 287,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: "You need a customer account before rating this product."
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 246,
+                                lineNumber: 288,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -887,30 +936,30 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                     children: "Login to continue"
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductReviewSection.tsx",
-                                    lineNumber: 248,
+                                    lineNumber: 290,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 247,
+                                lineNumber: 289,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 244,
+                        lineNumber: 286,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductReviewSection.tsx",
-                lineNumber: 188,
+                lineNumber: 211,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/ProductReviewSection.tsx",
-        lineNumber: 181,
+        lineNumber: 204,
         columnNumber: 5
     }, this) : null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -927,14 +976,14 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Ratings and reviews"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 260,
+                                lineNumber: 302,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                 children: "Customer reviews"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 261,
+                                lineNumber: 303,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -944,7 +993,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                         children: total ? average.toFixed(1) : "0.0"
                                     }, void 0, false, {
                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                        lineNumber: 264,
+                                        lineNumber: 306,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -954,26 +1003,26 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                                 large: true
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 266,
+                                                lineNumber: 308,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 children: total ? `${average.toFixed(1)} out of 5` : "No ratings yet"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 267,
+                                                lineNumber: 309,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                        lineNumber: 265,
+                                        lineNumber: 307,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 263,
+                                lineNumber: 305,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -985,7 +1034,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 271,
+                                lineNumber: 313,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1000,7 +1049,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 278,
+                                                lineNumber: 320,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1016,12 +1065,12 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/ProductReviewSection.tsx",
-                                                    lineNumber: 287,
+                                                    lineNumber: 329,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 279,
+                                                lineNumber: 321,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1031,24 +1080,24 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 289,
+                                                lineNumber: 331,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, row.stars, true, {
                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                        lineNumber: 277,
+                                        lineNumber: 319,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 275,
+                                lineNumber: 317,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 259,
+                        lineNumber: 301,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1058,14 +1107,14 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Review this product"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 296,
+                                lineNumber: 338,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: "Share your experience and help other customers make the right choice."
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 297,
+                                lineNumber: 339,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1075,7 +1124,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Write a product review"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 298,
+                                lineNumber: 340,
                                 columnNumber: 11
                             }, this),
                             message ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1083,19 +1132,19 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: message
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 301,
+                                lineNumber: 343,
                                 columnNumber: 22
                             }, this) : null
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 295,
+                        lineNumber: 337,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductReviewSection.tsx",
-                lineNumber: 258,
+                lineNumber: 300,
                 columnNumber: 7
             }, this),
             reviews.length ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1108,7 +1157,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 children: "Recent reviews"
                             }, void 0, false, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 308,
+                                lineNumber: 350,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1119,13 +1168,13 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 309,
+                                lineNumber: 351,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 307,
+                        lineNumber: 349,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1142,7 +1191,7 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                                         children: review.user?.name || "Customer"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                                        lineNumber: 316,
+                                                        lineNumber: 358,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1153,57 +1202,57 @@ function ProductReviewSection({ productId, initialAverage, initialTotal }) {
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                                        lineNumber: 317,
+                                                        lineNumber: 359,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 315,
+                                                lineNumber: 357,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Stars, {
                                                 rating: review.rating
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                                lineNumber: 325,
+                                                lineNumber: 367,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                        lineNumber: 314,
+                                        lineNumber: 356,
                                         columnNumber: 17
                                     }, this),
                                     review.comment ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         children: review.comment
                                     }, void 0, false, {
                                         fileName: "[project]/components/ProductReviewSection.tsx",
-                                        lineNumber: 327,
+                                        lineNumber: 369,
                                         columnNumber: 35
                                     }, this) : null
                                 ]
                             }, review.id, true, {
                                 fileName: "[project]/components/ProductReviewSection.tsx",
-                                lineNumber: 313,
+                                lineNumber: 355,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/ProductReviewSection.tsx",
-                        lineNumber: 311,
+                        lineNumber: 353,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductReviewSection.tsx",
-                lineNumber: 306,
+                lineNumber: 348,
                 columnNumber: 9
             }, this) : null,
             mounted && modal ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createPortal"])(modal, document.body) : null
         ]
     }, void 0, true, {
         fileName: "[project]/components/ProductReviewSection.tsx",
-        lineNumber: 257,
+        lineNumber: 299,
         columnNumber: 5
     }, this);
 }

@@ -7,6 +7,9 @@ import { openAuthModal } from "@/lib/auth-modal";
 import { getCustomerToken } from "@/lib/cart";
 import { getProductReviews, ProductReview, submitProductReview } from "@/lib/reviews";
 
+const REVIEW_COMMENT_MIN_LENGTH = 10;
+const REVIEW_COMMENT_MAX_LENGTH = 191;
+
 function StarIcon({ filled }: { filled: boolean }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -136,6 +139,16 @@ export default function ProductReviewSection({
     });
   }, [reviews, total]);
 
+  const trimmedComment = comment.trim();
+  const commentLength = comment.length;
+  const isCommentTooShort = trimmedComment.length > 0 && trimmedComment.length < REVIEW_COMMENT_MIN_LENGTH;
+  const isCommentTooLong = commentLength > REVIEW_COMMENT_MAX_LENGTH;
+  const canSubmit =
+    rating >= 1 &&
+    trimmedComment.length >= REVIEW_COMMENT_MIN_LENGTH &&
+    commentLength <= REVIEW_COMMENT_MAX_LENGTH &&
+    !submitting;
+
   const openReviewModal = () => {
     setError(null);
     setModalOpen(true);
@@ -160,9 +173,19 @@ export default function ProductReviewSection({
       return;
     }
 
+    if (trimmedComment.length < REVIEW_COMMENT_MIN_LENGTH) {
+      setError(`Please write at least ${REVIEW_COMMENT_MIN_LENGTH} characters for your review.`);
+      return;
+    }
+
+    if (comment.length > REVIEW_COMMENT_MAX_LENGTH) {
+      setError(`Please keep your review within ${REVIEW_COMMENT_MAX_LENGTH} characters.`);
+      return;
+    }
+
     try {
       setSubmitting(true);
-      await submitProductReview(productId, rating, comment.trim());
+      await submitProductReview(productId, rating, trimmedComment);
       setComment("");
       setRating(0);
       setHoverRating(0);
@@ -225,15 +248,34 @@ export default function ProductReviewSection({
             <textarea
               id="ig-review-comment"
               value={comment}
-              onChange={(event) => setComment(event.target.value)}
+              onChange={(event) => {
+                setComment(event.target.value);
+                setError(null);
+              }}
               placeholder="What should other customers know about this product?"
               rows={6}
+              minLength={REVIEW_COMMENT_MIN_LENGTH}
+              maxLength={REVIEW_COMMENT_MAX_LENGTH}
+              aria-describedby="ig-review-comment-help"
               autoFocus
             />
+            <div
+              id="ig-review-comment-help"
+              className={`ig-review-character-count${isCommentTooShort || isCommentTooLong ? " is-invalid" : ""}`}
+            >
+              <span>
+                {isCommentTooShort
+                  ? `Minimum ${REVIEW_COMMENT_MIN_LENGTH} characters required.`
+                  : `${REVIEW_COMMENT_MIN_LENGTH}-${REVIEW_COMMENT_MAX_LENGTH} characters`}
+              </span>
+              <span>
+                {commentLength}/{REVIEW_COMMENT_MAX_LENGTH}
+              </span>
+            </div>
 
             {error ? <p className="ig-review-message error">{error}</p> : null}
 
-            <button type="submit" className="eg-btn ig-review-submit" disabled={submitting}>
+            <button type="submit" className="eg-btn ig-review-submit" disabled={!canSubmit}>
               <span>{submitting ? "Submitting..." : "Submit review"}</span>
             </button>
             <p className="ig-review-moderation-note">
