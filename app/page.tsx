@@ -10,7 +10,7 @@ import { getLatestReviews } from "@/lib/reviews";
 export default async function HomePage() {
   const [products, latestReviews, homepageSections] = await Promise.all([
     getProducts(),
-    getLatestReviews(4),
+    getLatestReviews(),
     getHomepageSections(),
   ]);
   const trendingProducts = products.filter((product) => product.isTrending);

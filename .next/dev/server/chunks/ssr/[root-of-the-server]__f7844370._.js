@@ -423,9 +423,10 @@ async function submitProductReview(productId, rating, comment) {
     if (!res.ok) throw new Error(data.message || "Unable to submit review");
     return data;
 }
-async function getLatestReviews(limit = 4) {
+async function getLatestReviews(limit) {
     try {
-        const res = await fetch(`${API_URL}/reviews/latest?limit=${limit}`, {
+        const query = typeof limit === "number" ? `?limit=${limit}` : "";
+        const res = await fetch(`${API_URL}/reviews/latest${query}`, {
             next: {
                 revalidate: 30
             }
@@ -464,7 +465,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$reviews$2e$ts__$5b$ap
 async function HomePage() {
     const [products, latestReviews, homepageSections] = await Promise.all([
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getProducts"])(),
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$reviews$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getLatestReviews"])(4),
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$reviews$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getLatestReviews"])(),
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$homepage$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getHomepageSections"])()
     ]);
     const trendingProducts = products.filter((product)=>product.isTrending);

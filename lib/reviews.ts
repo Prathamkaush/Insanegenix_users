@@ -46,9 +46,10 @@ export async function submitProductReview(productId: number, rating: number, com
   return data;
 }
 
-export async function getLatestReviews(limit = 4): Promise<ProductReview[]> {
+export async function getLatestReviews(limit?: number): Promise<ProductReview[]> {
   try {
-    const res = await fetch(`${API_URL}/reviews/latest?limit=${limit}`, { next: { revalidate: 30 } });
+    const query = typeof limit === "number" ? `?limit=${limit}` : "";
+    const res = await fetch(`${API_URL}/reviews/latest${query}`, { next: { revalidate: 30 } });
     if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? data : [];
