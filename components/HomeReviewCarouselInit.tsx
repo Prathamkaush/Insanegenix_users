@@ -26,13 +26,27 @@ export default function HomeReviewCarouselInit({ count }: { count: number }) {
         (carousel as any).swiper.destroy(true, true);
       }
 
+      const desktopQuery = window.matchMedia("(min-width: 768px)");
+      const visibleSlides = desktopQuery.matches ? 2 : 1;
+      const canLoop = count > visibleSlides + 1;
+      const canAutoplay = count > visibleSlides;
+
       swiper = new Swiper(carousel, {
         slidesPerView: 1,
         spaceBetween: 18,
-        speed: 500,
-        loop: false,
+        speed: 650,
+        loop: canLoop,
+        rewind: !canLoop,
         allowTouchMove: true,
         simulateTouch: true,
+        touchStartPreventDefault: false,
+        autoplay: canAutoplay
+          ? {
+              delay: 5000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }
+          : false,
         navigation: {
           nextEl: ".eg-testimonial-2__next",
           prevEl: ".eg-testimonial-2__prev",
