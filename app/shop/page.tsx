@@ -152,8 +152,8 @@ export default async function ShopPage({
                   )}
                   <select name="sort" defaultValue={String(filters.sort || "newest")}>
                     <option value="newest">Newest first</option>
-                    <option value="low_to_high">Price: high to low</option>
-                    <option value="high_to_low">Price: low to high</option>
+                    <option value="low_to_high">Price: low to high</option>
+                    <option value="high_to_low">Price: high to low</option>
                     <option value="oldest">Oldest first</option>
                   </select>
                   <button type="submit">Sort</button>

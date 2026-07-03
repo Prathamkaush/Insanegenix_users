@@ -161,18 +161,40 @@
 .order-amount {
   display: flex;
   flex-direction: column;
+  gap: 0.45rem;
+  min-width: 260px;
+}
+
+.order-amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.order-amount-row.total {
+  margin-top: 0.15rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .order-amount .label {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.62);
-  margin-bottom: 0.25rem;
+}
+
+.order-amount .amount-secondary {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.95rem;
+  font-weight: 650;
+  text-align: right;
 }
 
 .order-amount .amount {
   font-size: 1.3rem;
   font-weight: 700;
   color: #ff1744;
+  text-align: right;
 }
 
 .chevron-icon {
@@ -270,7 +292,8 @@
 
   .order-info h3,
   .order-date,
-  .order-amount .amount {
+  .order-amount .amount,
+  .order-amount .amount-secondary {
     overflow-wrap: anywhere;
   }
 

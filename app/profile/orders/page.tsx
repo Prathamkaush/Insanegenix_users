@@ -2,9 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Package, ChevronRight, Loader2 } from "lucide-react";
+import { Package, ChevronRight } from "lucide-react";
 import { getOrders, Order } from "@/lib/profile";
 import "./orders.css";
+
+function money(value?: number | null) {
+  return Number(value || 0).toLocaleString("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+function getOrderPricing(order: Order) {
+  return {
+    totalPrice: order.pricing?.itemsSubtotal ?? order.totalAmount,
+    gst: order.pricing?.gst ?? order.totalGst,
+    totalAmount: order.pricing?.payable ?? order.finalAmount ?? order.totalAmount,
+  };
+}
 
 export default function OrdersPage() {
   const router = useRouter();
@@ -66,42 +83,56 @@ export default function OrdersPage() {
       ) : (
         <>
           <div className="orders-list">
-            {orders.map((order) => (
-              <div
-                key={order.id}
-                className="order-card"
-                onClick={() => router.push(`/profile/orders/${order.id}`)}
-              >
-                <div className="order-header">
-                  <div className="order-info">
-                    <h3>Order #{order.id}</h3>
-                    <p className="order-date">
-                      {new Date(order.createdAt).toLocaleDateString("en-IN", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
+            {orders.map((order) => {
+              const pricing = getOrderPricing(order);
+
+              return (
+                <div
+                  key={order.id}
+                  className="order-card"
+                  onClick={() => router.push(`/profile/orders/${order.id}`)}
+                >
+                  <div className="order-header">
+                    <div className="order-info">
+                      <h3>Order #{order.id}</h3>
+                      <p className="order-date">
+                        {new Date(order.createdAt).toLocaleDateString("en-IN", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+
+                    <div className={`order-status ${getStatusColor(order.status)}`}>
+                      {order.status}
+                    </div>
                   </div>
 
-                  <div className={`order-status ${getStatusColor(order.status)}`}>
-                    {order.status}
+                  <div className="order-items-preview">
+                    <span className="items-count">{order.items?.length || 0} item(s)</span>
+                  </div>
+
+                  <div className="order-footer">
+                    <div className="order-amount">
+                      <div className="order-amount-row">
+                        <span className="label">Total Price</span>
+                        <span className="amount-secondary">{money(pricing.totalPrice)}</span>
+                      </div>
+                      <div className="order-amount-row">
+                        <span className="label">GST</span>
+                        <span className="amount-secondary">{money(pricing.gst)}</span>
+                      </div>
+                      <div className="order-amount-row total">
+                        <span className="label">Total Amount</span>
+                        <span className="amount">{money(pricing.totalAmount)}</span>
+                      </div>
+                    </div>
+                    <ChevronRight size={20} className="chevron-icon" />
                   </div>
                 </div>
-
-                <div className="order-items-preview">
-                  <span className="items-count">{order.items?.length || 0} item(s)</span>
-                </div>
-
-                <div className="order-footer">
-                  <div className="order-amount">
-                    <span className="label">Total Amount</span>
-                    <span className="amount">₹{order.totalAmount.toFixed(2)}</span>
-                  </div>
-                  <ChevronRight size={20} className="chevron-icon" />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {totalPages > 1 && (

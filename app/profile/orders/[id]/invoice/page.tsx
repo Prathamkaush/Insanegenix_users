@@ -92,7 +92,7 @@ export default function CustomerInvoicePage() {
     return (
       <div className="invoice-error">
         <p>Error: {error || "Order not found"}</p>
-        <button onClick={() => router.back()}>Go Back</button>
+        
         <style jsx>{`
           .invoice-error {
             min-height: 80vh;
@@ -134,9 +134,7 @@ export default function CustomerInvoicePage() {
     <div className="invoice-outer-wrapper">
       {/* Top action bar visible ONLY on screen, hidden during printing */}
       <div className="invoice-action-bar no-print">
-        <button className="btn-back" onClick={() => router.back()}>
-          <ArrowLeft size={16} /> Back
-        </button>
+        
         <button className="btn-print" onClick={() => window.print()}>
           <Printer size={16} /> Print Invoice
         </button>
