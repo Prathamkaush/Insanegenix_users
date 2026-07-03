@@ -19,6 +19,7 @@ function getOrderPricing(order: Order) {
   return {
     totalPrice: order.pricing?.itemsSubtotal ?? order.totalAmount,
     gst: order.pricing?.gst ?? order.totalGst,
+    shipping: order.pricing?.shipping ?? order.shippingCharge,
     totalAmount: order.pricing?.payable ?? order.finalAmount ?? order.totalAmount,
   };
 }
@@ -122,6 +123,12 @@ export default function OrdersPage() {
                       <div className="order-amount-row">
                         <span className="label">GST</span>
                         <span className="amount-secondary">{money(pricing.gst)}</span>
+                      </div>
+                      <div className="order-amount-row">
+                        <span className="label">Shipping</span>
+                        <span className="amount-secondary">
+                          {pricing.shipping === 0 ? "Free" : money(pricing.shipping)}
+                        </span>
                       </div>
                       <div className="order-amount-row total">
                         <span className="label">Total Amount</span>
