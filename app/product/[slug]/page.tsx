@@ -284,12 +284,36 @@ function productSpecs(product: Product, variant?: ProductVariant) {
 
   const backendFacts = product.nutritionFacts?.map((fact) => ({
     label: fact.name,
-    value: `${fact.amount}${fact.unit || ""}${fact.per ? ` / ${fact.per}` : ""}`,
+    value: formatNutritionFact(fact),
   })) || [];
 
   return [...specs, ...backendFacts].filter((item, index, list) => (
     item.value !== "-" || index < 4 || !list.some((other, otherIndex) => otherIndex < index && other.label === item.label)
   ));
+}
+
+function formatNutritionFact(fact: {
+  amount: string | number;
+  unit?: string | null;
+  per?: string | null;
+}) {
+  const amount = `${fact.amount}${fact.unit || ""}`;
+  const metaPrefix = "nutrition-label:";
+
+  if (!fact.per?.startsWith(metaPrefix)) {
+    return `${amount}${fact.per ? ` / ${fact.per}` : ""}`;
+  }
+
+  const params = new URLSearchParams(fact.per.slice(metaPrefix.length));
+  const serving = params.get("serving") || "serving";
+  const per100g = params.get("per100g");
+  const rda = params.get("rda");
+  const parts = [`Serving: ${amount}`];
+
+  if (per100g) parts.push(`100g: ${per100g}${fact.unit || ""}`);
+  if (rda) parts.push(`RDA: ${rda}%`);
+
+  return `${parts.join(" | ")} / ${serving}`;
 }
 
 function InfoPill({ label, value }: { label: string; value: string | number }) {
