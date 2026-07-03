@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type PointerEvent } from "react";
 
 type GalleryMedia = {
   type: "image" | "video";
   src: string;
+};
+
+type ZoomPosition = {
+  active: boolean;
+  x: number;
+  y: number;
 };
 
 export default function ProductGallery({
@@ -23,6 +29,11 @@ export default function ProductGallery({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [selectedVariantId, setSelectedVariantId] = useState<number | undefined>();
+  const [zoomPosition, setZoomPosition] = useState<ZoomPosition>({
+    active: false,
+    x: 50,
+    y: 50,
+  });
   const selectedMedia = selectedVariantId ? variantMedia?.[selectedVariantId] : undefined;
   const visibleImages = selectedMedia?.images?.length ? selectedMedia.images : images;
   const visibleVideo = selectedMedia?.video || video;
@@ -32,6 +43,9 @@ export default function ProductGallery({
   ];
   const activeMedia = media[activeIndex] || media[0];
   const hasMultipleItems = media.length > 1;
+  const canZoom = activeMedia?.type === "image" && Boolean(activeMedia.src);
+  const zoomBackgroundPosition = `${zoomPosition.x}% ${zoomPosition.y}%`;
+  const zoomImageUrl = activeMedia?.src ? `url("${activeMedia.src}")` : undefined;
 
   const showPrevious = () => {
     setActiveIndex((current) => (current - 1 + media.length) % media.length);
@@ -39,6 +53,26 @@ export default function ProductGallery({
 
   const showNext = () => {
     setActiveIndex((current) => (current + 1) % media.length);
+  };
+
+  const updateZoomPosition = (event: PointerEvent<HTMLDivElement>) => {
+    if (!canZoom) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = Math.min(Math.max(((event.clientX - rect.left) / rect.width) * 100, 0), 100);
+    const y = Math.min(Math.max(((event.clientY - rect.top) / rect.height) * 100, 0), 100);
+
+    setZoomPosition({ active: true, x, y });
+  };
+
+  const startZoom = (event: PointerEvent<HTMLDivElement>) => {
+    if (!canZoom) return;
+    setIsPaused(true);
+    updateZoomPosition(event);
+  };
+
+  const stopZoom = () => {
+    setZoomPosition((current) => ({ ...current, active: false }));
   };
 
   useEffect(() => {
@@ -57,6 +91,10 @@ export default function ProductGallery({
   useEffect(() => {
     if (activeIndex >= media.length) setActiveIndex(0);
   }, [activeIndex, media.length]);
+
+  useEffect(() => {
+    stopZoom();
+  }, [activeMedia?.src, activeMedia?.type]);
 
   useEffect(() => {
     const handleVariantChange = (event: Event) => {
@@ -80,12 +118,39 @@ export default function ProductGallery({
         if (!event.currentTarget.contains(event.relatedTarget)) setIsPaused(false);
       }}
     >
-      <div className="eg-product-details__thumb-content w-img ig-product-gallery__main">
+      <div
+        className={`eg-product-details__thumb-content w-img ig-product-gallery__main ${
+          canZoom ? "ig-product-gallery__main--zoomable" : ""
+        }`}
+        onPointerEnter={startZoom}
+        onPointerDown={startZoom}
+        onPointerMove={updateZoomPosition}
+        onPointerLeave={stopZoom}
+        onPointerUp={stopZoom}
+        onPointerCancel={stopZoom}
+      >
         {activeMedia?.type === "video" ? (
           <video key={activeMedia.src} src={activeMedia.src} controls playsInline />
         ) : (
           <img key={activeMedia?.src} src={activeMedia?.src} alt={`${title} view ${activeIndex + 1}`} />
         )}
+        {canZoom && zoomPosition.active ? (
+          <>
+            <span
+              className="ig-product-gallery__zoom-lens"
+              style={{ left: `${zoomPosition.x}%`, top: `${zoomPosition.y}%` }}
+              aria-hidden="true"
+            />
+            <div
+              className="ig-product-gallery__zoom-pane"
+              style={{
+                backgroundImage: zoomImageUrl,
+                backgroundPosition: zoomBackgroundPosition,
+              }}
+              aria-hidden="true"
+            />
+          </>
+        ) : null}
       </div>
 
       {hasMultipleItems ? (

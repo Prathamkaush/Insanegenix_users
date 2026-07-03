@@ -118,13 +118,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
 
                 <ProductVariantPurchase product={product} defaultVariantId={defaultVariant?.id} />
 
-                <div className="eg-product-details__bottom mb-30">
-                  <DetailLine label="SKU" value={defaultVariant?.sku || product.slug.toUpperCase()} />
-                  <DetailLine label="Category" value={<Link href="/shop">{category}</Link>} />
-                  <DetailLine label="Type" value={product.proteinType || product.productLine || "Performance Supplement"} />
-                  {product.fssaiLicense ? <DetailLine label="FSSAI" value={product.fssaiLicense} /> : null}
-                </div>
-
+                
                 <div className="eg-product-details__socials d-flex align-items-center">
                   <h4 className="eg-product-details__socials-title">Share with friends</h4>
                   <a href="https://twitter.com/" aria-label="Share on Twitter"><i className="fab fa-twitter" /></a>
@@ -180,7 +174,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
                       </div>
                     ) : null}
                     <div className="ig-origin-list mt-20">
-                      {product.countryOfOrigin ? <DetailLine label="Origin" value={product.countryOfOrigin} /> : null}
+                      
                       {product.manufacturedBy ? <DetailLine label="MFG" value={product.manufacturedBy} /> : null}
                       {product.marketedBy ? <DetailLine label="Marketed By" value={product.marketedBy} /> : null}
                     </div>

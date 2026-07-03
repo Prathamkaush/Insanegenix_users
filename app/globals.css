@@ -1912,6 +1912,10 @@ a {
   --ig-product-detail-radius-sm: 10px;
 }
 
+.ig-product-gallery {
+  position: relative;
+}
+
 .ig-product-gallery__main {
   position: relative;
   min-height: 560px;
@@ -1925,6 +1929,12 @@ a {
   border-radius: var(--ig-product-detail-radius);
 }
 
+.ig-product-gallery__main--zoomable {
+  cursor: zoom-in;
+  overflow: visible;
+  touch-action: none;
+}
+
 .ig-product-gallery__main img,
 .ig-product-gallery__main video {
   width: 100%;
@@ -1932,6 +1942,36 @@ a {
   object-fit: contain;
   transition: opacity 0.22s ease, transform 0.22s ease;
   animation: ig-product-gallery-fade 0.42s ease;
+}
+
+.ig-product-gallery__zoom-lens {
+  position: absolute;
+  z-index: 5;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  transform: translate(-50%, -50%);
+}
+
+.ig-product-gallery__zoom-pane {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: calc(100% + 18px);
+  width: min(520px, 44vw);
+  height: 100%;
+  min-height: 420px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--ig-product-detail-radius);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 220%;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
 }
 
 .ig-product-gallery__thumbs-wrap {
@@ -2031,6 +2071,35 @@ a {
   }
 }
 
+@media (max-width: 1199px) {
+  .ig-product-gallery__zoom-pane {
+    top: 18px;
+    right: 18px;
+    left: auto;
+    width: min(360px, 48%);
+    height: min(360px, calc(100% - 36px));
+    min-height: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .ig-product-gallery__main--zoomable {
+    overflow: hidden;
+  }
+
+  .ig-product-gallery__zoom-lens {
+    width: 110px;
+    height: 110px;
+  }
+
+  .ig-product-gallery__zoom-pane {
+    inset: auto 14px 14px 14px;
+    width: auto;
+    height: 42%;
+    background-size: 260%;
+  }
+}
+
 .eg-product-details__thumb-nav .nav-tabs .nav-link {
   background: #151918;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -2057,7 +2126,7 @@ a {
 
 .ig-product-kicker {
   color: var(--eg-theme-primary);
-  font-size: 13px;
+  font-size: 25px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;

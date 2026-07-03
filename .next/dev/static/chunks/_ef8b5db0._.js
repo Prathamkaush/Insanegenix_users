@@ -206,6 +206,11 @@ function ProductGallery({ images, video, title, productId, variantMedia }) {
     const [activeIndex, setActiveIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [isPaused, setIsPaused] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [selectedVariantId, setSelectedVariantId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])();
+    const [zoomPosition, setZoomPosition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        active: false,
+        x: 50,
+        y: 50
+    });
     const selectedMedia = selectedVariantId ? variantMedia?.[selectedVariantId] : undefined;
     const visibleImages = selectedMedia?.images?.length ? selectedMedia.images : images;
     const visibleVideo = selectedMedia?.video || video;
@@ -223,11 +228,36 @@ function ProductGallery({ images, video, title, productId, variantMedia }) {
     ];
     const activeMedia = media[activeIndex] || media[0];
     const hasMultipleItems = media.length > 1;
+    const canZoom = activeMedia?.type === "image" && Boolean(activeMedia.src);
+    const zoomBackgroundPosition = `${zoomPosition.x}% ${zoomPosition.y}%`;
+    const zoomImageUrl = activeMedia?.src ? `url("${activeMedia.src}")` : undefined;
     const showPrevious = ()=>{
         setActiveIndex((current)=>(current - 1 + media.length) % media.length);
     };
     const showNext = ()=>{
         setActiveIndex((current)=>(current + 1) % media.length);
+    };
+    const updateZoomPosition = (event)=>{
+        if (!canZoom) return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = Math.min(Math.max((event.clientX - rect.left) / rect.width * 100, 0), 100);
+        const y = Math.min(Math.max((event.clientY - rect.top) / rect.height * 100, 0), 100);
+        setZoomPosition({
+            active: true,
+            x,
+            y
+        });
+    };
+    const startZoom = (event)=>{
+        if (!canZoom) return;
+        setIsPaused(true);
+        updateZoomPosition(event);
+    };
+    const stopZoom = ()=>{
+        setZoomPosition((current)=>({
+                ...current,
+                active: false
+            }));
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ProductGallery.useEffect": ()=>{
@@ -260,6 +290,14 @@ function ProductGallery({ images, video, title, productId, variantMedia }) {
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ProductGallery.useEffect": ()=>{
+            stopZoom();
+        }
+    }["ProductGallery.useEffect"], [
+        activeMedia?.src,
+        activeMedia?.type
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ProductGallery.useEffect": ()=>{
             const handleVariantChange = {
                 "ProductGallery.useEffect.handleVariantChange": (event)=>{
                     const detail = event.detail;
@@ -286,26 +324,62 @@ function ProductGallery({ images, video, title, productId, variantMedia }) {
         },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "eg-product-details__thumb-content w-img ig-product-gallery__main",
-                children: activeMedia?.type === "video" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
-                    src: activeMedia.src,
-                    controls: true,
-                    playsInline: true
-                }, activeMedia.src, false, {
-                    fileName: "[project]/components/ProductGallery.tsx",
-                    lineNumber: 85,
-                    columnNumber: 11
-                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                    src: activeMedia?.src,
-                    alt: `${title} view ${activeIndex + 1}`
-                }, activeMedia?.src, false, {
-                    fileName: "[project]/components/ProductGallery.tsx",
-                    lineNumber: 87,
-                    columnNumber: 11
-                }, this)
-            }, void 0, false, {
+                className: `eg-product-details__thumb-content w-img ig-product-gallery__main ${canZoom ? "ig-product-gallery__main--zoomable" : ""}`,
+                onPointerEnter: startZoom,
+                onPointerDown: startZoom,
+                onPointerMove: updateZoomPosition,
+                onPointerLeave: stopZoom,
+                onPointerUp: stopZoom,
+                onPointerCancel: stopZoom,
+                children: [
+                    activeMedia?.type === "video" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                        src: activeMedia.src,
+                        controls: true,
+                        playsInline: true
+                    }, activeMedia.src, false, {
+                        fileName: "[project]/components/ProductGallery.tsx",
+                        lineNumber: 133,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                        src: activeMedia?.src,
+                        alt: `${title} view ${activeIndex + 1}`
+                    }, activeMedia?.src, false, {
+                        fileName: "[project]/components/ProductGallery.tsx",
+                        lineNumber: 135,
+                        columnNumber: 11
+                    }, this),
+                    canZoom && zoomPosition.active ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "ig-product-gallery__zoom-lens",
+                                style: {
+                                    left: `${zoomPosition.x}%`,
+                                    top: `${zoomPosition.y}%`
+                                },
+                                "aria-hidden": "true"
+                            }, void 0, false, {
+                                fileName: "[project]/components/ProductGallery.tsx",
+                                lineNumber: 139,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "ig-product-gallery__zoom-pane",
+                                style: {
+                                    backgroundImage: zoomImageUrl,
+                                    backgroundPosition: zoomBackgroundPosition
+                                },
+                                "aria-hidden": "true"
+                            }, void 0, false, {
+                                fileName: "[project]/components/ProductGallery.tsx",
+                                lineNumber: 144,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true) : null
+                ]
+            }, void 0, true, {
                 fileName: "[project]/components/ProductGallery.tsx",
-                lineNumber: 83,
+                lineNumber: 121,
                 columnNumber: 7
             }, this),
             hasMultipleItems ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -321,12 +395,12 @@ function ProductGallery({ images, video, title, productId, variantMedia }) {
                             "aria-hidden": "true"
                         }, void 0, false, {
                             fileName: "[project]/components/ProductGallery.tsx",
-                            lineNumber: 99,
+                            lineNumber: 164,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 93,
+                        lineNumber: 158,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -346,24 +420,24 @@ function ProductGallery({ images, video, title, productId, variantMedia }) {
                                     playsInline: true
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 113,
+                                    lineNumber: 178,
                                     columnNumber: 19
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                     src: item.src,
                                     alt: `${title} thumbnail ${index + 1}`
                                 }, void 0, false, {
                                     fileName: "[project]/components/ProductGallery.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 180,
                                     columnNumber: 19
                                 }, this)
                             }, `${item.type}-${item.src}`, false, {
                                 fileName: "[project]/components/ProductGallery.tsx",
-                                lineNumber: 103,
+                                lineNumber: 168,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 101,
+                        lineNumber: 166,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -376,28 +450,28 @@ function ProductGallery({ images, video, title, productId, variantMedia }) {
                             "aria-hidden": "true"
                         }, void 0, false, {
                             fileName: "[project]/components/ProductGallery.tsx",
-                            lineNumber: 126,
+                            lineNumber: 191,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/ProductGallery.tsx",
-                        lineNumber: 120,
+                        lineNumber: 185,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ProductGallery.tsx",
-                lineNumber: 92,
+                lineNumber: 157,
                 columnNumber: 9
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/components/ProductGallery.tsx",
-        lineNumber: 74,
+        lineNumber: 112,
         columnNumber: 5
     }, this);
 }
-_s(ProductGallery, "rTq3vVUE/jN75vNhlVoK8YfpTnU=");
+_s(ProductGallery, "XZMC8iqNcZifVvwqufZD9Cnugac=");
 _c = ProductGallery;
 var _c;
 __turbopack_context__.k.register(_c, "ProductGallery");
@@ -450,9 +524,10 @@ async function submitProductReview(productId, rating, comment) {
     if (!res.ok) throw new Error(data.message || "Unable to submit review");
     return data;
 }
-async function getLatestReviews(limit = 4) {
+async function getLatestReviews(limit) {
     try {
-        const res = await fetch(`${API_URL}/reviews/latest?limit=${limit}`, {
+        const query = typeof limit === "number" ? `?limit=${limit}` : "";
+        const res = await fetch(`${API_URL}/reviews/latest${query}`, {
             next: {
                 revalidate: 30
             }
