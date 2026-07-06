@@ -1,7 +1,15 @@
+import { clearCacheByPrefix, getCached } from "@/lib/cache";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3030";
+const PROFILE_CACHE_TTL = 2 * 60 * 1000;
+const ORDERS_CACHE_TTL = 30 * 1000;
+
+function getAuthToken() {
+  return localStorage.getItem("token") || "";
+}
 
 function getAuthHeaders(): HeadersInit {
-  const token = localStorage.getItem("token");
+  const token = getAuthToken();
   return {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
@@ -9,7 +17,7 @@ function getAuthHeaders(): HeadersInit {
 }
 
 function getAuthOnlyHeaders(): HeadersInit {
-  const token = localStorage.getItem("token");
+  const token = getAuthToken();
   return {
     Authorization: `Bearer ${token}`,
   };
@@ -23,16 +31,20 @@ export function profileImageUrl(image?: string | null) {
 
 // ================= USER PROFILE =================
 export async function getUserProfile() {
-  const res = await fetch(`${API_URL}/users/profile`, {
-    headers: getAuthHeaders(),
+  const token = getAuthToken();
+
+  return getCached(`profile:${token}`, PROFILE_CACHE_TTL, async () => {
+    const res = await fetch(`${API_URL}/users/profile`, {
+      headers: getAuthHeaders(),
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.message || "Failed to fetch profile");
+    }
+
+    return res.json();
   });
-
-  if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.message || "Failed to fetch profile");
-  }
-
-  return res.json();
 }
 
 export interface UpdateUserProfileInput {
@@ -60,6 +72,7 @@ export async function updateUserProfile(data: UpdateUserProfileInput) {
     throw new Error(error.message || "Failed to update profile");
   }
 
+  clearCacheByPrefix(`profile:${getAuthToken()}`);
   return res.json();
 }
 
@@ -247,40 +260,48 @@ function normalizeOrdersResponse(data: any) {
 }
 
 export async function getOrders(page: number = 1, limit: number = 10) {
-  const res = await fetch(
-    `${API_URL}/orders/my?page=${page}&limit=${limit}`,
-    {
-      headers: getAuthHeaders(),
+  const token = getAuthToken();
+
+  return getCached(`orders:${token}:${page}:${limit}`, ORDERS_CACHE_TTL, async () => {
+    const res = await fetch(
+      `${API_URL}/orders/my?page=${page}&limit=${limit}`,
+      {
+        headers: getAuthHeaders(),
+      }
+    );
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.message || "Failed to fetch orders");
     }
-  );
 
-  if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.message || "Failed to fetch orders");
-  }
-
-  const data = await res.json();
-  return normalizeOrdersResponse(data);
+    const data = await res.json();
+    return normalizeOrdersResponse(data);
+  });
 }
 
 export async function getOrderById(id: number) {
-  const res = await fetch(`${API_URL}/orders/my/${id}`, {
-    headers: getAuthHeaders(),
+  const token = getAuthToken();
+
+  return getCached(`order:${token}:${id}`, ORDERS_CACHE_TTL, async () => {
+    const res = await fetch(`${API_URL}/orders/my/${id}`, {
+      headers: getAuthHeaders(),
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.message || "Failed to fetch order");
+    }
+
+    const data = await res.json();
+
+    if (data?.order) {
+      return {
+        ...data,
+        order: normalizeOrder(data.order),
+      };
+    }
+
+    return normalizeOrder(data);
   });
-
-  if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.message || "Failed to fetch order");
-  }
-
-  const data = await res.json();
-
-  if (data?.order) {
-    return {
-      ...data,
-      order: normalizeOrder(data.order),
-    };
-  }
-
-  return normalizeOrder(data);
 }

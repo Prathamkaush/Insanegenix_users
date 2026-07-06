@@ -101,10 +101,6 @@ export default function Footer({
                     <h4 className="fw-title">Need Help?</h4>
                     <div className="eg-footer-2__contact">
                       <ul>
-                        <li className="phone">
-                          <span className="icon"><i className="fal fa-phone-alt"></i></span>
-                          <a href={phoneHref(settings.supportPhone)}>{settings.supportPhone}</a>
-                        </li>
                         <li className="mail">
                           <span className="icon"><i className="fal fa-envelope"></i></span>
                           <a href={`mailto:${settings.supportEmail}`}>{settings.supportEmail}</a>

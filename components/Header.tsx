@@ -403,7 +403,7 @@ export default function Header() {
                     <p>Engineered for strength, comfort, and high-performance training.</p>
                   </div>
                   <div className="eg-header__offCanvas-contact mb-25">
-                    <a className="number" href="tel:0203701425">020 370 1425</a>
+
                     <a className="email" href="mailto:info@insanegenix.com">info@insanegenix.com</a>
                   </div>
                   <div className="eg-header__offCanvas-social">

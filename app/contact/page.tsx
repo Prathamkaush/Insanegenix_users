@@ -83,12 +83,6 @@ export default function ContactPage() {
                   <a href={`mailto:${settings.supportEmail}`}>{settings.supportEmail}</a>
                 </div>
 
-                <div className="ig-contact-info-card">
-                  <Phone size={30} />
-                  <h2>Contact Us</h2>
-                  <a href={phoneHref(settings.supportPhone)}>{settings.supportPhone}</a>
-                </div>
-
                 {settings.address ? (
                   <div className="ig-contact-info-card">
                     <MapPin size={30} />

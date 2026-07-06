@@ -1,3 +1,5 @@
+import { getCached } from "@/lib/cache";
+
 export type ProductVariant = {
   id?: number;
   sku?: string | null;
@@ -89,6 +91,7 @@ export type Product = {
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3030";
+const PRODUCT_CACHE_TTL = 60 * 1000;
 
 const bundledProductImages = new Set([
   "Creatine.png",
@@ -142,31 +145,37 @@ export async function getProductCatalog(params?: ProductCatalogParams): Promise<
   });
   if (!searchParams.has("limit")) searchParams.set("limit", "9");
 
-  const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
-    cache: "no-store",
+  const cacheKey = `product-catalog:${searchParams.toString()}`;
+
+  return getCached(cacheKey, PRODUCT_CACHE_TTL, async () => {
+    const res = await fetch(`${API_URL}/products?${searchParams.toString()}`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) {
+      throw new Error(`Products API returned ${res.status}`);
+    }
+    const data = await res.json();
+    const products = Array.isArray(data)
+      ? data
+      : data.products || data.data?.products || data.data;
+    return {
+      products: Array.isArray(products) ? products : [],
+      total: Number(data.total ?? products?.length ?? 0),
+      page: Number(data.page || 1),
+      pages: Number(data.pages || 1),
+      availableTags: Array.isArray(data.availableTags) ? data.availableTags : [],
+    };
   });
-  if (!res.ok) {
-    throw new Error(`Products API returned ${res.status}`);
-  }
-  const data = await res.json();
-  const products = Array.isArray(data)
-    ? data
-    : data.products || data.data?.products || data.data;
-  return {
-    products: Array.isArray(products) ? products : [],
-    total: Number(data.total ?? products?.length ?? 0),
-    page: Number(data.page || 1),
-    pages: Number(data.pages || 1),
-    availableTags: Array.isArray(data.availableTags) ? data.availableTags : [],
-  };
 }
 
 export async function getProductCategories(): Promise<ProductCategory[]> {
   try {
-    const res = await fetch(`${API_URL}/categories`, { next: { revalidate: 60 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
+    return getCached("product-categories", PRODUCT_CACHE_TTL, async () => {
+      const res = await fetch(`${API_URL}/categories`, { next: { revalidate: 60 } });
+      if (!res.ok) return [];
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    });
   } catch {
     return [];
   }
@@ -174,11 +183,15 @@ export async function getProductCategories(): Promise<ProductCategory[]> {
 
 export async function getProduct(slug: string): Promise<Product | null> {
   try {
-    const res = await fetch(`${API_URL}/products/${encodeURIComponent(slug)}`, { next: { revalidate: 30 } });
-    if (res.ok) {
-      const data = await res.json();
-      return data.product || data;
-    }
+    return getCached(`product:${slug}`, PRODUCT_CACHE_TTL, async () => {
+      const res = await fetch(`${API_URL}/products/${encodeURIComponent(slug)}`, { next: { revalidate: 60 } });
+      if (res.ok) {
+        const data = await res.json();
+        return data.product || data;
+      }
+
+      return null;
+    });
   } catch (error) {
     console.error(`Unable to fetch product "${slug}" from the API`, error);
   }
