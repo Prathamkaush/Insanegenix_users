@@ -62,7 +62,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
   const benefits = normalizeList(product.keyBenefits);
   const certifications = normalizeList(product.certifications);
   const nutritionRows = productNutritionRows(product);
-  const nutritionServingLabel = product.servingSize || defaultVariant?.netQuantity || "serving";
+  const nutritionLabels = productNutritionLabels(product);
   const averageRating = Number(product.averageRating || 0);
   const reviewCount = Number(product.reviewCount || 0);
 
@@ -149,7 +149,7 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
                       rows={nutritionRows}
                       servingSize={product.servingSize || defaultVariant?.netQuantity || "-"}
                       servings={product.servingsPerContainer || defaultVariant?.servings || "-"}
-                      servingLabel={nutritionServingLabel}
+                      labels={nutritionLabels}
                     />
                   </InfoSection>
                 </div>
@@ -283,6 +283,22 @@ type NutritionRow = {
   rda: string;
 };
 
+type NutritionLabels = {
+  servingSizeTitle: string;
+  servingsTitle: string;
+  servingColumnTitle: string;
+  comparisonColumnTitle: string;
+  rdaColumnTitle: string;
+};
+
+const DEFAULT_NUTRITION_LABELS: NutritionLabels = {
+  servingSizeTitle: "Serving Size",
+  servingsTitle: "Servings Per Container",
+  servingColumnTitle: "Amount Per Serving",
+  comparisonColumnTitle: "Per 100g",
+  rdaColumnTitle: "*RDA%",
+};
+
 function productNutritionRows(product: Product): NutritionRow[] {
   const backendFacts = product.nutritionFacts?.map(formatNutritionFact) || [];
 
@@ -296,6 +312,34 @@ function productNutritionRows(product: Product): NutritionRow[] {
     { label: "BCAA", perServing: withUnit(product.bcaaPerServing, "g"), per100g: "-", rda: "-" },
     { label: "EAA", perServing: withUnit(product.eaaPerServing, "g"), per100g: "-", rda: "-" },
   ].filter((row) => row.perServing !== "-");
+}
+
+function productNutritionLabels(product: Product): NutritionLabels {
+  const metadataFact = product.nutritionFacts?.find((fact) =>
+    fact.per?.startsWith("nutrition-label:"),
+  );
+
+  if (!metadataFact?.per) return DEFAULT_NUTRITION_LABELS;
+
+  const params = new URLSearchParams(
+    metadataFact.per.slice("nutrition-label:".length),
+  );
+
+  return {
+    servingSizeTitle:
+      params.get("servingSizeTitle") ||
+      DEFAULT_NUTRITION_LABELS.servingSizeTitle,
+    servingsTitle:
+      params.get("servingsTitle") || DEFAULT_NUTRITION_LABELS.servingsTitle,
+    servingColumnTitle:
+      params.get("servingColumnTitle") ||
+      DEFAULT_NUTRITION_LABELS.servingColumnTitle,
+    comparisonColumnTitle:
+      params.get("comparisonColumnTitle") ||
+      DEFAULT_NUTRITION_LABELS.comparisonColumnTitle,
+    rdaColumnTitle:
+      params.get("rdaColumnTitle") || DEFAULT_NUTRITION_LABELS.rdaColumnTitle,
+  };
 }
 
 function formatNutritionFact(fact: {
@@ -371,27 +415,31 @@ function NutritionTable({
   rows,
   servingSize,
   servings,
-  servingLabel,
+  labels,
 }: {
   rows: NutritionRow[];
   servingSize: string | number;
   servings: string | number;
-  servingLabel: string;
+  labels: NutritionLabels;
 }) {
+  const showComparison = rows.some((row) => row.per100g !== "-");
+  const showRda = rows.some((row) => row.rda !== "-");
+  const columnCount = 2 + (showComparison ? 1 : 0) + (showRda ? 1 : 0);
+
   return (
     <div className="ig-nutrition-table-wrap">
       <div className="ig-nutrition-meta">
-        <span>Serving Size: <strong>{servingSize}</strong></span>
-        <span>Servings Per Container: <strong>{servings}</strong></span>
+        <span>{labels.servingSizeTitle}: <strong>{servingSize}</strong></span>
+        <span>{labels.servingsTitle}: <strong>{servings}</strong></span>
       </div>
       <div className="ig-nutrition-table-scroll">
         <table className="ig-nutrition-table">
           <thead>
             <tr>
               <th>Nutrients</th>
-              <th>Per {servingLabel}</th>
-              <th>Per 100g</th>
-              <th>%RDA</th>
+              <th>{labels.servingColumnTitle}</th>
+              {showComparison ? <th>{labels.comparisonColumnTitle}</th> : null}
+              {showRda ? <th>{labels.rdaColumnTitle}</th> : null}
             </tr>
           </thead>
           <tbody>
@@ -400,13 +448,13 @@ function NutritionTable({
                 <tr key={row.label}>
                   <td>{row.label}</td>
                   <td>{row.perServing}</td>
-                  <td>{row.per100g}</td>
-                  <td>{row.rda}</td>
+                  {showComparison ? <td>{row.per100g}</td> : null}
+                  {showRda ? <td>{row.rda}</td> : null}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={4}>Nutritional information will be updated soon.</td>
+                <td colSpan={columnCount}>Nutritional information will be updated soon.</td>
               </tr>
             )}
           </tbody>
