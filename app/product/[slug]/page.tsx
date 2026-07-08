@@ -61,7 +61,8 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
   const relatedProducts = allProducts.filter((item) => item.slug !== product.slug).slice(0, 4);
   const benefits = normalizeList(product.keyBenefits);
   const certifications = normalizeList(product.certifications);
-  const specItems = productSpecs(product, defaultVariant);
+  const nutritionRows = productNutritionRows(product);
+  const nutritionServingLabel = product.servingSize || defaultVariant?.netQuantity || "serving";
   const averageRating = Number(product.averageRating || 0);
   const reviewCount = Number(product.reviewCount || 0);
 
@@ -143,10 +144,13 @@ export default async function ProductDetailPage({ params }: ProductDetailParams)
                   </InfoSection>
                 </div>
                 <div className="col-lg-5 mb-30">
-                  <InfoSection title="Supplement Facts">
-                    <div className="ig-nutrition-grid">
-                      {specItems.map((item) => <Nutrition key={item.label} label={item.label} value={item.value} />)}
-                    </div>
+                  <InfoSection title="Nutritional Information">
+                    <NutritionTable
+                      rows={nutritionRows}
+                      servingSize={product.servingSize || defaultVariant?.netQuantity || "-"}
+                      servings={product.servingsPerContainer || defaultVariant?.servings || "-"}
+                      servingLabel={nutritionServingLabel}
+                    />
                   </InfoSection>
                 </div>
               </div>
@@ -272,49 +276,69 @@ function normalizeList(value?: string[] | null) {
   return value.filter(Boolean);
 }
 
-function productSpecs(product: Product, variant?: ProductVariant) {
-  const specs = [
-    { label: "Serving Size", value: product.servingSize || variant?.netQuantity || "-" },
-    { label: "Servings", value: product.servingsPerContainer || variant?.servings || "-" },
-    { label: "Protein", value: product.proteinPerServing ? `${product.proteinPerServing}g` : "-" },
-    { label: "Calories", value: product.caloriesPerServing || "-" },
-    { label: "BCAA", value: product.bcaaPerServing ? `${product.bcaaPerServing}g` : "-" },
-    { label: "EAA", value: product.eaaPerServing ? `${product.eaaPerServing}g` : "-" },
-  ];
+type NutritionRow = {
+  label: string;
+  perServing: string;
+  per100g: string;
+  rda: string;
+};
 
-  const backendFacts = product.nutritionFacts?.map((fact) => ({
-    label: fact.name,
-    value: formatNutritionFact(fact),
-  })) || [];
+function productNutritionRows(product: Product): NutritionRow[] {
+  const backendFacts = product.nutritionFacts?.map(formatNutritionFact) || [];
 
-  return [...specs, ...backendFacts].filter((item, index, list) => (
-    item.value !== "-" || index < 4 || !list.some((other, otherIndex) => otherIndex < index && other.label === item.label)
-  ));
+  if (backendFacts.length) {
+    return backendFacts;
+  }
+
+  return [
+    { label: "Protein", perServing: withUnit(product.proteinPerServing, "g"), per100g: "-", rda: "-" },
+    { label: "Calories", perServing: withUnit(product.caloriesPerServing, "kcal"), per100g: "-", rda: "-" },
+    { label: "BCAA", perServing: withUnit(product.bcaaPerServing, "g"), per100g: "-", rda: "-" },
+    { label: "EAA", perServing: withUnit(product.eaaPerServing, "g"), per100g: "-", rda: "-" },
+  ].filter((row) => row.perServing !== "-");
 }
 
 function formatNutritionFact(fact: {
+  name: string;
   amount: string | number;
   unit?: string | null;
   per?: string | null;
-}) {
-  const amountValue = String(fact.amount ?? "").trim();
-  const amount = amountValue ? `${amountValue}${fact.unit || ""}` : "";
+}): NutritionRow {
+  const perServing = withUnit(fact.amount, fact.unit);
   const metaPrefix = "nutrition-label:";
 
   if (!fact.per?.startsWith(metaPrefix)) {
-    return amount ? `${amount}${fact.per ? ` / ${fact.per}` : ""}` : "-";
+    return {
+      label: fact.name,
+      perServing,
+      per100g: "-",
+      rda: "-",
+    };
   }
 
   const params = new URLSearchParams(fact.per.slice(metaPrefix.length));
-  const serving = params.get("serving") || "serving";
-  const per100g = params.get("per100g");
-  const rda = params.get("rda");
-  const parts = amount ? [`Serving: ${amount}`] : [];
+  const per100g = params.get("per100g") || "";
+  const rda = params.get("rda") || "";
 
-  if (per100g) parts.push(`100g: ${per100g}${fact.unit || ""}`);
-  if (rda) parts.push(`RDA: ${rda}%`);
+  return {
+    label: fact.name,
+    perServing,
+    per100g: withUnit(per100g, fact.unit),
+    rda: withPercent(rda),
+  };
+}
 
-  return `${parts.join(" | ")}${serving ? ` / ${serving}` : ""}`;
+function withUnit(value?: string | number | null, unit?: string | null) {
+  const amount = String(value ?? "").trim();
+  if (!amount) return "-";
+  const normalizedUnit = String(unit || "").trim();
+  return normalizedUnit ? `${amount} ${normalizedUnit}` : amount;
+}
+
+function withPercent(value?: string | number | null) {
+  const amount = String(value ?? "").trim();
+  if (!amount) return "-";
+  return amount.endsWith("%") ? amount : `${amount}%`;
 }
 
 function InfoPill({ label, value }: { label: string; value: string | number }) {
@@ -343,11 +367,51 @@ function InfoSection({ title, children }: { title: string; children: ReactNode }
   );
 }
 
-function Nutrition({ label, value }: { label: string; value: string | number }) {
+function NutritionTable({
+  rows,
+  servingSize,
+  servings,
+  servingLabel,
+}: {
+  rows: NutritionRow[];
+  servingSize: string | number;
+  servings: string | number;
+  servingLabel: string;
+}) {
   return (
-    <div className="ig-nutrition-card">
-      <span>{label}</span>
-      <strong>{value}</strong>
+    <div className="ig-nutrition-table-wrap">
+      <div className="ig-nutrition-meta">
+        <span>Serving Size: <strong>{servingSize}</strong></span>
+        <span>Servings Per Container: <strong>{servings}</strong></span>
+      </div>
+      <div className="ig-nutrition-table-scroll">
+        <table className="ig-nutrition-table">
+          <thead>
+            <tr>
+              <th>Nutrients</th>
+              <th>Per {servingLabel}</th>
+              <th>Per 100g</th>
+              <th>%RDA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length ? (
+              rows.map((row) => (
+                <tr key={row.label}>
+                  <td>{row.label}</td>
+                  <td>{row.perServing}</td>
+                  <td>{row.per100g}</td>
+                  <td>{row.rda}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4}>Nutritional information will be updated soon.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

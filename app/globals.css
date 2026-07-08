@@ -1523,6 +1523,102 @@ a {
   margin-top: 5px;
 }
 
+.ig-nutrition-table-wrap {
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(229, 9, 20, 0.42);
+  border-radius: var(--ig-product-detail-radius-sm, 10px);
+  background: #101211;
+}
+
+.ig-nutrition-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 2px solid rgba(229, 9, 20, 0.72);
+  color: #f5f5f5;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ig-nutrition-meta strong {
+  color: #fff;
+  font-weight: 900;
+}
+
+.ig-nutrition-table-scroll {
+  overflow-x: auto;
+}
+
+.ig-nutrition-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  color: #f4f4f4;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.ig-nutrition-table th,
+.ig-nutrition-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  vertical-align: middle;
+}
+
+.ig-nutrition-table th {
+  border-bottom: 2px solid rgba(229, 9, 20, 0.72);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ig-nutrition-table th:first-child,
+.ig-nutrition-table td:first-child {
+  text-align: left;
+}
+
+.ig-nutrition-table td {
+  text-align: right;
+  color: #e7e7e7;
+  font-weight: 700;
+}
+
+.ig-nutrition-table td:first-child {
+  width: 42%;
+  color: #fff;
+  font-weight: 900;
+}
+
+.ig-nutrition-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ig-nutrition-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+@media (max-width: 575px) {
+  .ig-nutrition-meta {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 12px 14px;
+  }
+
+  .ig-nutrition-table {
+    min-width: 480px;
+    font-size: 13px;
+  }
+
+  .ig-nutrition-table th,
+  .ig-nutrition-table td {
+    padding: 8px 10px;
+  }
+}
+
 .main-slider img {
   width: 100%;
   display: block;
