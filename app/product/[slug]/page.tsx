@@ -298,6 +298,8 @@ const DEFAULT_NUTRITION_LABELS: NutritionLabels = {
   comparisonColumnTitle: "Per 100g",
   rdaColumnTitle: "*RDA%",
 };
+const NUTRITION_META_PREFIX = "nl:";
+const LEGACY_NUTRITION_META_PREFIX = "nutrition-label:";
 
 function productNutritionRows(product: Product): NutritionRow[] {
   const backendFacts = product.nutritionFacts?.map(formatNutritionFact) || [];
@@ -316,29 +318,34 @@ function productNutritionRows(product: Product): NutritionRow[] {
 
 function productNutritionLabels(product: Product): NutritionLabels {
   const metadataFact = product.nutritionFacts?.find((fact) =>
-    fact.per?.startsWith("nutrition-label:"),
+    isNutritionMeta(fact.per),
   );
 
   if (!metadataFact?.per) return DEFAULT_NUTRITION_LABELS;
 
-  const params = new URLSearchParams(
-    metadataFact.per.slice("nutrition-label:".length),
-  );
+  const params = parseNutritionParams(metadataFact.per);
 
   return {
     servingSizeTitle:
+      params.get("ss") ||
       params.get("servingSizeTitle") ||
       DEFAULT_NUTRITION_LABELS.servingSizeTitle,
     servingsTitle:
-      params.get("servingsTitle") || DEFAULT_NUTRITION_LABELS.servingsTitle,
+      params.get("st") ||
+      params.get("servingsTitle") ||
+      DEFAULT_NUTRITION_LABELS.servingsTitle,
     servingColumnTitle:
+      params.get("sc") ||
       params.get("servingColumnTitle") ||
       DEFAULT_NUTRITION_LABELS.servingColumnTitle,
     comparisonColumnTitle:
+      params.get("cc") ||
       params.get("comparisonColumnTitle") ||
       DEFAULT_NUTRITION_LABELS.comparisonColumnTitle,
     rdaColumnTitle:
-      params.get("rdaColumnTitle") || DEFAULT_NUTRITION_LABELS.rdaColumnTitle,
+      params.get("rc") ||
+      params.get("rdaColumnTitle") ||
+      DEFAULT_NUTRITION_LABELS.rdaColumnTitle,
   };
 }
 
@@ -349,9 +356,8 @@ function formatNutritionFact(fact: {
   per?: string | null;
 }): NutritionRow {
   const perServing = withUnit(fact.amount, fact.unit);
-  const metaPrefix = "nutrition-label:";
 
-  if (!fact.per?.startsWith(metaPrefix)) {
+  if (!isNutritionMeta(fact.per)) {
     return {
       label: fact.name,
       perServing,
@@ -360,9 +366,9 @@ function formatNutritionFact(fact: {
     };
   }
 
-  const params = new URLSearchParams(fact.per.slice(metaPrefix.length));
-  const per100g = params.get("per100g") || "";
-  const rda = params.get("rda") || "";
+  const params = parseNutritionParams(fact.per || "");
+  const per100g = params.get("p") || params.get("per100g") || "";
+  const rda = params.get("r") || params.get("rda") || "";
 
   return {
     label: fact.name,
@@ -370,6 +376,23 @@ function formatNutritionFact(fact: {
     per100g: withUnit(per100g, fact.unit),
     rda: withPercent(rda),
   };
+}
+
+function isNutritionMeta(per?: string | null) {
+  return Boolean(
+    per?.startsWith(NUTRITION_META_PREFIX) ||
+      per?.startsWith(LEGACY_NUTRITION_META_PREFIX),
+  );
+}
+
+function parseNutritionParams(per: string) {
+  return new URLSearchParams(
+    per.slice(
+      per.startsWith(NUTRITION_META_PREFIX)
+        ? NUTRITION_META_PREFIX.length
+        : LEGACY_NUTRITION_META_PREFIX.length,
+    ),
+  );
 }
 
 function withUnit(value?: string | number | null, unit?: string | null) {
