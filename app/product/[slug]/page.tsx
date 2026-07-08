@@ -297,23 +297,24 @@ function formatNutritionFact(fact: {
   unit?: string | null;
   per?: string | null;
 }) {
-  const amount = `${fact.amount}${fact.unit || ""}`;
+  const amountValue = String(fact.amount ?? "").trim();
+  const amount = amountValue ? `${amountValue}${fact.unit || ""}` : "";
   const metaPrefix = "nutrition-label:";
 
   if (!fact.per?.startsWith(metaPrefix)) {
-    return `${amount}${fact.per ? ` / ${fact.per}` : ""}`;
+    return amount ? `${amount}${fact.per ? ` / ${fact.per}` : ""}` : "-";
   }
 
   const params = new URLSearchParams(fact.per.slice(metaPrefix.length));
   const serving = params.get("serving") || "serving";
   const per100g = params.get("per100g");
   const rda = params.get("rda");
-  const parts = [`Serving: ${amount}`];
+  const parts = amount ? [`Serving: ${amount}`] : [];
 
   if (per100g) parts.push(`100g: ${per100g}${fact.unit || ""}`);
   if (rda) parts.push(`RDA: ${rda}%`);
 
-  return `${parts.join(" | ")} / ${serving}`;
+  return `${parts.join(" | ")}${serving ? ` / ${serving}` : ""}`;
 }
 
 function InfoPill({ label, value }: { label: string; value: string | number }) {
