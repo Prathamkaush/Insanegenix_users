@@ -3251,7 +3251,7 @@ a {
 .ig-cart-price,
 .ig-cart-gst,
 .ig-cart-line-total {
-  color: #ffffff;
+  color: white;
   font-size: 21px;
   font-weight: 600;
   line-height: 1;
@@ -4680,7 +4680,7 @@ a {
   .ig-cart-line-total::before,
   .ig-cart-mobile-label {
     flex: 0 0 auto;
-    color: rgba(255, 255, 255, 0.88);
+    color: white;
     font-size: 13px;
     font-weight: 900;
     line-height: 1;
@@ -6942,14 +6942,14 @@ body.ig-search-overlay-lock {
   height: 36px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  color: rgba(255, 255, 255, 0.48);
+  color: white;
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .ig-cart-remove:hover {
   border-color: rgba(229, 9, 20, 0.55);
   background: rgba(229, 9, 20, 0.13);
-  color: #ff747b;
+  color: white;
 }
 
 .ig-cart-remove:disabled,
@@ -7154,7 +7154,7 @@ body.ig-search-overlay-lock {
   .ig-cart-gst::before,
   .ig-cart-line-total::before,
   .ig-cart-mobile-label {
-    color: rgba(255, 255, 255, 0.46);
+    color: white;
     font-size: 10px;
     letter-spacing: 0.08em;
   }
@@ -7169,7 +7169,7 @@ body.ig-search-overlay-lock {
     height: 36px;
     padding: 0 11px;
     border-color: rgba(229, 9, 20, 0.28);
-    color: #ff747b;
+    color: white;
   }
 
   .ig-cart-remove::after {

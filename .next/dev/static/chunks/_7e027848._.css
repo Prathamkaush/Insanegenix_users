@@ -4700,7 +4700,7 @@ a {
   }
 
   .ig-cart-price:before, .ig-cart-gst:before, .ig-cart-line-total:before, .ig-cart-mobile-label {
-    color: #ffffffe0;
+    color: #fff;
     text-transform: uppercase;
     flex: none;
     font-size: 13px;
@@ -6700,7 +6700,7 @@ body.ig-search-overlay-lock {
 }
 
 .cart-area {
-  background: url("/assets/img/price/peice-shape-02.png") 0 100% / 150px no-repeat, url("/assets/img/price/peice-shape-03.png") right 10% bottom 48px / 185px no-repeat, linear-gradient(105deg, #ff474b 0%, #9c2d2f 43%, #0b0000 100%);
+  background-color: #3b0710;
   min-height: 720px;
   padding: 54px 0 120px;
 }
@@ -6918,7 +6918,7 @@ body.ig-search-overlay-lock {
 }
 
 .ig-cart-remove {
-  color: #ffffff7a;
+  color: #fff;
   border: 1px solid #ffffff1a;
   border-radius: 10px;
   width: 36px;
@@ -6927,7 +6927,7 @@ body.ig-search-overlay-lock {
 }
 
 .ig-cart-remove:hover {
-  color: #ff747b;
+  color: #fff;
   background: #e5091421;
   border-color: #e509148c;
 }
@@ -7070,7 +7070,7 @@ body.ig-search-overlay-lock {
 
 @media (max-width: 767px) {
   .cart-area {
-    background: url("/assets/img/price/peice-shape-03.png") right -34px bottom 24px / 128px no-repeat, linear-gradient(120deg, #ff474b 0%, #8f2729 48%, #0b0000 100%);
+    background-color: #3b0710;
     padding: 36px 0 88px;
   }
 
@@ -7127,7 +7127,7 @@ body.ig-search-overlay-lock {
   }
 
   .ig-cart-price:before, .ig-cart-gst:before, .ig-cart-line-total:before, .ig-cart-mobile-label {
-    color: #ffffff75;
+    color: #fff;
     letter-spacing: .08em;
     font-size: 10px;
   }
@@ -7138,7 +7138,7 @@ body.ig-search-overlay-lock {
   }
 
   .ig-cart-remove {
-    color: #ff747b;
+    color: #fff;
     border-color: #e5091447;
     width: auto;
     height: 36px;

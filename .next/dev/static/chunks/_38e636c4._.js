@@ -733,17 +733,18 @@ function CartPage() {
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "ig-cart-summary__line ig-cart-summary__line--total",
+                                                className: "ig-cart-summary__line",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        children: "Total"
+                                                        children: "Shipping"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/cart/page.tsx",
                                                         lineNumber: 221,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["currency"])(total)
+                                                        className: "text-success",
+                                                        children: "FREE"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/cart/page.tsx",
                                                         lineNumber: 222,
@@ -755,6 +756,29 @@ function CartPage() {
                                                 lineNumber: 220,
                                                 columnNumber: 19
                                             }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "ig-cart-summary__line ig-cart-summary__line--total",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        children: "Total"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/cart/page.tsx",
+                                                        lineNumber: 225,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                        children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["currency"])(total)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/cart/page.tsx",
+                                                        lineNumber: 226,
+                                                        columnNumber: 21
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/cart/page.tsx",
+                                                lineNumber: 224,
+                                                columnNumber: 19
+                                            }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/checkout",
                                                 className: "ig-cart-checkout ig-primary-action",
@@ -764,13 +788,13 @@ function CartPage() {
                                                         size: 17
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/cart/page.tsx",
-                                                        lineNumber: 225,
+                                                        lineNumber: 229,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/cart/page.tsx",
-                                                lineNumber: 224,
+                                                lineNumber: 228,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -780,14 +804,14 @@ function CartPage() {
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/cart/page.tsx",
-                                                        lineNumber: 228,
+                                                        lineNumber: 232,
                                                         columnNumber: 21
                                                     }, this),
                                                     "Secure checkout and protected payment"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/cart/page.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 231,
                                                 columnNumber: 19
                                             }, this)
                                         ]
