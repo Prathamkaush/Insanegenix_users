@@ -51,11 +51,11 @@ export default function HomeHeroSlider({ slides }: { slides: HeroSlide[] }) {
     const swiper = new window.Swiper(sliderEl, {
       autoHeight: true,
       loop: visibleSlides.length > 1,
-      speed: 1000,
+      speed: 500,
       autoplay:
         visibleSlides.length > 1
           ? {
-              delay: 4000,
+              delay: 1500,
               disableOnInteraction: false,
             }
           : false,

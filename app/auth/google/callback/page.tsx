@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { storeCustomerSession } from "@/lib/auth";
-import { syncGuestCartToServer } from "@/lib/cart";
+import { getCart, getGuestCartItemCount, syncGuestCartToServer } from "@/lib/cart";
 
 type StoredGoogleUser = {
   token: string;
@@ -46,12 +46,17 @@ function GoogleAuthCallbackContent() {
     };
 
     const completeSignIn = async () => {
+      const hadGuestCartItems = getGuestCartItemCount() > 0;
+      let destination = hadGuestCartItems ? "/cart" : "/";
+
       try {
         storeCustomerSession(session);
         setMessage("Syncing your cart...");
         await syncGuestCartToServer();
+        const cart = await getCart();
+        if (cart.items.length > 0) destination = "/cart";
       } finally {
-        router.replace("/");
+        router.replace(destination);
       }
     };
 

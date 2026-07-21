@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff, X } from "lucide-react";
 import {
   getGoogleAuthUrl,
@@ -12,11 +13,12 @@ import {
   verifyPasswordResetCode,
 } from "@/lib/auth";
 import { AuthMode } from "@/lib/auth-modal";
-import { syncGuestCartToServer } from "@/lib/cart";
+import { getCart, getGuestCartItemCount, syncGuestCartToServer } from "@/lib/cart";
 
 type AuthView = AuthMode | "forgot-email" | "forgot-code" | "forgot-reset";
 
 export default function AuthModal() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<AuthView>("login");
   const [name, setName] = useState("");
@@ -90,6 +92,23 @@ export default function AuthModal() {
     window.location.href = getGoogleAuthUrl();
   };
 
+  const finishAuthentication = async () => {
+    const hadGuestCartItems = getGuestCartItemCount() > 0;
+    await syncGuestCartToServer();
+
+    let hasCartItems = hadGuestCartItems;
+    try {
+      const cart = await getCart();
+      hasCartItems = hasCartItems || cart.items.length > 0;
+    } catch {
+      // Login should still complete if refreshing the cart temporarily fails.
+    }
+
+    resetForm();
+    setOpen(false);
+    if (hasCartItems) router.push("/cart");
+  };
+
   const submitLogin = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -106,9 +125,7 @@ export default function AuthModal() {
       setMessage("");
       const data = await loginCustomer(trimmedEmail, trimmedPassword);
       storeCustomerSession(data);
-      await syncGuestCartToServer();
-      resetForm();
-      close();
+      await finishAuthentication();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Login failed");
     } finally {
@@ -138,9 +155,7 @@ export default function AuthModal() {
       setMessage("");
       const data = await registerCustomer(cleanName, cleanEmail, cleanPassword);
       storeCustomerSession(data);
-      await syncGuestCartToServer();
-      resetForm();
-      close();
+      await finishAuthentication();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Registration failed");
     } finally {

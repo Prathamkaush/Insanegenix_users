@@ -63,6 +63,18 @@ function clearGuestCart() {
   localStorage.removeItem(GUEST_CART_KEY);
 }
 
+function clearInvalidCustomerSession() {
+  if (!canUseStorage()) return;
+
+  localStorage.removeItem("token");
+  localStorage.removeItem("user_token");
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("auth_token");
+  localStorage.removeItem("user");
+  document.cookie = "token=; path=/; max-age=0; samesite=lax";
+  window.dispatchEvent(new Event("auth:changed"));
+}
+
 function getVariant(product?: Product, variantId?: number) {
   if (!product) return undefined;
 
@@ -174,15 +186,22 @@ export async function syncGuestCartToServer() {
     const guestItems = readGuestCart();
     if (!guestItems.length) return;
 
+    const unsyncedItems: GuestCartItem[] = [];
+
     for (const item of guestItems) {
       try {
         await addToServerCart(item.productId, item.variantId, item.sizeId, item.quantity);
       } catch (error) {
         console.warn("Skipping guest cart item during sync:", error);
+        unsyncedItems.push(item);
       }
     }
 
-    clearGuestCart();
+    if (unsyncedItems.length) {
+      writeGuestCart(unsyncedItems);
+    } else {
+      clearGuestCart();
+    }
     window.dispatchEvent(new CustomEvent("cart:updated", { detail: { source: "guest-cart-sync" } }));
   })().finally(() => {
     syncPromise = null;
@@ -215,8 +234,17 @@ export async function addToCart(
     return addGuestCartItem(productId, variantId, sizeId, quantity, product);
   }
 
-  await syncGuestCartToServer();
-  return addToServerCart(productId, variantId, sizeId, quantity);
+  try {
+    await syncGuestCartToServer();
+    return await addToServerCart(productId, variantId, sizeId, quantity);
+  } catch (error) {
+    if (error instanceof Error && error.message === "LOGIN_REQUIRED") {
+      clearInvalidCustomerSession();
+      return addGuestCartItem(productId, variantId, sizeId, quantity, product);
+    }
+
+    throw error;
+  }
 }
 
 export function updateCartItem(id: number, quantity: number) {
