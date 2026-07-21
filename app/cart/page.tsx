@@ -217,6 +217,10 @@ export default function CartPage() {
                     <span>GST</span>
                     <strong>{currency(gstTotal)}</strong>
                   </div>
+                  <div className="ig-cart-summary__line">
+                    <span>Shipping</span>
+                    <strong className="text-success">FREE</strong>
+                  </div>
                   <div className="ig-cart-summary__line ig-cart-summary__line--total">
                     <span>Total</span>
                     <strong>{currency(total)}</strong>
