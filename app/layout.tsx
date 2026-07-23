@@ -19,6 +19,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <head>
+        <meta
+          name="facebook-domain-verification"
+          content="nwrlh5x1efore355spni2ghyhgxogo"
+        />
         <link rel="shortcut icon" type="image/x-icon" href="/assets/img/logo/favicon.svg" />
         <link rel="stylesheet" href="/assets/css/bootstrap.css" />
         <link rel="stylesheet" href="/assets/css/animate.css" />
