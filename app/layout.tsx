@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
 import AuthModal from "@/components/AuthModal";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { getStorefrontSettings } from "@/lib/settings";
 import "./globals.css";
 
@@ -33,6 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="stylesheet" href="/assets/css/main.css" />
       </head>
       <body>
+        <AnalyticsTracker />
         <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)

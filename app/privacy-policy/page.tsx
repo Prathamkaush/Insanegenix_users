@@ -21,6 +21,13 @@ export default function PrivacyPolicyPage() {
           ],
         },
         {
+          title: "Website Analytics and Advertising",
+          body: [
+            "We use anonymous first-party identifiers to count visitors and sessions, understand which pages are viewed, identify general device types, and measure traffic from advertising campaigns and referral websites.",
+            "We do not store names, email addresses, or raw IP addresses in these analytics records. Browsers that send a Do Not Track preference are excluded from this measurement.",
+          ],
+        },
+        {
           title: "Data Protection",
           body: [
             "We use reasonable administrative, technical, and operational safeguards to protect customer information from unauthorized access, misuse, loss, or disclosure.",
